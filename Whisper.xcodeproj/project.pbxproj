@@ -17,6 +17,8 @@
 		FAA029082490C9D200C25D0F /* WhisperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA029072490C9D200C25D0F /* WhisperUITests.swift */; };
 		FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D12490DEC000A79CD3 /* SettingView.swift */; };
 		FABAB6D52490E93100A79CD3 /* SheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D42490E93100A79CD3 /* SheetsView.swift */; };
+		FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D7249103F600A79CD3 /* MusicModel.swift */; };
+		FABAB6DA24910AC200A79CD3 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D924910AC200A79CD3 /* Sheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		FAA029092490C9D200C25D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FABAB6D12490DEC000A79CD3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		FABAB6D42490E93100A79CD3 /* SheetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsView.swift; sourceTree = "<group>"; };
+		FABAB6D7249103F600A79CD3 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
+		FABAB6D924910AC200A79CD3 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,13 +107,13 @@
 		FAA028E42490C9D000C25D0F /* Whisper */ = {
 			isa = PBXGroup;
 			children = (
-				FABAB6D32490E28B00A79CD3 /* Views */,
-				FABAB6D62490ECB700A79CD3 /* Models */,
 				FAA028E52490C9D000C25D0F /* AppDelegate.swift */,
 				FAA028E72490C9D000C25D0F /* SceneDelegate.swift */,
 				FAA028EB2490C9D200C25D0F /* Assets.xcassets */,
 				FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */,
 				FAA028F32490C9D200C25D0F /* Info.plist */,
+				FABAB6D32490E28B00A79CD3 /* Views */,
+				FABAB6D62490ECB700A79CD3 /* Models */,
 				FAA028ED2490C9D200C25D0F /* Preview Content */,
 			);
 			path = Whisper;
@@ -154,6 +158,8 @@
 		FABAB6D62490ECB700A79CD3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FABAB6D7249103F600A79CD3 /* MusicModel.swift */,
+				FABAB6D924910AC200A79CD3 /* Sheet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,6 +300,8 @@
 				FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
+				FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */,
+				FABAB6DA24910AC200A79CD3 /* Sheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

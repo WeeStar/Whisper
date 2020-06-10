@@ -1,5 +1,6 @@
 //
 //  SettingView.swift
+//  设置页面
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/10.
