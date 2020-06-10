@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E52490C9D000C25D0F /* AppDelegate.swift */; };
 		FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E72490C9D000C25D0F /* SceneDelegate.swift */; };
-		FAA028EA2490C9D000C25D0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E92490C9D000C25D0F /* ContentView.swift */; };
+		FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E92490C9D000C25D0F /* RecomView.swift */; };
 		FAA028EC2490C9D200C25D0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA028EB2490C9D200C25D0F /* Assets.xcassets */; };
 		FAA028EF2490C9D200C25D0F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA028EE2490C9D200C25D0F /* Preview Assets.xcassets */; };
 		FAA028F22490C9D200C25D0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */; };
 		FAA028FD2490C9D200C25D0F /* WhisperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028FC2490C9D200C25D0F /* WhisperTests.swift */; };
 		FAA029082490C9D200C25D0F /* WhisperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA029072490C9D200C25D0F /* WhisperUITests.swift */; };
+		FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D12490DEC000A79CD3 /* SettingView.swift */; };
+		FABAB6D52490E93100A79CD3 /* SheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D42490E93100A79CD3 /* SheetsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,7 @@
 		FAA028E22490C9D000C25D0F /* Whisper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whisper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA028E52490C9D000C25D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA028E72490C9D000C25D0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FAA028E92490C9D000C25D0F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FAA028E92490C9D000C25D0F /* RecomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomView.swift; sourceTree = "<group>"; };
 		FAA028EB2490C9D200C25D0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAA028EE2490C9D200C25D0F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FAA028F12490C9D200C25D0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 		FAA029032490C9D200C25D0F /* WhisperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhisperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA029072490C9D200C25D0F /* WhisperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperUITests.swift; sourceTree = "<group>"; };
 		FAA029092490C9D200C25D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FABAB6D12490DEC000A79CD3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		FABAB6D42490E93100A79CD3 /* SheetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,10 @@
 		FAA028E42490C9D000C25D0F /* Whisper */ = {
 			isa = PBXGroup;
 			children = (
+				FABAB6D32490E28B00A79CD3 /* Views */,
+				FABAB6D62490ECB700A79CD3 /* Models */,
 				FAA028E52490C9D000C25D0F /* AppDelegate.swift */,
 				FAA028E72490C9D000C25D0F /* SceneDelegate.swift */,
-				FAA028E92490C9D000C25D0F /* ContentView.swift */,
 				FAA028EB2490C9D200C25D0F /* Assets.xcassets */,
 				FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */,
 				FAA028F32490C9D200C25D0F /* Info.plist */,
@@ -134,6 +139,23 @@
 				FAA029092490C9D200C25D0F /* Info.plist */,
 			);
 			path = WhisperUITests;
+			sourceTree = "<group>";
+		};
+		FABAB6D32490E28B00A79CD3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAA028E92490C9D000C25D0F /* RecomView.swift */,
+				FABAB6D12490DEC000A79CD3 /* SettingView.swift */,
+				FABAB6D42490E93100A79CD3 /* SheetsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FABAB6D62490ECB700A79CD3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,9 +289,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FABAB6D52490E93100A79CD3 /* SheetsView.swift in Sources */,
 				FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */,
+				FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
-				FAA028EA2490C9D000C25D0F /* ContentView.swift in Sources */,
+				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

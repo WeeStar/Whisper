@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  RecomView.swift
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/10.
@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RecomView: View {
     var body: some View {
         Text("Hello, World!")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct RecomView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        RecomView()
     }
 }
