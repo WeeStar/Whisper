@@ -10,6 +10,7 @@
 import Foundation
 import HandyJSON
 
+/// 当前音乐信息模型
 class CurMusicModel: HandyJSON
 {
     required init() {}

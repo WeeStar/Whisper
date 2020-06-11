@@ -10,6 +10,7 @@
 import Foundation
 import HandyJSON
 
+/// 配置模型
 class ConfigModel: HandyJSON
 {
     required init() {}

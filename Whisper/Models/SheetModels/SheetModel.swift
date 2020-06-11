@@ -10,7 +10,7 @@
 import Foundation
 import HandyJSON
 
-/// 歌曲模型
+/// 歌单模型
 class SheetModel:HandyJSON
 {
     required init() {}

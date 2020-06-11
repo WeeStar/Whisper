@@ -9,6 +9,7 @@
 import Foundation
 import HandyJSON
 
+/// 用户信息模型
 class UserModel: HandyJSON
 {
     required init() {}

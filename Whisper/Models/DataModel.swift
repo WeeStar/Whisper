@@ -10,12 +10,16 @@
 import Foundation
 import HandyJSON
 
+/// 总体数据模型
 class DataModel: HandyJSON
 {
     required init() {}
     
     /// 用户数据
     var userInfo:UserModel?
+    
+    /// 配置信息
+    var config:ConfigModel?
     
     /// 我的歌单
     var mySheets=[SheetModel]()
