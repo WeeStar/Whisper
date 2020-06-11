@@ -8,43 +8,47 @@
 //
 
 import Foundation
+import HandyJSON
+
 
 
 /// 歌曲模型
-public class MusicModel
+class MusicModel:HandyJSON
 {
+    required init() {}
+    
     /// 歌曲ID
-    var id="";
+    var id:String!;
     
     /// 歌曲标题
-    var title="";
+    var title:String!;
     
     /// 艺术家名称
-    var artist="";
+    var artist:String?;
     
     /// 艺术家ID
-    var artist_id="";
+    var artist_id:String?;
     
     /// 专辑
-    var album="";
+    var album:String?;
     
     /// 专辑ID
-    var album_id="";
+    var album_id:String?;
     
     /// 来源(QQ、网易云等)
-    var source=MusicSource.Unknow;
+    var source:MusicSource!
     
     /// 来源url
-    var source_url="";
+    var source_url:String!;
     
     /// url
-    var url="";
+    var url:String!
     
     /// 音乐封面
-    var img_url="";
+    var img_url:String!
     
     /// 所属歌单ID
-    var sheet_id=""
+    var sheet_id:String?
     
     
     /// 歌曲播放
@@ -56,7 +60,7 @@ public class MusicModel
 }
 
 /// 音乐来源枚举
-enum MusicSource:String
+enum MusicSource:String, HandyJSONEnum
 {
     case Unknow="unknow"
     case Tencent="tencent"

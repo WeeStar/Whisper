@@ -8,21 +8,23 @@
 //
 
 import Foundation
+import HandyJSON
 
 /// 歌曲模型
-public class SheetModel
+class SheetModel:HandyJSON
 {
+    required init() {}
     /// 歌单ID
-    var id="";
+    var id:String!;
     
     /// 歌单标题
-    var title=""
+    var title:String!
     
     /// 歌单封面
-    var cover_img_url=""
+    var cover_img_url:String!
     
-    /// 歌单来源
-    var source_url=""
+    /// 歌单来源url
+    var source_url:String!
     
     /// 歌曲列表
     var tracks=[MusicModel]()

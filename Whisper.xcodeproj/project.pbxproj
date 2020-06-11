@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		466ABD88BC68C22C6175A1BB /* libPods-Whisper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2B41A9CADB039E4143650B /* libPods-Whisper.a */; };
+		FA126F052492225600ED7FE6 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F042492225600ED7FE6 /* DataService.swift */; };
+		FA126F072492275C00ED7FE6 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F062492275C00ED7FE6 /* DataModel.swift */; };
+		FA126F09249227EC00ED7FE6 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F08249227EC00ED7FE6 /* UserModel.swift */; };
+		FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */; };
+		FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */; };
 		FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E52490C9D000C25D0F /* AppDelegate.swift */; };
 		FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E72490C9D000C25D0F /* SceneDelegate.swift */; };
 		FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E92490C9D000C25D0F /* RecomView.swift */; };
@@ -18,7 +24,7 @@
 		FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D12490DEC000A79CD3 /* SettingView.swift */; };
 		FABAB6D52490E93100A79CD3 /* SheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D42490E93100A79CD3 /* SheetsView.swift */; };
 		FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D7249103F600A79CD3 /* MusicModel.swift */; };
-		FABAB6DA24910AC200A79CD3 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D924910AC200A79CD3 /* Sheet.swift */; };
+		FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D924910AC200A79CD3 /* SheetModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D7369DE4DAB711B177E34CE /* Pods-Whisper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Whisper.release.xcconfig"; path = "Target Support Files/Pods-Whisper/Pods-Whisper.release.xcconfig"; sourceTree = "<group>"; };
+		A933C793A0F5538945B90B4C /* Pods-Whisper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Whisper.debug.xcconfig"; path = "Target Support Files/Pods-Whisper/Pods-Whisper.debug.xcconfig"; sourceTree = "<group>"; };
+		BA2B41A9CADB039E4143650B /* libPods-Whisper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Whisper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA126F042492225600ED7FE6 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		FA126F062492275C00ED7FE6 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		FA126F08249227EC00ED7FE6 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
+		FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurMusicModel.swift; sourceTree = "<group>"; };
 		FAA028E22490C9D000C25D0F /* Whisper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whisper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA028E52490C9D000C25D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA028E72490C9D000C25D0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,7 +70,7 @@
 		FABAB6D12490DEC000A79CD3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		FABAB6D42490E93100A79CD3 /* SheetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsView.swift; sourceTree = "<group>"; };
 		FABAB6D7249103F600A79CD3 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
-		FABAB6D924910AC200A79CD3 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
+		FABAB6D924910AC200A79CD3 /* SheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466ABD88BC68C22C6175A1BB /* libPods-Whisper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +99,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D41A8156CC03A6391EB0938 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A933C793A0F5538945B90B4C /* Pods-Whisper.debug.xcconfig */,
+				6D7369DE4DAB711B177E34CE /* Pods-Whisper.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F4E4BFDEF3FCFC307F85BF30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA2B41A9CADB039E4143650B /* libPods-Whisper.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA126F032492222300ED7FE6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FA126F042492225600ED7FE6 /* DataService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		FA126F0A249228EC00ED7FE6 /* MusicModels */ = {
+			isa = PBXGroup;
+			children = (
+				FABAB6D7249103F600A79CD3 /* MusicModel.swift */,
+			);
+			path = MusicModels;
+			sourceTree = "<group>";
+		};
+		FA126F0D24922A8D00ED7FE6 /* SheetModels */ = {
+			isa = PBXGroup;
+			children = (
+				FABAB6D924910AC200A79CD3 /* SheetModel.swift */,
+			);
+			path = SheetModels;
+			sourceTree = "<group>";
+		};
 		FAA028D92490C9D000C25D0F = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +147,8 @@
 				FAA028FB2490C9D200C25D0F /* WhisperTests */,
 				FAA029062490C9D200C25D0F /* WhisperUITests */,
 				FAA028E32490C9D000C25D0F /* Products */,
+				4D41A8156CC03A6391EB0938 /* Pods */,
+				F4E4BFDEF3FCFC307F85BF30 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +172,7 @@
 				FAA028F32490C9D200C25D0F /* Info.plist */,
 				FABAB6D32490E28B00A79CD3 /* Views */,
 				FABAB6D62490ECB700A79CD3 /* Models */,
+				FA126F032492222300ED7FE6 /* Service */,
 				FAA028ED2490C9D200C25D0F /* Preview Content */,
 			);
 			path = Whisper;
@@ -158,8 +217,12 @@
 		FABAB6D62490ECB700A79CD3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FABAB6D7249103F600A79CD3 /* MusicModel.swift */,
-				FABAB6D924910AC200A79CD3 /* Sheet.swift */,
+				FA126F0D24922A8D00ED7FE6 /* SheetModels */,
+				FA126F0A249228EC00ED7FE6 /* MusicModels */,
+				FA126F062492275C00ED7FE6 /* DataModel.swift */,
+				FA126F08249227EC00ED7FE6 /* UserModel.swift */,
+				FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */,
+				FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +234,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAA0290C2490C9D200C25D0F /* Build configuration list for PBXNativeTarget "Whisper" */;
 			buildPhases = (
+				7F832951F4AACD4170A3939B /* [CP] Check Pods Manifest.lock */,
 				FAA028DE2490C9D000C25D0F /* Sources */,
 				FAA028DF2490C9D000C25D0F /* Frameworks */,
 				FAA028E02490C9D000C25D0F /* Resources */,
@@ -290,18 +354,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7F832951F4AACD4170A3939B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Whisper-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FAA028DE2490C9D000C25D0F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FABAB6D52490E93100A79CD3 /* SheetsView.swift in Sources */,
+				FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */,
+				FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */,
 				FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */,
 				FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
 				FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */,
-				FABAB6DA24910AC200A79CD3 /* Sheet.swift in Sources */,
+				FA126F072492275C00ED7FE6 /* DataModel.swift in Sources */,
+				FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */,
+				FA126F09249227EC00ED7FE6 /* UserModel.swift in Sources */,
+				FA126F052492225600ED7FE6 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +558,7 @@
 		};
 		FAA0290D2490C9D200C25D0F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A933C793A0F5538945B90B4C /* Pods-Whisper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -484,6 +579,7 @@
 		};
 		FAA0290E2490C9D200C25D0F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D7369DE4DAB711B177E34CE /* Pods-Whisper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
