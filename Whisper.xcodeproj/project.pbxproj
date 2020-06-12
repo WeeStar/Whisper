@@ -13,6 +13,9 @@
 		FA126F09249227EC00ED7FE6 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F08249227EC00ED7FE6 /* UserModel.swift */; };
 		FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */; };
 		FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */; };
+		FA126F112493014A00ED7FE6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F102493014A00ED7FE6 /* Utility.swift */; };
+		FA126F142493024C00ED7FE6 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F132493024C00ED7FE6 /* Common.swift */; };
+		FA126F182493166100ED7FE6 /* PathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* PathService.swift */; };
 		FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E52490C9D000C25D0F /* AppDelegate.swift */; };
 		FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E72490C9D000C25D0F /* SceneDelegate.swift */; };
 		FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E92490C9D000C25D0F /* RecomView.swift */; };
@@ -53,6 +56,9 @@
 		FA126F08249227EC00ED7FE6 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurMusicModel.swift; sourceTree = "<group>"; };
+		FA126F102493014A00ED7FE6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		FA126F132493024C00ED7FE6 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		FA126F172493166100ED7FE6 /* PathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathService.swift; sourceTree = "<group>"; };
 		FAA028E22490C9D000C25D0F /* Whisper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whisper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA028E52490C9D000C25D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA028E72490C9D000C25D0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				FA126F042492225600ED7FE6 /* DataService.swift */,
+				FA126F102493014A00ED7FE6 /* Utility.swift */,
+				FA126F172493166100ED7FE6 /* PathService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -138,6 +146,14 @@
 				FABAB6D924910AC200A79CD3 /* SheetModel.swift */,
 			);
 			path = SheetModels;
+			sourceTree = "<group>";
+		};
+		FA126F12249301E200ED7FE6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FA126F132493024C00ED7FE6 /* Common.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		FAA028D92490C9D000C25D0F = {
@@ -170,6 +186,7 @@
 				FAA028EB2490C9D200C25D0F /* Assets.xcassets */,
 				FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */,
 				FAA028F32490C9D200C25D0F /* Info.plist */,
+				FA126F12249301E200ED7FE6 /* Common */,
 				FABAB6D32490E28B00A79CD3 /* Views */,
 				FABAB6D62490ECB700A79CD3 /* Models */,
 				FA126F032492222300ED7FE6 /* Service */,
@@ -390,7 +407,10 @@
 				FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */,
 				FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
+				FA126F182493166100ED7FE6 /* PathService.swift in Sources */,
+				FA126F142493024C00ED7FE6 /* Common.swift in Sources */,
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
+				FA126F112493014A00ED7FE6 /* Utility.swift in Sources */,
 				FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */,
 				FA126F072492275C00ED7FE6 /* DataModel.swift in Sources */,
 				FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */,
