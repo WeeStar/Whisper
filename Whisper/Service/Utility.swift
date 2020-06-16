@@ -1,5 +1,6 @@
 //
 //  Utility.swift
+//  工具类
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/12.

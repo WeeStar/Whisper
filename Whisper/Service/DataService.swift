@@ -10,6 +10,8 @@
 import Foundation
 import HandyJSON
 
+
+/// 数据服务
 class DataService{
     
     /// 获取用户配置数据

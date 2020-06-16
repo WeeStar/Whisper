@@ -11,11 +11,11 @@ import Foundation
 import HandyJSON
 
 /// 歌单模型
-class SheetModel:HandyJSON
+class SheetModel:HandyJSON, Identifiable
 {
     required init() {}
     /// 歌单ID
-    var id:String!;
+    var id:String!
     
     /// 歌单标题
     var title:String!
@@ -28,4 +28,15 @@ class SheetModel:HandyJSON
     
     /// 歌曲列表
     var tracks=[MusicModel]()
+}
+
+
+extension SheetModel: Hashable {
+    static func == (lhs: SheetModel, rhs: SheetModel) -> Bool {
+        return lhs.source_url == rhs.source_url
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(source_url)
+    }
 }

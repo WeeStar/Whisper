@@ -5,5 +5,7 @@ source 'https://gitee.com/mirrors/CocoaPods-Specs'
 target 'Whisper' do
 
 pod 'HandyJSON', '~> 5.0.1'
+pod 'Kingfisher', '~> 5.0'
+pod 'KingfisherSwiftUI'
 
 end

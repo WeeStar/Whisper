@@ -10,36 +10,34 @@
 import Foundation
 import HandyJSON
 
-
-
 /// 歌曲模型
-class MusicModel:HandyJSON
+class MusicModel:HandyJSON, Identifiable
 {
     required init() {}
     
     /// 歌曲ID
-    var id:String!;
+    var id:String!
     
     /// 歌曲标题
-    var title:String!;
+    var title:String!
     
     /// 艺术家名称
-    var artist:String?;
+    var artist:String?
     
     /// 艺术家ID
-    var artist_id:String?;
+    var artist_id:String?
     
     /// 专辑
-    var album:String?;
+    var album:String?
     
     /// 专辑ID
-    var album_id:String?;
+    var album_id:String?
     
     /// 来源(QQ、网易云等)
     var source:MusicSource!
     
     /// 来源url
-    var source_url:String!;
+    var source_url:String!
     
     /// url
     var url:String!
@@ -50,12 +48,32 @@ class MusicModel:HandyJSON
     /// 所属歌单ID
     var sheet_id:String?
     
+    /// 获取歌曲描述（艺术家 - 专辑）
+    /// - Returns: 歌曲描述
+    func getDesc() -> String {
+        var desc = self.artist ?? ""
+        if(self.album != nil){
+            desc.append(" - " + self.album!)
+        }
+        return desc
+    }
     
     /// 歌曲播放
     func play()
     {
         //播放
         print("播放歌曲："+self.title)
+    }
+}
+
+
+extension MusicModel: Hashable {
+    static func == (lhs: MusicModel, rhs: MusicModel) -> Bool {
+        return lhs.source_url == rhs.source_url
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(source_url)
     }
 }
 
