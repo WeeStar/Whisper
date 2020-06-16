@@ -57,11 +57,11 @@ struct WelcomeView: View {
             //开启线程
             let thread = Thread.init {
                 //延时动画
-                Thread.sleep(forTimeInterval: 1)
+                Thread.sleep(forTimeInterval: 0.25)
                 self.focus.toggle()
                 
                 //延时打开主页
-                Thread.sleep(forTimeInterval: 3)
+                Thread.sleep(forTimeInterval: 2.5)
                 DispatchQueue.main.async {
                     self.afterHandler?()
                 }

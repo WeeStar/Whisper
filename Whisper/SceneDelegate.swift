@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sheet.id="myplaylist_8036fa8e-156f-6d6a-f726-1d039621b03b"
         sheet.title="深夜摩的"
         sheet.source_url="http://music.163.com/#/playlist?id=911571004"
-        sheet.cover_img_url="https://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
+        sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
         sheet.tracks.append(music1)
         sheet.tracks.append(music2)
         sheet.tracks.append(music2)
@@ -60,13 +60,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sheet.tracks.append(music2)
         
         
-        
-        var rootView = WelcomeView()
-        
         //欢迎页面执行完毕 显示主页
-        rootView.afterHandler={
+        let rootView = WelcomeView(afterHandler: {
               self.window?.rootViewController = UIHostingController(rootView: SheetView(sheet: sheet))
-        }
+        })
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

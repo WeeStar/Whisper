@@ -15,6 +15,7 @@ struct SheetCover: View {
     private var sheetTitle:String
     private var tracksCount:Int
     private var coverImgUrl:String
+    private var coverImg:WebImageView
     
     /// 初始化
     /// - Parameters:
@@ -25,12 +26,13 @@ struct SheetCover: View {
         self.sheetTitle = sheetTitle
         self.tracksCount = tracksCount
         self.coverImgUrl=coverImgUrl
+        coverImg=WebImageView(self.coverImgUrl,errorImgName: String(arc4random() % 20 + 1))
     }
     
     var body: some View {
         ZStack(alignment:.leading){
             //背景图
-            WebImageView(self.coverImgUrl)
+            coverImg
                 .padding(-15)
                 .blur(radius: 15)
                 .frame(minWidth: 0,  maxWidth: .infinity)
@@ -38,7 +40,7 @@ struct SheetCover: View {
             //歌单描述
             HStack{
                 //歌单封面logo
-                WebImageView(self.coverImgUrl)
+                coverImg
                     .cornerRadius(10)
                     .frame(width:110,height: 110).padding()
                 
@@ -87,7 +89,7 @@ struct SheetCover_Previews: PreviewProvider {
         sheet.id="myplaylist_8036fa8e-156f-6d6a-f726-1d039621b03b"
         sheet.title="深夜摩的"
         sheet.source_url="http://music.163.com/#/playlist?id=911571004"
-        sheet.cover_img_url="htt://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
+        sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
         sheet.tracks.append(music1)
         sheet.tracks.append(music2)
         

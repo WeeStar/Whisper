@@ -42,15 +42,25 @@ struct WebImageView: SwiftUI.View {
                     ],
                                progressBlock: nil,
                                completionHandler:{
-                                   result in
-                                   let image = try? result.get().image
-                                   if let image = image {
-                                       self.image=image
-                                   }
-                                   else if(self.errorImgName != nil){
-                                       self.image=UIImage(named: String(arc4random() % 20 + 1))!
-                                   }
-                               }
+                                result in
+                                let image = try? result.get().image
+                                if let image = image {
+                                    self.image=image
+                                }
+                                else {
+                                    //错误图片
+                                    var errImg:UIImage?
+                                    if(self.errorImgName != nil){
+                                        //指定错误图
+                                        errImg=UIImage(named: self.errorImgName!)
+                                    }
+                                    if(errImg==nil){
+                                        //随机错误封面
+                                        errImg=UIImage(named: String(arc4random() % 20 + 1))!
+                                    }
+                                    self.image=errImg!
+                                }
+                }
             )
         }
     }
