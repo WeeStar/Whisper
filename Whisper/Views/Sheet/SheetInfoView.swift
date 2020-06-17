@@ -20,7 +20,7 @@ struct SheetInfoView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false){
-            VStack(alignment: .leading){
+            VStack{
                 //封面
                 SheetCover(sheetTitle: sheetInfo.title, tracksCount: sheetInfo.tracks.count, coverImgUrl: sheetInfo.cover_img_url)
                     .frame(height: 300)
