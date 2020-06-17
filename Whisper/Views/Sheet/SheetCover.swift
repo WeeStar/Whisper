@@ -50,14 +50,15 @@ struct SheetCover: View {
                     
                     //标题
                     Text(sheetTitle)
-                        .foregroundColor(Color.white.opacity(0.8))
+                        .foregroundColor(Color("textColorOnImg"))
                         .font(.title)
                         .lineLimit(2)
                     
                     //容量
                     Text(String(tracksCount)+"首音乐")
-                        .foregroundColor(Color.white.opacity(0.8))
+                        .foregroundColor(Color("textColorOnImg"))
                         .font(.subheadline)
+                        .lineLimit(1)
                 }
             }
         }

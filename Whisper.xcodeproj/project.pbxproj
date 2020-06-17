@@ -17,7 +17,7 @@
 		FA126F142493024C00ED7FE6 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F132493024C00ED7FE6 /* Common.swift */; };
 		FA126F182493166100ED7FE6 /* ConstService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* ConstService.swift */; };
 		FA9500B924975BD30078A8CB /* MySheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500B824975BD30078A8CB /* MySheets.swift */; };
-		FA9500BB24975F2F0078A8CB /* SheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500BA24975F2F0078A8CB /* SheetCell.swift */; };
+		FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */; };
 		FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E52490C9D000C25D0F /* AppDelegate.swift */; };
 		FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E72490C9D000C25D0F /* SceneDelegate.swift */; };
 		FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E92490C9D000C25D0F /* RecomView.swift */; };
@@ -27,10 +27,12 @@
 		FAA028FD2490C9D200C25D0F /* WhisperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028FC2490C9D200C25D0F /* WhisperTests.swift */; };
 		FAA029082490C9D200C25D0F /* WhisperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA029072490C9D200C25D0F /* WhisperUITests.swift */; };
 		FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D12490DEC000A79CD3 /* SettingView.swift */; };
-		FABAB6D52490E93100A79CD3 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D42490E93100A79CD3 /* SheetView.swift */; };
+		FABAB6D52490E93100A79CD3 /* SheetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D42490E93100A79CD3 /* SheetInfoView.swift */; };
 		FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D7249103F600A79CD3 /* MusicModel.swift */; };
 		FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D924910AC200A79CD3 /* SheetModel.swift */; };
 		FAE2AC6E2498E56900703ADD /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2AC6D2498E56900703ADD /* WebImageView.swift */; };
+		FAE2AC702499BDD900703ADD /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2AC6F2499BDD900703ADD /* MyView.swift */; };
+		FAE2AC742499C02500703ADD /* SheetBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2AC732499C02500703ADD /* SheetBarView.swift */; };
 		FAEC37FF2493571900F88DB4 /* public.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEC37FE2493571900F88DB4 /* public.xcassets */; };
 		FAEE0069249362A100B271C9 /* SheetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE0068249362A100B271C9 /* SheetItem.swift */; };
 		FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE006A2493745400B271C9 /* SheetCover.swift */; };
@@ -67,7 +69,7 @@
 		FA126F132493024C00ED7FE6 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		FA126F172493166100ED7FE6 /* ConstService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstService.swift; sourceTree = "<group>"; };
 		FA9500B824975BD30078A8CB /* MySheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheets.swift; sourceTree = "<group>"; };
-		FA9500BA24975F2F0078A8CB /* SheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCell.swift; sourceTree = "<group>"; };
+		FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBlockView.swift; sourceTree = "<group>"; };
 		FAA028E22490C9D000C25D0F /* Whisper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whisper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA028E52490C9D000C25D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA028E72490C9D000C25D0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,10 +85,12 @@
 		FAA029072490C9D200C25D0F /* WhisperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperUITests.swift; sourceTree = "<group>"; };
 		FAA029092490C9D200C25D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FABAB6D12490DEC000A79CD3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		FABAB6D42490E93100A79CD3 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		FABAB6D42490E93100A79CD3 /* SheetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetInfoView.swift; sourceTree = "<group>"; };
 		FABAB6D7249103F600A79CD3 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
 		FABAB6D924910AC200A79CD3 /* SheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetModel.swift; sourceTree = "<group>"; };
 		FAE2AC6D2498E56900703ADD /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		FAE2AC6F2499BDD900703ADD /* MyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyView.swift; sourceTree = "<group>"; };
+		FAE2AC732499C02500703ADD /* SheetBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBarView.swift; sourceTree = "<group>"; };
 		FAEC37FE2493571900F88DB4 /* public.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = public.xcassets; sourceTree = "<group>"; };
 		FAEE0068249362A100B271C9 /* SheetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetItem.swift; sourceTree = "<group>"; };
 		FAEE006A2493745400B271C9 /* SheetCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCover.swift; sourceTree = "<group>"; };
@@ -239,11 +243,11 @@
 		FABAB6D32490E28B00A79CD3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FAE2AC6C2498E54F00703ADD /* CommonViews */,
 				FAEE2CDC24986FBD0082E1D5 /* Welcome */,
+				FAE2AC6C2498E54F00703ADD /* CommonViews */,
+				FAE2AC712499BEA000703ADD /* Main */,
 				FAEE00672493627C00B271C9 /* Sheet */,
-				FAA028E92490C9D000C25D0F /* RecomView.swift */,
-				FABAB6D12490DEC000A79CD3 /* SettingView.swift */,
+				FAE2AC722499BED200703ADD /* Music */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,6 +273,24 @@
 			path = CommonViews;
 			sourceTree = "<group>";
 		};
+		FAE2AC712499BEA000703ADD /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				FA9500B824975BD30078A8CB /* MySheets.swift */,
+				FAA028E92490C9D000C25D0F /* RecomView.swift */,
+				FABAB6D12490DEC000A79CD3 /* SettingView.swift */,
+				FAE2AC6F2499BDD900703ADD /* MyView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		FAE2AC722499BED200703ADD /* Music */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		FAEC37FD249356C900F88DB4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,11 +302,11 @@
 		FAEE00672493627C00B271C9 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
-				FA9500B824975BD30078A8CB /* MySheets.swift */,
-				FABAB6D42490E93100A79CD3 /* SheetView.swift */,
+				FABAB6D42490E93100A79CD3 /* SheetInfoView.swift */,
+				FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */,
+				FAE2AC732499C02500703ADD /* SheetBarView.swift */,
 				FAEE006A2493745400B271C9 /* SheetCover.swift */,
 				FAEE0068249362A100B271C9 /* SheetItem.swift */,
-				FA9500BA24975F2F0078A8CB /* SheetCell.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -455,9 +477,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FABAB6D52490E93100A79CD3 /* SheetView.swift in Sources */,
+				FABAB6D52490E93100A79CD3 /* SheetInfoView.swift in Sources */,
 				FAEE2CDE249879250082E1D5 /* WelcomeView.swift in Sources */,
-				FA9500BB24975F2F0078A8CB /* SheetCell.swift in Sources */,
+				FAE2AC702499BDD900703ADD /* MyView.swift in Sources */,
+				FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */,
 				FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */,
 				FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */,
 				FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */,
@@ -467,6 +490,7 @@
 				FA9500B924975BD30078A8CB /* MySheets.swift in Sources */,
 				FA126F182493166100ED7FE6 /* ConstService.swift in Sources */,
 				FA126F142493024C00ED7FE6 /* Common.swift in Sources */,
+				FAE2AC742499C02500703ADD /* SheetBarView.swift in Sources */,
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
 				FA126F112493014A00ED7FE6 /* Utility.swift in Sources */,
 				FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */,

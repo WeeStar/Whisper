@@ -14,27 +14,43 @@ struct SheetItem: View {
     
     /// 初始化
     /// - Parameter music: 音乐信息
-    init(music:MusicModel) {
+    init(music:MusicModel,musicIdx:Int) {
         self.musicInfo=music
+        self.musicIdx=musicIdx
     }
     
     /// 音乐信息
+    private var musicIdx:Int
     private var musicInfo:MusicModel
     
     
     var body: some View {
-        VStack(alignment: .leading,spacing: 5){
-            //歌曲标题
-            Text(musicInfo.title).font(.body)
-            
-            HStack{
-                //来源种类
-                Image(musicInfo.source!.rawValue).resizable().frame(width: 20, height: 20)
-                //歌曲描述
-                Text(musicInfo.getDesc()).font(.footnote).foregroundColor(.gray)
+        HStack{
+            VStack(alignment: .trailing){
+                Text(String(self.musicIdx))
+                    .foregroundColor(Color("textColorSub"))
+                    .lineLimit(1)
+                    .frame(width:33)
+                    .font(String(self.musicIdx).count>2 ? .footnote : .body)
+            }
+            VStack(alignment: .leading,spacing: 4){
+                //歌曲标题
+                Text(self.musicInfo.title)
+                    .foregroundColor(Color("textColorMain"))
+                    .lineLimit(1)
+                    .font(.body)
+                
+                HStack{
+                    //来源种类
+                    Image(self.musicInfo.source!.rawValue).resizable().frame(width: 15, height: 15)
+                    //歌曲描述
+                    Text(self.musicInfo.getDesc())
+                        .lineLimit(1)
+                        .font(.footnote)
+                        .foregroundColor(Color("textColorSub"))
+                }
             }
         }
-        .padding(.leading,5)
         .frame(height:50)
     }
 }
@@ -52,8 +68,8 @@ struct SheetItem_Previews: PreviewProvider {
         music.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
         
         return Group {
-            SheetItem(music:music)
-            SheetItem(music:music)
+            SheetItem(music:music,musicIdx: 1)
+            SheetItem(music:music,musicIdx: 2033)
         }
         .previewLayout(.fixed(width: 300, height: 70))
     }

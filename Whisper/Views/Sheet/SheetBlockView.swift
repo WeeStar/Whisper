@@ -1,5 +1,5 @@
 //
-//  SheetCellView.swift
+//  SheetBlockView.swift
 //  块状歌单
 //  Whisper
 //
@@ -9,7 +9,8 @@
 
 import SwiftUI
 
-struct SheetCellView: View {
+/// 块状歌单
+struct SheetBlockView: View {
     //封面相关信息
     private var sheetTitle:String
     private var tracksCount:Int
@@ -37,8 +38,8 @@ struct SheetCellView: View {
                     Spacer()
                     Text(String(tracksCount)+" 首")
                         .font(.subheadline)
-                        .fontWeight(.regular)
-                        .foregroundColor(Color.white)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color("textColorOnImg"))
                         .padding(.top,3).padding(.trailing,7)
                         .lineLimit(1)
                 }
@@ -61,6 +62,6 @@ struct SheetCell_Previews: PreviewProvider {
         sheet.source_url="http://music.163.com/#/playlist?id=911571004"
         sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
         
-        return SheetCellView(sheetTitle:"歌单名称歌单名称歌单名称歌单名称歌单名称歌单名称歌单名称",tracksCount:1,coverImgUrl:sheet.cover_img_url)
+        return SheetBlockView(sheetTitle:"歌单名称歌单名称歌单名称歌单名称歌单名称歌单名称歌单名称",tracksCount:1,coverImgUrl:sheet.cover_img_url)
     }
 }

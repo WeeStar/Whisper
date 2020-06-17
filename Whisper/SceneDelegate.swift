@@ -59,11 +59,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sheet.tracks.append(music2)
         sheet.tracks.append(music2)
         
+        var mySheets=[SheetModel]()
+        
+        mySheets.append(sheet)
+        mySheets.append(sheet)
+        mySheets.append(sheet)
+        mySheets.append(sheet)
+        mySheets.append(sheet)
+        mySheets.append(sheet)
         
         //欢迎页面执行完毕 显示主页
-        let rootView = WelcomeView(afterHandler: {
-              self.window?.rootViewController = UIHostingController(rootView: SheetView(sheet: sheet))
-        })
+        let rootView=SheetInfoView(sheet: sheet)
+//        let rootView = WelcomeView(afterHandler: {
+//              self.window?.rootViewController = UIHostingController(rootView: SheetInfoView(sheet: sheet))
+//        })
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

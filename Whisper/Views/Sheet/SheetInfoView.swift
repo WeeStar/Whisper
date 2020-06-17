@@ -1,5 +1,5 @@
 //
-//  SheetsView.swift
+//  SheetInfoView.swift
 //  歌单页面
 //  Whisper
 //
@@ -10,7 +10,7 @@
 import SwiftUI
 
 /// 歌单详情页面
-struct SheetView: View {
+struct SheetInfoView: View {
     init(sheet:SheetModel) {
         self.sheetInfo=sheet
     }
@@ -19,36 +19,41 @@ struct SheetView: View {
     private var sheetInfo:SheetModel
     
     var body: some View {
-        ZStack{
-            VStack{
+        ScrollView(showsIndicators: false){
+            VStack(alignment: .leading){
                 //封面
                 SheetCover(sheetTitle: sheetInfo.title, tracksCount: sheetInfo.tracks.count, coverImgUrl: sheetInfo.cover_img_url)
-                    .frame(height: 250)
-                Spacer()
-            }
-            
-            VStack{
-                List {
+                    .frame(height: 300)
+                
+                VStack(alignment: .leading){
                     //播放全部
                     HStack{
                         Image(systemName: "play.circle")
+                            .imageScale(.medium)
+                            .frame(width: 18,height: 18)
                         Text("播放全部")
-                        Text("("+String(sheetInfo.tracks.count)+"首音乐)")
+                            .foregroundColor(Color("textColorMain"))
+                            .fontWeight(.semibold)
+                        Text("("+String(self.sheetInfo.tracks.count)+"首音乐)")
                             .font(.subheadline)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("textColorSub"))
                     }
-                    .padding(.vertical,10)
+                    .padding(.top,15)
+                    .padding(.bottom,5)
+                    .padding(.leading,15)
                     
                     //列表信息
-                    ForEach(sheetInfo.tracks, id: \.self) {music in
-                        SheetItem(music: music)
+                    ForEach(0..<self.sheetInfo.tracks.count,id:\.self) {i in
+                        SheetItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
                     }
                 }
+                .frame(maxWidth: .infinity,alignment: .leading)
+                .background(Color("bgColorMain"))
+                .cornerRadius(20)
+                .offset(y:-50)
             }
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .cornerRadius(20)
-            .offset( y: 250)
         }
+        .background(Color("bgColorMain"))
     }
 }
 
@@ -95,7 +100,7 @@ struct SheetsView_Previews: PreviewProvider {
         
         
         return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
-            SheetView(sheet: sheet).previewDevice(PreviewDevice(rawValue: deviceName)).previewDisplayName(deviceName)
+            SheetInfoView(sheet: sheet).previewDevice(PreviewDevice(rawValue: deviceName)).previewDisplayName(deviceName)
         }
     }
 }
