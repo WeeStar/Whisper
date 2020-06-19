@@ -11,7 +11,13 @@ import SwiftUI
 
 struct RecomView: View {
     var body: some View {
-        Text("Hello, World!")
+        
+        VStack{
+            Text("推荐")
+            Spacer()
+        }
+        .frame(maxWidth:.infinity)
+        .background(Color.blue)
     }
 }
 

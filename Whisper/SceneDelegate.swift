@@ -21,58 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         
-        let music1=MusicModel()
-        music1.id="netrack_500427744"
-        music1.title="交易"
-        music1.artist="N7music"
-        music1.album="NiceDay7"
-        music1.source=MusicSource.Netcase
-        music1.source_url="http://music.163.com/#/song?id=500427744"
-        music1.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
         
-        let music2=MusicModel()
-        music2.id="netrack_550004429"
-        music2.title="忘却"
-        music2.artist="苏琛"
-        music2.album="忘却"
-        music2.source=MusicSource.Tencent
-        music2.source_url="http://music.163.com/#/song?id=550004429"
-        music2.img_url="http://p2.music.126.net/I6ZpoVZr6eBwDVPCXdmGgg==/109951163256340126.jpg"
-        
-        let sheet=SheetModel()
-        sheet.id="myplaylist_8036fa8e-156f-6d6a-f726-1d039621b03b"
-        sheet.title="深夜摩的"
-        sheet.source_url="http://music.163.com/#/playlist?id=911571004"
-        sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
-        sheet.tracks.append(music1)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        
-        var mySheets=[SheetModel]()
-        
-        mySheets.append(sheet)
-        mySheets.append(sheet)
-        mySheets.append(sheet)
-        mySheets.append(sheet)
-        mySheets.append(sheet)
-        mySheets.append(sheet)
         
         //欢迎页面执行完毕 显示主页
-        let rootView=SheetInfoView(sheet: sheet)
-//        let rootView = WelcomeView(afterHandler: {
-//              self.window?.rootViewController = UIHostingController(rootView: SheetInfoView(sheet: sheet))
-//        })
+//        let rootView=MainTabView()
+        let rootView = WelcomeView(afterHandler: {
+              self.window?.rootViewController = UIHostingController(rootView:MainTabView())
+        })
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

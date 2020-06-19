@@ -14,6 +14,7 @@ import Kingfisher
 struct WebImageView: SwiftUI.View {
     private var imgUrl:String
     private var errorImgName:String?
+    private var renderingMode:SwiftUI.Image.TemplateRenderingMode?
     @State private var image:UIImage = UIImage(named: "black")!//初始等待图
     
     
@@ -21,13 +22,19 @@ struct WebImageView: SwiftUI.View {
     /// - Parameters:
     ///   - imgUrl: 网络图片Url
     ///   - errorImgName: 加载错误展示图片
-    init(_ imgUrl:String,errorImgName:String?=nil) {
+    init(_ imgUrl:String,
+         renderingMode:SwiftUI.Image.TemplateRenderingMode? = nil,
+         errorImgName:String? = nil) {
         self.imgUrl=imgUrl
+        self.renderingMode=renderingMode
         self.errorImgName=errorImgName
     }
     
     var body: some SwiftUI.View {
-        Image(uiImage: self.image).resizable().onAppear(perform: loadImg)
+        Image(uiImage: self.image)
+            .renderingMode(renderingMode)
+            .resizable()
+            .onAppear(perform: loadImg)
     }
     
     /// 图片加载

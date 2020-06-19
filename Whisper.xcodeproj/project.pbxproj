@@ -14,7 +14,7 @@
 		FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */; };
 		FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */; };
 		FA126F112493014A00ED7FE6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F102493014A00ED7FE6 /* Utility.swift */; };
-		FA126F142493024C00ED7FE6 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F132493024C00ED7FE6 /* Common.swift */; };
+		FA126F142493024C00ED7FE6 /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F132493024C00ED7FE6 /* StoreData.swift */; };
 		FA126F182493166100ED7FE6 /* ConstService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* ConstService.swift */; };
 		FA9500B924975BD30078A8CB /* MySheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500B824975BD30078A8CB /* MySheets.swift */; };
 		FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */; };
@@ -26,10 +26,13 @@
 		FAA028F22490C9D200C25D0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */; };
 		FAA028FD2490C9D200C25D0F /* WhisperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028FC2490C9D200C25D0F /* WhisperTests.swift */; };
 		FAA029082490C9D200C25D0F /* WhisperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA029072490C9D200C25D0F /* WhisperUITests.swift */; };
-		FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D12490DEC000A79CD3 /* SettingView.swift */; };
+		FAA35BB4249B5C7A005C5B7E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA35BB3249B5C7A005C5B7E /* MainTabView.swift */; };
+		FAA35BDB249B8765005C5B7E /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA35BDA249B8765005C5B7E /* IconTextView.swift */; };
+		FAA35BDE249BA15B005C5B7E /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAA35BDD249BA149005C5B7E /* iconfont.ttf */; };
 		FABAB6D52490E93100A79CD3 /* SheetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D42490E93100A79CD3 /* SheetInfoView.swift */; };
 		FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D7249103F600A79CD3 /* MusicModel.swift */; };
 		FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABAB6D924910AC200A79CD3 /* SheetModel.swift */; };
+		FAD1D2FE249CBD59004D4C66 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD1D2FD249CBD59004D4C66 /* BlurView.swift */; };
 		FAE2AC6E2498E56900703ADD /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2AC6D2498E56900703ADD /* WebImageView.swift */; };
 		FAE2AC702499BDD900703ADD /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2AC6F2499BDD900703ADD /* MyView.swift */; };
 		FAE2AC742499C02500703ADD /* SheetBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2AC732499C02500703ADD /* SheetBarView.swift */; };
@@ -66,7 +69,7 @@
 		FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurMusicModel.swift; sourceTree = "<group>"; };
 		FA126F102493014A00ED7FE6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		FA126F132493024C00ED7FE6 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		FA126F132493024C00ED7FE6 /* StoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreData.swift; sourceTree = "<group>"; };
 		FA126F172493166100ED7FE6 /* ConstService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstService.swift; sourceTree = "<group>"; };
 		FA9500B824975BD30078A8CB /* MySheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheets.swift; sourceTree = "<group>"; };
 		FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBlockView.swift; sourceTree = "<group>"; };
@@ -84,10 +87,13 @@
 		FAA029032490C9D200C25D0F /* WhisperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhisperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA029072490C9D200C25D0F /* WhisperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperUITests.swift; sourceTree = "<group>"; };
 		FAA029092490C9D200C25D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FABAB6D12490DEC000A79CD3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		FAA35BB3249B5C7A005C5B7E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		FAA35BDA249B8765005C5B7E /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
+		FAA35BDD249BA149005C5B7E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		FABAB6D42490E93100A79CD3 /* SheetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetInfoView.swift; sourceTree = "<group>"; };
 		FABAB6D7249103F600A79CD3 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
 		FABAB6D924910AC200A79CD3 /* SheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetModel.swift; sourceTree = "<group>"; };
+		FAD1D2FD249CBD59004D4C66 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		FAE2AC6D2498E56900703ADD /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		FAE2AC6F2499BDD900703ADD /* MyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyView.swift; sourceTree = "<group>"; };
 		FAE2AC732499C02500703ADD /* SheetBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBarView.swift; sourceTree = "<group>"; };
@@ -166,12 +172,12 @@
 			path = SheetModels;
 			sourceTree = "<group>";
 		};
-		FA126F12249301E200ED7FE6 /* Common */ = {
+		FA126F12249301E200ED7FE6 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				FA126F132493024C00ED7FE6 /* Common.swift */,
+				FA126F132493024C00ED7FE6 /* StoreData.swift */,
 			);
-			path = Common;
+			path = Store;
 			sourceTree = "<group>";
 		};
 		FAA028D92490C9D000C25D0F = {
@@ -199,15 +205,16 @@
 		FAA028E42490C9D000C25D0F /* Whisper */ = {
 			isa = PBXGroup;
 			children = (
+				FAA35BC5249B713A005C5B7E /* Iconfont */,
 				FAA028E52490C9D000C25D0F /* AppDelegate.swift */,
 				FAA028E72490C9D000C25D0F /* SceneDelegate.swift */,
 				FAA028EB2490C9D200C25D0F /* Assets.xcassets */,
 				FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */,
 				FAA028F32490C9D200C25D0F /* Info.plist */,
 				FABAB6D32490E28B00A79CD3 /* Views */,
-				FA126F12249301E200ED7FE6 /* Common */,
-				FABAB6D62490ECB700A79CD3 /* Models */,
 				FA126F032492222300ED7FE6 /* Service */,
+				FABAB6D62490ECB700A79CD3 /* Models */,
+				FA126F12249301E200ED7FE6 /* Store */,
 				FAEC37FD249356C900F88DB4 /* Resource */,
 				FAA028ED2490C9D200C25D0F /* Preview Content */,
 			);
@@ -240,6 +247,14 @@
 			path = WhisperUITests;
 			sourceTree = "<group>";
 		};
+		FAA35BC5249B713A005C5B7E /* Iconfont */ = {
+			isa = PBXGroup;
+			children = (
+				FAA35BDD249BA149005C5B7E /* iconfont.ttf */,
+			);
+			path = Iconfont;
+			sourceTree = "<group>";
+		};
 		FABAB6D32490E28B00A79CD3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +284,8 @@
 			isa = PBXGroup;
 			children = (
 				FAE2AC6D2498E56900703ADD /* WebImageView.swift */,
+				FAA35BDA249B8765005C5B7E /* IconTextView.swift */,
+				FAD1D2FD249CBD59004D4C66 /* BlurView.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -278,8 +295,8 @@
 			children = (
 				FA9500B824975BD30078A8CB /* MySheets.swift */,
 				FAA028E92490C9D000C25D0F /* RecomView.swift */,
-				FABAB6D12490DEC000A79CD3 /* SettingView.swift */,
 				FAE2AC6F2499BDD900703ADD /* MyView.swift */,
+				FAA35BB3249B5C7A005C5B7E /* MainTabView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -424,6 +441,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA35BDE249BA15B005C5B7E /* iconfont.ttf in Resources */,
 				FAA028F22490C9D200C25D0F /* LaunchScreen.storyboard in Resources */,
 				FAA028EF2490C9D200C25D0F /* Preview Assets.xcassets in Resources */,
 				FAEC37FF2493571900F88DB4 /* public.xcassets in Resources */,
@@ -477,19 +495,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA35BDB249B8765005C5B7E /* IconTextView.swift in Sources */,
 				FABAB6D52490E93100A79CD3 /* SheetInfoView.swift in Sources */,
 				FAEE2CDE249879250082E1D5 /* WelcomeView.swift in Sources */,
 				FAE2AC702499BDD900703ADD /* MyView.swift in Sources */,
+				FAA35BB4249B5C7A005C5B7E /* MainTabView.swift in Sources */,
 				FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */,
 				FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */,
 				FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */,
 				FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */,
 				FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */,
-				FABAB6D22490DEC000A79CD3 /* SettingView.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
 				FA9500B924975BD30078A8CB /* MySheets.swift in Sources */,
+				FAD1D2FE249CBD59004D4C66 /* BlurView.swift in Sources */,
 				FA126F182493166100ED7FE6 /* ConstService.swift in Sources */,
-				FA126F142493024C00ED7FE6 /* Common.swift in Sources */,
+				FA126F142493024C00ED7FE6 /* StoreData.swift in Sources */,
 				FAE2AC742499C02500703ADD /* SheetBarView.swift in Sources */,
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
 				FA126F112493014A00ED7FE6 /* Utility.swift in Sources */,

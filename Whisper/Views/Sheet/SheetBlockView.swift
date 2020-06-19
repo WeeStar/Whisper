@@ -31,26 +31,26 @@ struct SheetBlockView: View {
         VStack(alignment: .leading, spacing: 10) {
             ZStack(alignment: .top){
                 //歌单封面logo
-                WebImageView(self.coverImgUrl)
+                WebImageView(self.coverImgUrl,renderingMode: .original)
                     .cornerRadius(10)
-                    .frame(width:110,height: 110)
+                    .frame(width:90,height: 90)
                 HStack{
                     Spacer()
                     Text(String(tracksCount)+" 首")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
                         .foregroundColor(Color("textColorOnImg"))
-                        .padding(.top,3).padding(.trailing,7)
+                        .font(.caption)
+                        .padding(.top,3).padding(.trailing,8)
                         .lineLimit(1)
                 }
             }
             
             //歌单标题
             Text(sheetTitle)
+                .foregroundColor(Color("textColorMain"))
                 .font(.subheadline)
                 .lineLimit(2)
         }
-        .frame(width:110)
+        .frame(width:90)
     }
 }
 

@@ -26,10 +26,10 @@ struct WelcomeView: View {
     var body: some View {
         ZStack{
             //背景图
-            Image("welcome_1").resizable()
-                .frame(
-                    width:UIScreen.main.bounds.height*1.5,
-                    height:UIScreen.main.bounds.height*1.5)
+            Image("welcome_1")
+                .resizable()
+                .aspectRatio(contentMode: ContentMode.fill)
+                .frame(height:UIScreen.main.bounds.height*1.1)
                 .blur(radius: focus ? 5 : 0)
                 .animation(.easeIn(duration: 1.5))
             

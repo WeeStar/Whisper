@@ -45,9 +45,9 @@ struct SheetItem: View {
                     Image(self.musicInfo.source!.rawValue).resizable().frame(width: 15, height: 15)
                     //歌曲描述
                     Text(self.musicInfo.getDesc())
+                    .foregroundColor(Color("textColorSub"))
                         .lineLimit(1)
                         .font(.footnote)
-                        .foregroundColor(Color("textColorSub"))
                 }
             }
         }

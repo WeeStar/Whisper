@@ -30,20 +30,19 @@ struct SheetBarView: View {
     var body: some View {
         HStack(){
             //歌单封面logo
-            WebImageView(self.coverImgUrl)
+            WebImageView(self.coverImgUrl,renderingMode: .original)
                 .cornerRadius(10)
                 .frame(width:90,height: 90)
             
             VStack(alignment: .leading, spacing: 5){
-                
                 //歌单标题
                 Text(sheetTitle)
-                    .lineLimit(2)
                     .foregroundColor(Color("textColorMain"))
+                    .lineLimit(2)
                 Text(String(tracksCount)+" 首")
+                    .foregroundColor(Color("textColorSub"))
                     .lineLimit(1)
                     .font(.subheadline)
-                    .foregroundColor(Color("textColorSub"))
             }
             
         }

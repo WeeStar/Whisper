@@ -21,7 +21,7 @@ struct MySheets: View {
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false){
-                VStack {
+                VStack(alignment:.leading) {
                     //最近播放部分
                     VStack(alignment:.leading){
                         //标题
@@ -34,12 +34,14 @@ struct MySheets: View {
                         ScrollView(.horizontal,showsIndicators: false) {
                             HStack(alignment: .top, spacing: 13) {
                                 ForEach(self.mySheets, id: \.self) { sheet in
-                                    SheetBlockView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
+                                    NavigationLink(destination: SheetInfoView(sheet: sheet)){
+                                        SheetBlockView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
+                                    }
                                 }
                             }
                         }
                         .frame(height: 160)
-                        }
+                    }
                     .padding(.leading,15)
                     .padding(.top,8)
                     
@@ -54,12 +56,13 @@ struct MySheets: View {
                             SheetBarView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
                         }
                     }
+                    .padding(.leading,15)
                 }
             }
+            .background(Color("bgColorMain"))
             .navigationBarTitle(Text("我的歌单").foregroundColor(Color("textColorMain"))
                 ,displayMode:.automatic)
         }
-        .background(Color("bgColorMain"))
     }
 }
 
@@ -80,10 +83,28 @@ struct MySheets_Previews: PreviewProvider {
         sheet2.source_url="http://music.163.com/#/playlist?id=740915547"
         sheet2.cover_img_url="http://p2.music.126.net/O5Vw9yfWGc1EnkENhym3qg==/109951164843664893.jpg"
         
-        mySheets.append(sheet1)
-        mySheets.append(sheet1)
-        mySheets.append(sheet1)
-        mySheets.append(sheet1)
+        
+        let music1=MusicModel()
+        music1.id="netrack_500427744"
+        music1.title="交易"
+        music1.artist="N7music"
+        music1.album="NiceDay7"
+        music1.source=MusicSource.Netcase
+        music1.source_url="http://music.163.com/#/song?id=500427744"
+        music1.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
+        
+        let music2=MusicModel()
+        music2.id="netrack_550004429"
+        music2.title="忘却"
+        music2.artist="苏琛"
+        music2.album="忘却"
+        music2.source=MusicSource.Tencent
+        music2.source_url="http://music.163.com/#/song?id=550004429"
+        music2.img_url="http://p2.music.126.net/I6ZpoVZr6eBwDVPCXdmGgg==/109951163256340126.jpg"
+        
+        sheet1.tracks=[music1,music2]
+        sheet2.tracks=[music1,music2]
+        
         mySheets.append(sheet1)
         mySheets.append(sheet2)
         

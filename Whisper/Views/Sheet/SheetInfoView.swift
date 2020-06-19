@@ -29,14 +29,15 @@ struct SheetInfoView: View {
                     //播放全部
                     HStack{
                         Image(systemName: "play.circle")
+                            .foregroundColor(Color("textColorSub"))
                             .imageScale(.medium)
                             .frame(width: 18,height: 18)
                         Text("播放全部")
                             .foregroundColor(Color("textColorMain"))
                             .fontWeight(.semibold)
                         Text("("+String(self.sheetInfo.tracks.count)+"首音乐)")
-                            .font(.subheadline)
                             .foregroundColor(Color("textColorSub"))
+                            .font(.subheadline)
                     }
                     .padding(.top,15)
                     .padding(.bottom,5)
@@ -46,14 +47,15 @@ struct SheetInfoView: View {
                     ForEach(0..<self.sheetInfo.tracks.count,id:\.self) {i in
                         SheetItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
                     }
+                    
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity,alignment: .leading)
+                .frame(maxWidth:.infinity, minHeight: 500, alignment: .leading)
                 .background(Color("bgColorMain"))
                 .cornerRadius(20)
                 .offset(y:-50)
             }
         }
-        .background(Color("bgColorMain"))
     }
 }
 
@@ -85,18 +87,18 @@ struct SheetsView_Previews: PreviewProvider {
         sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
         sheet.tracks.append(music1)
         sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
-        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
+        //        sheet.tracks.append(music2)
         
         
         return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in

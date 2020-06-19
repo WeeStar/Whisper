@@ -1,6 +1,6 @@
 //
 //  Common.swift
-//  通用信息
+//  用户数据信息
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/12.
@@ -10,8 +10,8 @@
 import Foundation
 
 
-/// 当前信息
-class Common
+/// 用户数据信息
+class StoreData
 {
     private static var _contextInfo:DataModel?
     

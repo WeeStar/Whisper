@@ -13,7 +13,18 @@ import SwiftUI
 /// 我的页面
 struct MyView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            VStack{
+
+                Spacer()
+                Rectangle().background(Color.blue).frame(height:200)
+            }
+            
+            Rectangle()
+                .blur(radius: 20)
+                .opacity(0.7)
+                .frame(width:300,height: 400)
+        }
     }
 }
 
