@@ -89,7 +89,7 @@ struct MySheets_Previews: PreviewProvider {
         music1.title="交易"
         music1.artist="N7music"
         music1.album="NiceDay7"
-        music1.source=MusicSource.Netcase
+        music1.source=MusicSource.Netease
         music1.source_url="http://music.163.com/#/song?id=500427744"
         music1.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
         

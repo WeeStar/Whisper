@@ -82,5 +82,5 @@ enum MusicSource:String, HandyJSONEnum
 {
     case Unknow="unknow"
     case Tencent="tencent"
-    case Netcase="netcase"
+    case Netease="netease"
 }

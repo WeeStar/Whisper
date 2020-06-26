@@ -63,7 +63,7 @@ struct SheetItem_Previews: PreviewProvider {
         music.title="交易"
         music.artist="N7music"
         music.album="NiceDay7"
-        music.source=MusicSource.Netcase
+        music.source=MusicSource.Netease
         music.source_url="http://music.163.com/#/song?id=500427744"
         music.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
         
