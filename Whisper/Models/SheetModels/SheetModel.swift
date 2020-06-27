@@ -20,6 +20,8 @@ class SheetModel:HandyJSON, Identifiable
     /// 歌单标题
     var title:String!
     
+    var description:String!
+    
     /// 歌单封面
     var cover_img_url:String!
     

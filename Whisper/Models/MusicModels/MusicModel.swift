@@ -48,6 +48,18 @@ class MusicModel:HandyJSON, Identifiable
     /// 所属歌单ID
     var sheet_id:String?
     
+    /// 版权信息 2：其他版本可播放
+    var copyright_type = 0
+    
+    /// 是否需要VIP
+    var need_vip = 0
+    
+    /// 是否可播放
+    /// - Returns: 是否可播放
+    func isPlayable() -> Bool{
+        return self.copyright_type == 0 && self.need_vip == 0
+    }
+    
     /// 获取歌曲描述（艺术家 - 专辑）
     /// - Returns: 歌曲描述
     func getDesc() -> String {
