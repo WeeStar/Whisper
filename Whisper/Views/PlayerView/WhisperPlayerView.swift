@@ -10,21 +10,29 @@ import SwiftUI
 import AVKit
 
 struct WhisperPlayerView: View {
+    @ObservedObject var player:WhisperPlayer
+    
+    // 进度相关
+    var progressBarWidth=UIScreen.main.bounds.width*0.8
     @State var progress:CGFloat=0
-    @ObservedObject var player:WhisperPlayer=WhisperPlayer()
+    
+    init(){
+        self.player = WhisperPlayer()
+        self.player.reload()
+    }
     
     var body: some View {
         VStack(spacing:20){
             // 封面
-            WebImageView(self.player.curMusic.img_url ?? "",isLazy: false)
+            WebImageView(self.player.curMusic.img_url ?? "")
                 .frame(width:UIScreen.main.bounds.width*0.8,height:UIScreen.main.bounds.width*0.8)
                 .cornerRadius(10)
                 .padding(.top,30)
                 .shadow(radius: 10)
             
             ZStack(alignment:.leading){
-                Capsule().fill(Color.black.opacity(0.08)).frame(height:3)
-                Capsule().fill(Color("prgBarForeColor")).frame(width:self.progress,height:3)
+                Capsule().fill(Color.black.opacity(0.08)).frame(width:self.progressBarWidth,height:3)
+                Capsule().fill(Color("prgBarForeColor")).frame(width:self.progressBarWidth * self.progress,height:3)
             }
             .padding(.top,10)
             
@@ -48,13 +56,12 @@ struct WhisperPlayerView: View {
                     Image(systemName: self.player.roundMode == RoundModeEnum.ListRound ?
                         "repeat" :
                         self.player.roundMode == RoundModeEnum.RandomRound ?
-                        "shuffle" : "repeat.1").imageScale(.large)
-                }
+                            "shuffle" : "repeat.1").imageScale(.large)
+                }.frame(width:20)
                 
                 // 上一首
                 Button(action: {
                     self.player.pre()
-//                    self.imgUrl=self.player.curMusic.img_url ?? ""
                 })
                 {
                     Image(systemName: "backward.end.fill").imageScale(.large)
@@ -71,7 +78,7 @@ struct WhisperPlayerView: View {
                 })
                 {
                     Image(systemName:self.player.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 40))
-                }.frame(width:45)
+                }.frame(width:42)
                 
                 // 下一首
                 Button(action: {
@@ -93,9 +100,14 @@ struct WhisperPlayerView: View {
         .background(Color("bgColorMain"))
         .padding()
         .onAppear(perform: {
-            print("player appear")
-            self.player.reload()
-//            self.imgUrl=self.player.curMusic.img_url ?? ""
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true){(_) in
+                // 时长处理
+                let curTime = self.player.playerItem != nil ? CMTimeGetSeconds(self.player.playerItem!.currentTime()) : 0.0
+                let decuration = self.player.playerItem != nil ? CMTimeGetSeconds(self.player.playerItem!.asset.duration) : 0.0
+                if(decuration>0){
+                    self.progress=CGFloat(curTime/decuration)
+                }
+            }
         })
     }
 }

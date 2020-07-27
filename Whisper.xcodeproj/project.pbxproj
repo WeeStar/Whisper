@@ -17,6 +17,7 @@
 		FA126F182493166100ED7FE6 /* PathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* PathService.swift */; };
 		FA4DD0FE24C5752E00C44D5E /* WhisperAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FD24C5752E00C44D5E /* WhisperAudio.swift */; };
 		FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */; };
+		FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD10624CECCDF00C44D5E /* HttpService.swift */; };
 		FA76EC1424C0249500BFE74B /* WhisperPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */; };
 		FA9500B924975BD30078A8CB /* MySheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500B824975BD30078A8CB /* MySheets.swift */; };
 		FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */; };
@@ -74,6 +75,7 @@
 		FA126F172493166100ED7FE6 /* PathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathService.swift; sourceTree = "<group>"; };
 		FA4DD0FD24C5752E00C44D5E /* WhisperAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperAudio.swift; sourceTree = "<group>"; };
 		FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayer.swift; sourceTree = "<group>"; };
+		FA4DD10624CECCDF00C44D5E /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayerView.swift; sourceTree = "<group>"; };
 		FA9500B824975BD30078A8CB /* MySheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheets.swift; sourceTree = "<group>"; };
 		FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBlockView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		FA126F032492222300ED7FE6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				FA4DD10824CEDA3400C44D5E /* HttpService */,
 				FA126F042492225600ED7FE6 /* DataService.swift */,
 				FA126F102493014A00ED7FE6 /* Utility.swift */,
 				FA126F172493166100ED7FE6 /* PathService.swift */,
@@ -196,6 +199,14 @@
 			path = UserDataModels;
 			sourceTree = "<group>";
 		};
+		FA4DD10824CEDA3400C44D5E /* HttpService */ = {
+			isa = PBXGroup;
+			children = (
+				FA4DD10624CECCDF00C44D5E /* HttpService.swift */,
+			);
+			path = HttpService;
+			sourceTree = "<group>";
+		};
 		FA76EC1224C0247200BFE74B /* PlayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,14 +240,14 @@
 		FAA028E42490C9D000C25D0F /* Whisper */ = {
 			isa = PBXGroup;
 			children = (
-				FA4DD0FA24C1AD9D00C44D5E /* Player */,
-				FAA35BC5249B713A005C5B7E /* Iconfont */,
 				FAA028E52490C9D000C25D0F /* AppDelegate.swift */,
 				FAA028E72490C9D000C25D0F /* SceneDelegate.swift */,
 				FAA028EB2490C9D200C25D0F /* Assets.xcassets */,
 				FAA028F02490C9D200C25D0F /* LaunchScreen.storyboard */,
 				FAA028F32490C9D200C25D0F /* Info.plist */,
+				FAA35BC5249B713A005C5B7E /* Iconfont */,
 				FABAB6D32490E28B00A79CD3 /* Views */,
+				FA4DD0FA24C1AD9D00C44D5E /* Player */,
 				FA126F032492222300ED7FE6 /* Service */,
 				FABAB6D62490ECB700A79CD3 /* Models */,
 				FAEC37FD249356C900F88DB4 /* Resource */,
@@ -523,6 +534,7 @@
 				FAE2AC702499BDD900703ADD /* MyView.swift in Sources */,
 				FAA35BB4249B5C7A005C5B7E /* MainTabView.swift in Sources */,
 				FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */,
+				FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */,
 				FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */,
 				FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */,
 				FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */,

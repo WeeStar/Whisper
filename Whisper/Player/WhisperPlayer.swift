@@ -21,10 +21,6 @@ class WhisperPlayer: NSObject,ObservableObject{
     @Published var curMusic:MusicModel=MusicModel()
     @Published var curList:[MusicModel]=[MusicModel]()
     
-    //时长相关
-    @Published var decuration:Float64=0
-    @Published var currentTime:Float64=0
-    
     //循环方式
     @Published var roundMode=RoundModeEnum.ListRound
     
@@ -73,7 +69,7 @@ class WhisperPlayer: NSObject,ObservableObject{
         
         // 获取播放url
         // todo
-        let url="http://m10.music.126.net/20200727143930/dc3327aa3b3e0508c7e4d2523cfe05e2/ymusic/6d9d/a15a/1a56/934e9b0fcfce9d0a8abe9cac7ce3f7e4.mp3"
+        let url="http://m10.music.126.net/20200727190308/622a110a57d9671bd5d3f0ec0d2e6c0c/ymusic/6d9d/a15a/1a56/934e9b0fcfce9d0a8abe9cac7ce3f7e4.mp3"
         
         // 在线音乐数据不为空 移除观察
         if(self.playerItem != nil){
@@ -92,10 +88,6 @@ class WhisperPlayer: NSObject,ObservableObject{
         self.playerItem!.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
         self.playerItem!.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
         self.playerItem!.addObserver(self, forKeyPath:"playbackLikelyToKeepUp", options: .new,context:nil)
-        
-        // 时长处理
-        self.currentTime = CMTimeGetSeconds(self.playerItem!.currentTime())
-        self.decuration = CMTimeGetSeconds(self.playerItem!.asset.duration)
         
         //创建player
         self.player = AVPlayer.init(playerItem: self.playerItem)
@@ -210,7 +202,7 @@ class WhisperPlayer: NSObject,ObservableObject{
         
         // 更改当前音乐 写config
         if(nextIdx > -1 && nextIdx != curIdx){
-            let curMus = self.curList[curIdx]
+            let curMus = self.curList[nextIdx]
             let contextData=DataService.GetContext()
             contextData.curMusic.curMusic=curMus
             DataService.SaveContext(data: contextData)
@@ -219,8 +211,6 @@ class WhisperPlayer: NSObject,ObservableObject{
         //执行reload刷新
         self.reload()
     }
-    
-    
     
     
     /// 观察播放状态相关
