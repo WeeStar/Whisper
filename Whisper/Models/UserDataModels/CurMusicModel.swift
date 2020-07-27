@@ -21,12 +21,18 @@ class CurMusicModel: HandyJSON
     /// 当前音乐
     var curMusic:MusicModel?
     
-    /// 当前音乐时间
-    var curMusicTime:String?
-    
-    /// 循环模式 1列表 2列表循环 2随机 3单曲循环
-    var roundMode=1
+    /// 循环模式
+    var roundMode=RoundModeEnum.ListRound
     
     /// 最近播放列表集合
     var recentSheets=[SheetModel]()
+}
+
+
+/// 音乐来源枚举
+enum RoundModeEnum:Int, HandyJSONEnum
+{
+    case ListRound=1
+    case RandomRound=2
+    case SingleRound=3
 }

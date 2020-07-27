@@ -15,7 +15,8 @@ struct WebImageView: SwiftUI.View {
     private var imgUrl:String
     private var errorImgName:String?
     private var renderingMode:SwiftUI.Image.TemplateRenderingMode?
-    @State private var image:UIImage = UIImage(named: "black")!//初始等待图
+    private var isLazy:Bool=true
+    @State private var image:UIImage = UIImage(named: "emptyMusic")!//初始等待图
     
     
     /// 初始化
@@ -24,7 +25,9 @@ struct WebImageView: SwiftUI.View {
     ///   - errorImgName: 加载错误展示图片
     init(_ imgUrl:String,
          renderingMode:SwiftUI.Image.TemplateRenderingMode? = nil,
-         errorImgName:String? = nil) {
+         errorImgName:String? = nil,
+         isLazy:Bool = true) {
+        print("imginit")
         self.imgUrl=imgUrl
         self.renderingMode=renderingMode
         self.errorImgName=errorImgName
@@ -34,11 +37,19 @@ struct WebImageView: SwiftUI.View {
         Image(uiImage: self.image)
             .renderingMode(renderingMode)
             .resizable()
-            .onAppear(perform: loadImg)
+            .onAppear(perform: {
+                self.refreshImg()
+            })
     }
     
     /// 图片加载
-    private func loadImg(){
+    private func refreshImg(){
+        print("imgrefresh")
+        print(self.imgUrl)
+        if(self.imgUrl == ""){
+            return
+        }
+        
         if let url = URL(string: self.imgUrl){
             //加载图片
             KingfisherManager.shared

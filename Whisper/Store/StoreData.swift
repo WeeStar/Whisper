@@ -26,6 +26,7 @@ class StoreData
         }
         set{
             _contextInfo = newValue
+            DataService.SetDataInFile(data: _contextInfo!)
         }
     }
 }

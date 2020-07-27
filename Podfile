@@ -6,6 +6,5 @@ target 'Whisper' do
 
 pod 'HandyJSON', '~> 5.0.1'
 pod 'Kingfisher', '~> 5.0'
-pod 'KingfisherSwiftUI'
-
+pod 'Alamofire', '~> 5.2'
 end

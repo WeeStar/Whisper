@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //欢迎页面执行完毕 显示主页
 //        let rootView=MainTabView()
         let rootView = WelcomeView(afterHandler: {
-              self.window?.rootViewController = UIHostingController(rootView:MainTabView())
+              self.window?.rootViewController = UIHostingController(rootView:WhisperPlayerView())
         })
 
         // Use a UIHostingController as window root view controller.

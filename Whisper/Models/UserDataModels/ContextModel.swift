@@ -10,8 +10,8 @@
 import Foundation
 import HandyJSON
 
-/// 总体数据模型
-class DataModel: HandyJSON
+/// 上下文总体模型
+class ContextModel: HandyJSON
 {
     required init() {}
     
@@ -19,12 +19,12 @@ class DataModel: HandyJSON
     var userInfo:UserModel?
     
     /// 配置信息
-    var config:ConfigModel?
+    var config:ConfigModel=ConfigModel()
     
     /// 我的歌单
     var mySheets=[SheetModel]()
     
     /// 当前歌曲信息
-    var curMusic:CurMusicModel?
+    var curMusic:CurMusicModel=CurMusicModel()
 }
     

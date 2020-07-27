@@ -14,35 +14,37 @@ import HandyJSON
 /// 数据服务
 class DataService{
     
-    /// 获取用户配置数据
+    /// 获取上下文总体数据
     /// - Returns: 用户配置数据
-    static func GetDataInFile() -> DataModel{
+    static func GetContext() -> ContextModel{
         //获取数据字符串
-        let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.dataFilePath), encoding: String.Encoding.utf8)
+        let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.userDataPath),
+                                  encoding: String.Encoding.utf8)
         
         //获取数据
-        if let object = DataModel.deserialize(from: dataStr) {
+        if let object = ContextModel.deserialize(from: dataStr) {
+            
+            //部分空数据处理
+            if(object.curMusic.curList.count==0 && object.mySheets.count > 0){
+                object.curMusic.curList=object.mySheets[0].tracks
+            }
+            if(object.curMusic.curMusic==nil&&object.curMusic.curList.count>0){
+                object.curMusic.curMusic=object.curMusic.curList[0]
+            }
+            
             return object
         }
-        return DataModel()
+        
+        //空数据
+        return ContextModel()
     }
 
     
     /// 写入用户配置数据
     /// - Parameter data: 用户配置数据
-    static func SetDataInFile(data:DataModel){
-        
-        let msg = "需要写入的资源"
-        let fileName = "学习笔记.text"
-
-        let fileManager = FileManager.default
-        let file = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
-        let path = file! + fileName
-
-        fileManager.createFile(atPath: path, contents:nil, attributes:nil)
-
-        let handle = FileHandle(forWritingAtPath:path)
-        handle?.write(msg.data(using: String.Encoding.utf8)!)
+    static func SaveContext(data:ContextModel){
+        let contextDataStr = data.toJSONString()!
+        try! contextDataStr.write(to: URL(string:"file://" + PathService.userDataPath)!, atomically: false, encoding: String.Encoding.utf8)
     }
 }
 
