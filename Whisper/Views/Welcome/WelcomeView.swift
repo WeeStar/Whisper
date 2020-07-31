@@ -24,7 +24,7 @@ struct WelcomeView: View {
     @State private var focus = false
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .center){
             //背景图
             Image("welcome_1")
                 .resizable()
@@ -32,27 +32,31 @@ struct WelcomeView: View {
                 .frame(height:UIScreen.main.bounds.height*1.1)
                 .blur(radius: focus ? 5 : 0)
                 .animation(.easeIn(duration: 1.5))
-            
-            VStack(spacing:20){
-                //logo图
-                Image("white").resizable()
-                    .frame(width: 100,height: 100)
-                    .padding(.top,100)
-                
-                Text("音乐无界  万象森罗")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                
+            HStack(alignment: .center){
                 Spacer()
-                
-                Text("Developed by WeeStar")
-                    .foregroundColor(.white)
-                    .font(.subheadline)
-                    .padding(.bottom,30)
+                VStack(alignment: .center,spacing:20){
+                    
+                    //logo图
+                    Image("white")
+                        .resizable()
+                        .frame(width: 100,height: 100)
+                        .padding(.top,UIScreen.main.bounds.height*0.2)
+                    
+                    Text("音乐无界  万象森罗")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                    
+                    Spacer()
+                    
+                    Text("Developed by WeeStar")
+                        .foregroundColor(.white)
+                        .font(.system(size: 10))
+                        .padding(.bottom,80)
+                }
+                .blur(radius: focus ? 0 : 5)
+                .animation(.easeIn(duration: 1.5))
+                Spacer()
             }
-            .frame(height:UIScreen.main.bounds.height)
-            .blur(radius: focus ? 0 : 5)
-            .animation(.easeIn(duration: 1.5))
         }.onAppear(perform: {
             //开启线程
             let thread = Thread.init {
@@ -61,7 +65,7 @@ struct WelcomeView: View {
                 self.focus.toggle()
                 
                 //延时打开主页
-                Thread.sleep(forTimeInterval: 2.5)
+                Thread.sleep(forTimeInterval: 3.0)
                 DispatchQueue.main.async {
                     self.afterHandler?()
                 }

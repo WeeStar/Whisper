@@ -15,7 +15,6 @@
 		FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */; };
 		FA126F112493014A00ED7FE6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F102493014A00ED7FE6 /* Utility.swift */; };
 		FA126F182493166100ED7FE6 /* PathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* PathService.swift */; };
-		FA4DD0FE24C5752E00C44D5E /* WhisperAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FD24C5752E00C44D5E /* WhisperAudio.swift */; };
 		FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */; };
 		FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD10624CECCDF00C44D5E /* HttpService.swift */; };
 		FA76EC1424C0249500BFE74B /* WhisperPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */; };
@@ -73,7 +72,6 @@
 		FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurMusicModel.swift; sourceTree = "<group>"; };
 		FA126F102493014A00ED7FE6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		FA126F172493166100ED7FE6 /* PathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathService.swift; sourceTree = "<group>"; };
-		FA4DD0FD24C5752E00C44D5E /* WhisperAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperAudio.swift; sourceTree = "<group>"; };
 		FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayer.swift; sourceTree = "<group>"; };
 		FA4DD10624CECCDF00C44D5E /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayerView.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 		FA4DD0FA24C1AD9D00C44D5E /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				FA4DD0FD24C5752E00C44D5E /* WhisperAudio.swift */,
 				FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */,
 			);
 			path = Player;
@@ -542,7 +539,6 @@
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
 				FA76EC1424C0249500BFE74B /* WhisperPlayerView.swift in Sources */,
 				FA9500B924975BD30078A8CB /* MySheets.swift in Sources */,
-				FA4DD0FE24C5752E00C44D5E /* WhisperAudio.swift in Sources */,
 				FAD1D2FE249CBD59004D4C66 /* BlurView.swift in Sources */,
 				FA126F182493166100ED7FE6 /* PathService.swift in Sources */,
 				FAE2AC742499C02500703ADD /* SheetBarView.swift in Sources */,

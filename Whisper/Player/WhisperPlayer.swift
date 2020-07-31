@@ -10,9 +10,11 @@
 import Foundation
 import AVKit
 import Alamofire
+import Kingfisher
+import MediaPlayer
 
 @objcMembers
-class WhisperPlayer: NSObject,ObservableObject{
+class WhisperPlayer: AppDelegate,ObservableObject{
     //音乐播放器
     @Published var player:AVPlayer?=nil
     @Published var playerItem:AVPlayerItem?=nil
@@ -25,40 +27,59 @@ class WhisperPlayer: NSObject,ObservableObject{
     @Published var roundMode=RoundModeEnum.ListRound
     
     //状态
-    @Published var isPlaying=false
-    @Published var isLoading=true
+    @Published var isPlaying=false//正在播放
+    @Published var isSeeking=false//正在切换进度
+    @Published var isLoading=false//正在加载缓存
+    @Published var isChangeing:Bool = false//正在切换歌曲
+    {
+        //属性监听
+        willSet{
+            //切换歌曲时 进度置0
+            if(newValue){
+                self.progress=0
+                self.curTime=0
+                self.duration=0
+            }
+        }
+    }
     
     
+    //时间
+    @Published var progress:CGFloat=0
+    @Published var curTime:Double=0.0
+    @Published var duration:Double=0.0
+    
+    //封面图片
+    private var image:UIImage?=nil
+    
+    //单例
+    static var shareIns = WhisperPlayer()
+    
+    /// 初始化
+    private override init(){
+        super.init()
+        //监控时间
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true){(_) in
+            //正在调整时间时 不监视 调整完在监视
+            if(self.isSeeking)
+            {
+                return
+            }
+            self.curTime = self.playerItem == nil || self.isChangeing ? 0 : CMTimeGetSeconds(self.playerItem!.currentTime())
+            self.duration = self.playerItem == nil || self.isChangeing ? 0 : CMTimeGetSeconds(self.playerItem!.asset.duration)
+            self.progress = self.duration == 0 ? 0 : CGFloat(self.curTime/self.duration)
+        }
+    }
     
     /// 加载
-    func reload() {
+    func reload(isFirstComeIn:Bool = false) {
+        
         // 加载信息
         let contextData=DataService.GetContext()
-//        
-//        let music1=MusicModel()
-//        music1.id="netrack_500427744"
-//        music1.title="交易"
-//        music1.artist="N7music"
-//        music1.album="NiceDay7"
-//        music1.source=MusicSource.Netease
-//        music1.source_url="http://music.163.com/#/song?id=500427744"
-//        music1.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
-//        
-//        let music2=MusicModel()
-//        music2.id="netrack_550004429"
-//        music2.title="忘却"
-//        music2.artist="苏琛"
-//        music2.album="忘却"
-//        music2.source=MusicSource.Tencent
-//        music2.source_url="http://music.163.com/#/song?id=550004429"
-//        music2.img_url="http://p2.music.126.net/I6ZpoVZr6eBwDVPCXdmGgg==/109951163256340126.jpg"
-//        
-//        contextData.curMusic.curList=[music1,music2]
-//        contextData.curMusic.curMusic=music2
-//        DataService.SaveContext(data: contextData)
         
         // 变量赋值
         if(contextData.curMusic.curMusic != nil){
+            self.isChangeing=true
             self.curList=contextData.curMusic.curList
             self.curMusic=contextData.curMusic.curMusic!
             self.roundMode=contextData.curMusic.roundMode
@@ -67,45 +88,87 @@ class WhisperPlayer: NSObject,ObservableObject{
             return
         }
         
-        // 获取播放url
-        // todo
-        let url="http://m10.music.126.net/20200727190308/622a110a57d9671bd5d3f0ec0d2e6c0c/ymusic/6d9d/a15a/1a56/934e9b0fcfce9d0a8abe9cac7ce3f7e4.mp3"
+        // 获取封面图片
+        self.image=nil //置空
+        if let url = URL(string: self.curMusic.img_url){
+            //加载图片
+            KingfisherManager.shared
+                .retrieveImage(with: url,
+                               options:  [
+                                .processor(DownsamplingImageProcessor(size: CGSize(width: 600, height: 600))),
+                                .transition(.fade(1)),
+                                .cacheOriginalImage
+                    ],
+                               progressBlock: nil,
+                               completionHandler:{
+                                result in
+                                let image = try? result.get().image
+                                if let image = image {
+                                    self.image=image
+                                }
+                                else {
+                                    self.image = UIImage(named: "emptyMusic")!
+                                }
+                                //self.setInfoCenterCredentials()
+                }
+            )
+        }
         
-        // 在线音乐数据不为空 移除观察
+        // 音乐数据不为空 移除观察
         if(self.playerItem != nil){
             self.playerItem!.removeObserver(self, forKeyPath: "status", context: nil)
             self.playerItem!.removeObserver(self, forKeyPath: "loadedTimeRanges", context: nil)
             self.playerItem!.removeObserver(self, forKeyPath: "playbackBufferEmpty", context: nil)
             self.playerItem!.removeObserver(self,forKeyPath: "playbackLikelyToKeepUp", context: nil)
+            
+            // 播放完成通知
             NotificationCenter.default.removeObserver(self)
+            self.playerItem = nil // 置空 防止外部观察时间
         }
         
-        // 初始化在线音乐数据
-        self.playerItem = AVPlayerItem(url:URL(string: url)!)
-        
-        // 添加监视
-        self.playerItem!.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-        self.playerItem!.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
-        self.playerItem!.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
-        self.playerItem!.addObserver(self, forKeyPath:"playbackLikelyToKeepUp", options: .new,context:nil)
-        
-        //创建player
-        self.player = AVPlayer.init(playerItem: self.playerItem)
-        self.player!.rate = 1.0//播放速度 播放前设置
-        
-        //        let audio=WhisperAudio(url:url)
-        //        audio.postDownload(successHandler:  {(audioPath) in
-        //            // 下载完毕初始化播放器
-        //            self.player=try! AVAudioPlayer(contentsOf: URL(string: audio.getUrl())!)
-        //            self.player.prepareToPlay()
-        //
-        //            // 是否立即播放
-        //            if(self.isPlaying){
-        //
-        //            }
-        //        }, errorHandler: {(AFError) in
-        //            // 错误处理
-        //        })
+        // 获取播放url
+        HttpService.Post(module: "music", methodUrl: "music_info", musicSource: self.curMusic.source,
+                         params: ["ids":[self.curMusic.id]],
+                         successHandler: { resData in
+                            //处理返回数据
+                            let resArr = resData as? NSArray
+                            let resDic = resArr?.firstObject as? NSDictionary
+                            let url = resDic?.value(forKey: "url") as? String
+                            if (url == nil||url! == ""){
+                                //播放url数据异常处理
+                                self.playFailHandle()
+                                return
+                            }
+                            
+                            DispatchQueue.main.async {
+                                // 初始化在线音乐数据
+                                self.playerItem = AVPlayerItem(url:URL(string: url!)!)
+                                
+                                // 添加监视
+                                // 需要监听的字段和状态
+                                // status :  AVPlayerItemStatusUnknown,AVPlayerItemStatusReadyToPlay,AVPlayerItemStatusFailed
+                                // loadedTimeRanges :  缓冲进度
+                                // playbackBufferEmpty : seekToTime后，缓冲数据为空，而且有效时间内数据无法补充，播放失败
+                                // playbackLikelyToKeepUp : seekToTime后,可以正常播放，相当于readyToPlay，一般拖动滑竿菊花转，到了这个这个状态菊花隐藏
+                                self.playerItem!.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+                                self.playerItem!.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
+                                self.playerItem!.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
+                                self.playerItem!.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new,context:nil)
+                                // 播放完成通知
+                                NotificationCenter.default.addObserver(self, selector:  #selector(self.playFinishHandle), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem!)
+                                
+                                //创建player
+                                self.isPlaying = !isFirstComeIn // 此处播放状态置位true,方便加载完成状态播放,不通过判断ready状态播放,因后台进入会引发ready
+                                self.player = AVPlayer.init(playerItem: self.playerItem)
+                                
+                                //切换完毕
+                                self.isChangeing=false
+                            }
+        },
+                         failHandler: {errorMsg in
+                            //接口请求错误 播放url数据异常处理
+                            self.playFailHandle()
+        })
     }
     
     
@@ -124,15 +187,23 @@ class WhisperPlayer: NSObject,ObservableObject{
     
     /// 播放
     func play(){
+        if(self.playerItem == nil){
+            return
+        }
         self.isPlaying=true
         self.player!.play()
+        self.setInfoCenterCredentials()
     }
     
     
     /// 暂停
     func pause(){
+        if(self.playerItem == nil){
+            return
+        }
         self.isPlaying=false
         self.player!.pause()
+        self.setInfoCenterCredentials()
     }
     
     
@@ -164,6 +235,7 @@ class WhisperPlayer: NSObject,ObservableObject{
         
         // 更改当前音乐 写config
         if(nextIdx > -1 && nextIdx != curIdx){
+            self.isChangeing=true
             let curMus = self.curList[nextIdx]
             let contextData=DataService.GetContext()
             contextData.curMusic.curMusic=curMus
@@ -186,12 +258,12 @@ class WhisperPlayer: NSObject,ObservableObject{
         let curIdx=self.curList.firstIndex(where: { $0.id == curMusic.id }) ?? -1
         var nextIdx = -1
         
-        // 根据循环方式获取上一首
+        // 根据循环方式获取下一首
         switch self.roundMode {
         case .ListRound:
             nextIdx = curIdx==self.curList.count-1 ? 0 : curIdx+1
         case .SingleRound:
-            nextIdx = isAuto ? curIdx : (curIdx==self.curList.count ? 0 : curIdx+1)
+            nextIdx = isAuto ? curIdx : (curIdx==self.curList.count-1 ? 0 : curIdx+1)
         case .RandomRound:
             var randomIdx = arc4random() % UInt32(self.curList.count)
             while self.curList.count>1 && randomIdx == curIdx {
@@ -201,33 +273,82 @@ class WhisperPlayer: NSObject,ObservableObject{
         }
         
         // 更改当前音乐 写config
-        if(nextIdx > -1 && nextIdx != curIdx){
+        if(nextIdx > -1 && nextIdx != curIdx || self.playerItem == nil){
+            self.isChangeing=true
             let curMus = self.curList[nextIdx]
             let contextData=DataService.GetContext()
             contextData.curMusic.curMusic=curMus
             DataService.SaveContext(data: contextData)
+            //执行reload刷新
+            self.reload()
         }
-        
-        //执行reload刷新
-        self.reload()
+        else{
+            // 当前音乐未修改 直接跳到0 重新播放
+            self.playerItem!.seek(to: .zero, completionHandler: {(_) in
+                self.play()
+            })
+        }
     }
     
+    
+    /// 进度跳转
+    func seek(seekTime:CMTime,completionHandler:((Bool)->Void)?){
+        if(self.playerItem == nil){
+            return
+        }
+        
+        if(seekTime > self.playerItem!.duration){
+            return
+        }
+        
+        self.isSeeking=true
+        // 置时间
+        self.curTime = CMTimeGetSeconds(seekTime)
+        self.duration = CMTimeGetSeconds(self.playerItem!.asset.duration)
+        self.progress = self.duration == 0 ? 0 : CGFloat(self.curTime/self.duration)
+        
+        self.playerItem!.seek(to: seekTime, completionHandler: {(state) in
+            self.play()
+            completionHandler?(state)//执行回调
+            self.isSeeking=false
+        })
+    }
+    
+    
+    /// 当前歌曲播放完成处理
+    @objc func playFinishHandle(note: NSNotification) {
+        // 播放下一首
+        print("finish")
+        self.next(isAuto: true)
+    }
+    
+    
+    /// 当前歌曲播放失败处理
+    private func playFailHandle(){
+        // 写入不能播放标记
+        // 跳下一首
+        self.next()
+    }
     
     /// 观察播放状态相关
     override func observeValue(forKeyPath keyPath: String?, of object: Any?,
                                change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
     {
         if keyPath == "status" {
+            print(self.playerItem!.status)
             switch self.playerItem!.status{
             case .readyToPlay:
-                print("ready")
-                self.play()
+                                print("ready")
+                //                self.play()
+                break
             case .failed:
                 print("failed")
                 // 播放失败播放下一首
                 self.next()
+                break
             case.unknown:
                 print("unkonwn")
+                break
             @unknown default:
                 return
             }
@@ -244,11 +365,37 @@ class WhisperPlayer: NSObject,ObservableObject{
             self.isLoading=true
         }
         else if keyPath == "playbackLikelyToKeepUp"{
-            if(self.isLoading && self.isPlaying){
+            if(self.isPlaying){
                 print("缓存好了继续播放")
                 self.play()
             }
             self.isLoading=false
         }
+    }
+    
+    
+    
+    // 设置后台播放显示信息
+    private func setInfoCenterCredentials() {
+        let mpic = MPNowPlayingInfoCenter.default()
+        
+        //专辑封面
+        let mySize = CGSize(width: 400, height: 400)
+        let albumArt = MPMediaItemArtwork(boundsSize:mySize) { sz in
+            return self.image ?? UIImage(named: "emptyMusic")!
+        }
+        
+        //获取进度
+        let postion = self.playerItem != nil ? CMTimeGetSeconds(self.playerItem!.currentTime()) : 0.0
+        let duration = self.playerItem != nil ? CMTimeGetSeconds(self.playerItem!.duration) : 0.0
+        
+        
+        mpic.nowPlayingInfo = [MPMediaItemPropertyTitle: self.curMusic.title ?? "暂无歌曲",
+                               MPMediaItemPropertyArtist: self.curMusic.artist ?? "未知歌手",
+                               MPMediaItemPropertyArtwork: albumArt,
+                               MPNowPlayingInfoPropertyElapsedPlaybackTime: postion,
+                               MPMediaItemPropertyPlaybackDuration: duration,
+                               MPNowPlayingInfoPropertyPlaybackRate: (self.playerItem?.isPlaybackLikelyToKeepUp ?? false) ?
+                                (self.player?.rate ?? 0) : 0]
     }
 }

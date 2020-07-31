@@ -7,31 +7,111 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 注册后台播放
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setActive(true)
+            try session.setCategory(AVAudioSession.Category.playback)
+        } catch {
+            print(error)
+        }
+        
+        //监听远程控制
+        if UIApplication.shared.responds(to: #selector(UIApplication.beginReceivingRemoteControlEvents)){
+            UIApplication.shared.beginReceivingRemoteControlEvents()
+            self.becomeFirstResponder()
+        }
+        
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
-
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    
+    
+    /// 锁屏控制
+    override func remoteControlReceived(with event: UIEvent?) {
+        guard let event = event else {
+            print("no event\n")
+            return
+        }
+        
+        if event.type == UIEvent.EventType.remoteControl {
+            switch event.subtype {
+            case .remoteControlPlay:
+                //播放
+                WhisperPlayer.shareIns.play()
+                break
+            case .remoteControlPause:
+                //暂停
+                WhisperPlayer.shareIns.pause()
+                break
+            case .remoteControlStop:
+                //停止
+                WhisperPlayer.shareIns.pause()
+                break
+            case .remoteControlTogglePlayPause:
+                //切换播放暂停（耳机线控）
+                if(WhisperPlayer.shareIns.isPlaying){
+                    WhisperPlayer.shareIns.pause()
+                }
+                else{
+                    WhisperPlayer.shareIns.play()
+                }
+                break
+                
+            case .remoteControlNextTrack:
+                //下一首
+                WhisperPlayer.shareIns.next()
+                break
+            case .remoteControlPreviousTrack:
+                //上一首
+                WhisperPlayer.shareIns.pre()
+                break
+            case .remoteControlBeginSeekingBackward:
+                //开始快退
+                print("开始快退")
+                break
+            case .remoteControlEndSeekingBackward:
+                //结束快退
+                print("结束快退")
+                break
+            case .remoteControlBeginSeekingForward:
+                //开始快进
+                print("开始快退")
+                break
+            case .remoteControlEndSeekingForward:
+                //结束快进
+                print("结束快进")
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    //是否能成为第一响应对象
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 }
 

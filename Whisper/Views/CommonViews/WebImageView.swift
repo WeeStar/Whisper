@@ -15,6 +15,7 @@ struct WebImageView: SwiftUI.View {
     public var imgUrl:String
     private var errorImgName:String?
     private var renderingMode:SwiftUI.Image.TemplateRenderingMode?
+    private var url:URL?=nil
     
     /// 初始化
     /// - Parameters:
@@ -26,16 +27,27 @@ struct WebImageView: SwiftUI.View {
         self.imgUrl=imgUrl
         self.renderingMode=renderingMode
         self.errorImgName=errorImgName
+        url=URL(string:self.imgUrl)
     }
     
     var body: some SwiftUI.View {
-        KFImage(URL(string:self.imgUrl)!, options:  [
-                                       .processor(DownsamplingImageProcessor(size: CGSize(width: 600, height: 600))),
-                                       .cacheOriginalImage
-            ]).placeholder({
+        Group{
+            if(self.url != nil){
+                KFImage(self.url!, options:  [
+                    .processor(DownsamplingImageProcessor(size: CGSize(width: 600, height: 600))),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ]).placeholder({
+                    Image("emptyMusic")
+                })
+                    .renderingMode(renderingMode)
+                    .resizable()
+            }
+            else{
                 Image("emptyMusic")
-            })
-            .renderingMode(renderingMode)
-            .resizable()
+                    .renderingMode(renderingMode)
+                    .resizable()
+            }
+        }
     }
 }

@@ -69,13 +69,6 @@ class MusicModel:HandyJSON, Identifiable
         }
         return desc
     }
-    
-    /// 歌曲播放
-    func play()
-    {
-        //播放
-        print("播放歌曲："+self.title)
-    }
 }
 
 
