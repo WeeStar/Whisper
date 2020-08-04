@@ -20,8 +20,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     @Published var playerItem:AVPlayerItem?=nil
     
     //当前音乐相关
-    @Published var curMusic:MusicModel=MusicModel()
-    @Published var curList:[MusicModel]=[MusicModel]()
+    @Published var curMusic:MusicModel?
+    @Published var curList:[MusicModel]
     
     //循环方式
     @Published var roundMode=RoundModeEnum.ListRound
@@ -57,7 +57,14 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     
     /// 初始化
     private override init(){
+        
+        // 变量赋值
+        self.curList=ContextService.contextIns.curMusic.curList
+        self.curMusic=ContextService.contextIns.curMusic.curMusic
+        self.roundMode=ContextService.contextIns.curMusic.roundMode
+        
         super.init()
+        
         //监控时间
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true){(_) in
             //正在调整时间时 不监视 调整完在监视
@@ -73,24 +80,17 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     
     /// 加载
     func reload(isFirstComeIn:Bool = false) {
-        
-        // 加载信息
-        let contextData=DataService.GetContext()
-        
-        // 变量赋值
-        if(contextData.curMusic.curMusic != nil){
-            self.isChangeing=true
-            self.curList=contextData.curMusic.curList
-            self.curMusic=contextData.curMusic.curMusic!
-            self.roundMode=contextData.curMusic.roundMode
-        }
-        else{
+        if(self.curMusic == nil){
             return
         }
         
+        //正在切换
+        self.isChangeing=true
+        
+        
         // 获取封面图片
         self.image=nil //置空
-        if let url = URL(string: self.curMusic.img_url){
+        if let url = URL(string: self.curMusic!.img_url){
             //加载图片
             KingfisherManager.shared
                 .retrieveImage(with: url,
@@ -127,8 +127,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         }
         
         // 获取播放url
-        HttpService.Post(module: "music", methodUrl: "music_info", musicSource: self.curMusic.source,
-                         params: ["ids":[self.curMusic.id]],
+        HttpService.Post(module: "music", methodUrl: "music_info", musicSource: self.curMusic!.source,
+                         params: ["ids":[self.curMusic!.id]],
                          successHandler: { resData in
                             //处理返回数据
                             let resArr = resData as? NSArray
@@ -179,9 +179,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         self.roundMode=RoundModeEnum.init(rawValue: roundModeValue)!
         
         // 保存配置
-        let contextData=DataService.GetContext()
-        contextData.curMusic.roundMode=self.roundMode
-        DataService.SaveContext(data: contextData)
+        ContextService.contextIns.curMusic.roundMode=self.roundMode
+        ContextService.SaveContext()
     }
     
     
@@ -210,13 +209,13 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     /// 上一首
     func pre(isAuto:Bool=false){
         // 空值处理
-        if(self.curList.count==0)
+        if(self.curList.count==0 || self.curMusic == nil)
         {
             return
         }
         
         // 获取当前播放位置
-        let curIdx=self.curList.firstIndex(where: { $0.id == curMusic.id }) ?? -1
+        let curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
         var nextIdx = -1
         
         // 根据循环方式获取上一首
@@ -236,10 +235,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         // 更改当前音乐 写config
         if(nextIdx > -1 && nextIdx != curIdx){
             self.isChangeing=true
-            let curMus = self.curList[nextIdx]
-            let contextData=DataService.GetContext()
-            contextData.curMusic.curMusic=curMus
-            DataService.SaveContext(data: contextData)
+            self.curMusic = self.curList[nextIdx]
+            ContextService.contextIns.curMusic.curMusic=self.curMusic
+            ContextService.SaveContext()
         }
         
         //执行reload刷新
@@ -249,13 +247,13 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     /// 下一首
     func next(isAuto:Bool=false){
         // 空值处理
-        if(self.curList.count==0)
+        if(self.curList.count==0 || self.curMusic == nil)
         {
             return
         }
         
         // 获取当前播放位置
-        let curIdx=self.curList.firstIndex(where: { $0.id == curMusic.id }) ?? -1
+        let curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
         var nextIdx = -1
         
         // 根据循环方式获取下一首
@@ -275,10 +273,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         // 更改当前音乐 写config
         if(nextIdx > -1 && nextIdx != curIdx || self.playerItem == nil){
             self.isChangeing=true
-            let curMus = self.curList[nextIdx]
-            let contextData=DataService.GetContext()
-            contextData.curMusic.curMusic=curMus
-            DataService.SaveContext(data: contextData)
+            self.curMusic = self.curList[nextIdx]
+            ContextService.contextIns.curMusic.curMusic=self.curMusic
+            ContextService.SaveContext()
             //执行reload刷新
             self.reload()
         }
@@ -390,8 +387,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         let duration = self.playerItem != nil ? CMTimeGetSeconds(self.playerItem!.duration) : 0.0
         
         
-        mpic.nowPlayingInfo = [MPMediaItemPropertyTitle: self.curMusic.title ?? "暂无歌曲",
-                               MPMediaItemPropertyArtist: self.curMusic.artist ?? "未知歌手",
+        mpic.nowPlayingInfo = [MPMediaItemPropertyTitle: self.curMusic?.title ?? "暂无歌曲",
+                               MPMediaItemPropertyArtist: self.curMusic?.getDesc() ?? "未知",
                                MPMediaItemPropertyArtwork: albumArt,
                                MPNowPlayingInfoPropertyElapsedPlaybackTime: postion,
                                MPMediaItemPropertyPlaybackDuration: duration,

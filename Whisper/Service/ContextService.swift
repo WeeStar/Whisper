@@ -1,6 +1,6 @@
 //
-//  DataService.swift
-//  数据服务
+//  ContextService.swift
+//  上下文服务
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/11.
@@ -11,15 +11,16 @@ import Foundation
 import HandyJSON
 
 
-/// 数据服务
+/// 上下文服务
 class ContextService{
     
     //单例上下文数据
-    static var contextIns = ContextModel()
+    static var contextIns = GetContext()
+    
     
     /// 获取上下文总体数据
     /// - Returns: 用户配置数据
-    static func GetContext() -> ContextModel{
+    static private func GetContext() -> ContextModel{
         //获取数据字符串
         let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.userDataPath),
                                   encoding: String.Encoding.utf8)
@@ -41,12 +42,12 @@ class ContextService{
         //空数据
         return ContextModel()
     }
-
+    
     
     /// 写入用户配置数据
     /// - Parameter data: 用户配置数据
-    static func SaveContext(data:ContextModel){
-        let contextDataStr = data.toJSONString()!
+    static func SaveContext(){
+        let contextDataStr = ContextService.contextIns.toJSONString()!
         try! contextDataStr.write(to: URL(string:"file://" + PathService.userDataPath)!, atomically: false, encoding: String.Encoding.utf8)
     }
 }

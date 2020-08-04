@@ -30,12 +30,14 @@ struct WhisperPlayerView: View {
         HStack(alignment: .center){
             Spacer()
             VStack(spacing:20){
+                
+                Spacer(minLength: 0)
                 // 封面
-                WebImageView(self.player.curMusic.img_url ?? "")
+                WebImageView(self.player.curMusic?.img_url ?? "")
                     .frame(width:self.progressBarWidth,height:self.progressBarWidth)
                     .cornerRadius(10)
                     .shadow(radius: 10)
-                    .padding(.top,UIScreen.main.bounds.height*0.15)
+                    .padding(.top,UIScreen.main.bounds.height*0.03)
                 
                 // 进度条
                 VStack{
@@ -104,15 +106,16 @@ struct WhisperPlayerView: View {
                 
                 VStack{
                     // 标题
-                    Text(self.player.curMusic.title==nil||self.player.curMusic.title=="" ? "暂无歌曲" : self.player.curMusic.title)
+                    Text((self.player.curMusic?.title ?? "暂无歌曲"))
                         .foregroundColor(Color("textColorMain"))
                         .lineLimit(1)
                         .font(.title)
                     
                     // 负标题
-                    Text(self.player.curMusic.title==nil||self.player.curMusic.title=="" ? "" : self.player.curMusic.getDesc())
+                    Text(self.player.curMusic?.getDesc() ?? "未知" )
                         .foregroundColor(Color("textColorSub"))
                         .lineLimit(1)
+                        .padding(.top,3)
                 }
                 .padding(.top,15)
                 
@@ -167,7 +170,9 @@ struct WhisperPlayerView: View {
                     }
                 }
                 .foregroundColor(Color("textColorMain"))
-                .padding(.bottom,UIScreen.main.bounds.height*0.15)
+                //                .padding(.top,UIScreen.main.bounds.height*0.15)
+                
+                Spacer(minLength: 0)
             }
             Spacer()
         }

@@ -11,8 +11,11 @@ import SwiftUI
 import UIKit
 
 struct MainTabView: View {
-    @State var tabIdx=1
+    @State var tabIdx=0
     var mySheets:[SheetModel]
+    var recomView = RecomView()
+    var mySheet:MySheets
+    var myView=MyView()
     
     init() {
         self.mySheets=[SheetModel]()
@@ -55,24 +58,22 @@ struct MainTabView: View {
         mySheets.append(sheet2)
         mySheets.append(sheet1)
         mySheets.append(sheet1)
+        
+        mySheet=MySheets(mySheets:self.mySheets)
     }
     
     var body: some View {
         ZStack{
-             
-            if(self.tabIdx==0){
+            ZStack{
                 //推荐
-                RecomView()
-            }
-            else if(self.tabIdx==1){
+                recomView.zIndex(self.tabIdx==0 ? 10 : 0)
+                
                 //我的
-                MySheets(mySheets:self.mySheets)
-            }
-            else if(self.tabIdx==2){
+                mySheet.zIndex(self.tabIdx==1 ? 10 : 0)
+                
                 //账号
-                MyView()
+                myView.zIndex(self.tabIdx==2 ? 10 : 0)
             }
-            
             //tabbar
             TabBar(tabIdx: $tabIdx)
         }
@@ -100,18 +101,19 @@ struct TabBar: View {
             HStack(alignment: .bottom){
                 
                 //推荐
-                TabBarItem(tabIdx: 0, iconCode: "&#xe681;", title: "推荐", selState: self.$tabIdx)
-                    .padding(.leading,40)
+                TabBarItem(tabIdx: 0, iconCode: "&#xe601;", title: "推荐", selState: self.$tabIdx)
+                    .padding(.leading,10)
+                
                 Spacer()
                 
                 //我的
-                TabBarItem(tabIdx: 1, iconCode: "&#xe63a;", title: "我的", selState: self.$tabIdx)
+                TabBarItem(tabIdx: 1, iconCode: "&#xe65c;", title: "我的", selState: self.$tabIdx)
                 
                 Spacer()
                 
                 //账号
-                TabBarItem(tabIdx: 2, iconCode: "&#xe6c8;", title: "账号", selState: self.$tabIdx)
-                    .padding(.trailing,40)
+                TabBarItem(tabIdx: 2, systemName: "person.fill", title: "账号", selState: self.$tabIdx)
+                    .padding(.trailing,10)
             }
             .frame(height:50)
             .background(BlurView(.systemMaterial))
@@ -124,7 +126,8 @@ struct TabBar: View {
 struct TabBarItem:View {
     
     var tabIdx:Int
-    var iconCode:String
+    var iconCode:String = ""
+    var systemName:String = ""
     var title:String
     @Binding var selState:Int
     
@@ -133,35 +136,33 @@ struct TabBarItem:View {
     }
     
     var body: some View{
-        VStack(spacing:3){
-            Group{
-                //图标
-                ZStack{
-                    //图标选中
-                    Circle()
-                        .fill(Color("ThemeColorMain"))
-                        .overlay(IconTextView(iconCode: self.iconCode, size: 18).foregroundColor(.white))
-                        .scaleEffect(self.isSelected ? 1:0.7)
-                        .animation(.easeIn(duration: 0.15))
-                        .opacity(self.isSelected ? 1:0)
-                        .animation(.easeIn(duration: 0.05))
-                    
+        Button(action: {
+            if(self.selState != self.tabIdx){
+                self.selState = self.tabIdx
+            }
+        })
+        {
+            VStack(spacing:2){
+                Group{
                     //图标未选中
-                    IconTextView(iconCode: self.iconCode, size: 25)
-                        .foregroundColor(Color("textColorTab").opacity(self.isSelected ? 0:1))
-                        .scaleEffect(self.isSelected ? 0.7:1)
+                    if(iconCode != ""){
+                        IconTextView(iconCode: self.iconCode, size: 27)
+                    }
+                    else{
+                        Image(systemName: self.systemName).font(.system(size: 27))
+                    }
                 }
-                .frame(width: 25,height: 25)
+                .frame(width:27,height: 27)
+                .foregroundColor(Color(self.isSelected ? "ThemeColorMain" : "textColorTab"))
                 
                 //文字
-                Text(self.title).font(.system(size: 10))
+                Text(self.title).font(.system(size: 8))
                     .foregroundColor(Color(self.isSelected ? "ThemeColorMain" : "textColorTab"))
             }
-            .onTapGesture {
-                if(self.selState != self.tabIdx){
-                    self.selState = self.tabIdx
-                }
-            }
+            .frame(width:77,height: 45)
+            .background(Color(.white).opacity(0.001))
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
+

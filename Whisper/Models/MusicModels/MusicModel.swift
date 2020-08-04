@@ -63,8 +63,18 @@ class MusicModel:HandyJSON, Identifiable
     /// 获取歌曲描述（艺术家 - 专辑）
     /// - Returns: 歌曲描述
     func getDesc() -> String {
-        var desc = self.artist ?? ""
-        if(self.album != nil){
+        var desc = ""
+        if(self.artist == nil || self.artist == ""){
+            desc = "未知歌手"
+        }
+        else{
+            desc = self.artist!
+        }
+        
+        if(self.album == nil || self.album == ""){
+            desc.append(" - 未知专辑")
+        }
+        else{
             desc.append(" - " + self.album!)
         }
         return desc
@@ -88,4 +98,8 @@ enum MusicSource:String, HandyJSONEnum
     case Unknow="unknow"
     case Tencent="tencent"
     case Netease="netease"
+    case Bilibili="bilibili"
+    case Xiami="xiami"
+    case Migu="migu"
+    case Kugou="kugou"
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		466ABD88BC68C22C6175A1BB /* libPods-Whisper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2B41A9CADB039E4143650B /* libPods-Whisper.a */; };
-		FA126F052492225600ED7FE6 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F042492225600ED7FE6 /* DataService.swift */; };
+		FA126F052492225600ED7FE6 /* ContextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F042492225600ED7FE6 /* ContextService.swift */; };
 		FA126F072492275C00ED7FE6 /* ContextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F062492275C00ED7FE6 /* ContextModel.swift */; };
 		FA126F09249227EC00ED7FE6 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F08249227EC00ED7FE6 /* UserModel.swift */; };
 		FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */; };
@@ -17,9 +17,13 @@
 		FA126F182493166100ED7FE6 /* PathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* PathService.swift */; };
 		FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */; };
 		FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD10624CECCDF00C44D5E /* HttpService.swift */; };
+		FA5A312224D553E500CC7A91 /* RecomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A312124D553E500CC7A91 /* RecomService.swift */; };
 		FA76EC1424C0249500BFE74B /* WhisperPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */; };
+		FA91281424D410B8000691E7 /* SheetBigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91281324D410B8000691E7 /* SheetBigView.swift */; };
+		FA91281624D531B1000691E7 /* SheetBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91281524D531B1000691E7 /* SheetBannerView.swift */; };
 		FA9500B924975BD30078A8CB /* MySheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500B824975BD30078A8CB /* MySheets.swift */; };
 		FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */; };
+		FA99F49024D824A100FBFE61 /* SheetRecomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99F48F24D824A100FBFE61 /* SheetRecomView.swift */; };
 		FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E52490C9D000C25D0F /* AppDelegate.swift */; };
 		FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E72490C9D000C25D0F /* SceneDelegate.swift */; };
 		FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA028E92490C9D000C25D0F /* RecomView.swift */; };
@@ -65,7 +69,7 @@
 		6D7369DE4DAB711B177E34CE /* Pods-Whisper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Whisper.release.xcconfig"; path = "Target Support Files/Pods-Whisper/Pods-Whisper.release.xcconfig"; sourceTree = "<group>"; };
 		A933C793A0F5538945B90B4C /* Pods-Whisper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Whisper.debug.xcconfig"; path = "Target Support Files/Pods-Whisper/Pods-Whisper.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2B41A9CADB039E4143650B /* libPods-Whisper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Whisper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA126F042492225600ED7FE6 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		FA126F042492225600ED7FE6 /* ContextService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextService.swift; sourceTree = "<group>"; };
 		FA126F062492275C00ED7FE6 /* ContextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextModel.swift; sourceTree = "<group>"; };
 		FA126F08249227EC00ED7FE6 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FA126F0B2492293B00ED7FE6 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
@@ -74,9 +78,13 @@
 		FA126F172493166100ED7FE6 /* PathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathService.swift; sourceTree = "<group>"; };
 		FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayer.swift; sourceTree = "<group>"; };
 		FA4DD10624CECCDF00C44D5E /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
+		FA5A312124D553E500CC7A91 /* RecomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomService.swift; sourceTree = "<group>"; };
 		FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayerView.swift; sourceTree = "<group>"; };
+		FA91281324D410B8000691E7 /* SheetBigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBigView.swift; sourceTree = "<group>"; };
+		FA91281524D531B1000691E7 /* SheetBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBannerView.swift; sourceTree = "<group>"; };
 		FA9500B824975BD30078A8CB /* MySheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheets.swift; sourceTree = "<group>"; };
 		FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBlockView.swift; sourceTree = "<group>"; };
+		FA99F48F24D824A100FBFE61 /* SheetRecomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetRecomView.swift; sourceTree = "<group>"; };
 		FAA028E22490C9D000C25D0F /* Whisper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whisper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA028E52490C9D000C25D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA028E72490C9D000C25D0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,9 +162,10 @@
 			isa = PBXGroup;
 			children = (
 				FA4DD10824CEDA3400C44D5E /* HttpService */,
-				FA126F042492225600ED7FE6 /* DataService.swift */,
+				FA126F042492225600ED7FE6 /* ContextService.swift */,
 				FA126F102493014A00ED7FE6 /* Utility.swift */,
 				FA126F172493166100ED7FE6 /* PathService.swift */,
+				FA5A312124D553E500CC7A91 /* RecomService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -210,6 +219,16 @@
 				FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */,
 			);
 			path = PlayerView;
+			sourceTree = "<group>";
+		};
+		FA91281724D546F8000691E7 /* Recom */ = {
+			isa = PBXGroup;
+			children = (
+				FA99F48F24D824A100FBFE61 /* SheetRecomView.swift */,
+				FA91281524D531B1000691E7 /* SheetBannerView.swift */,
+				FA91281324D410B8000691E7 /* SheetBigView.swift */,
+			);
+			path = Recom;
 			sourceTree = "<group>";
 		};
 		FAA028D92490C9D000C25D0F = {
@@ -323,10 +342,10 @@
 		FAE2AC712499BEA000703ADD /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				FAA35BB3249B5C7A005C5B7E /* MainTabView.swift */,
 				FA9500B824975BD30078A8CB /* MySheets.swift */,
 				FAA028E92490C9D000C25D0F /* RecomView.swift */,
 				FAE2AC6F2499BDD900703ADD /* MyView.swift */,
-				FAA35BB3249B5C7A005C5B7E /* MainTabView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -349,6 +368,7 @@
 		FAEE00672493627C00B271C9 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
+				FA91281724D546F8000691E7 /* Recom */,
 				FABAB6D42490E93100A79CD3 /* SheetInfoView.swift */,
 				FA9500BA24975F2F0078A8CB /* SheetBlockView.swift */,
 				FAE2AC732499C02500703ADD /* SheetBarView.swift */,
@@ -545,13 +565,17 @@
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
 				FA126F112493014A00ED7FE6 /* Utility.swift in Sources */,
 				FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */,
+				FA91281624D531B1000691E7 /* SheetBannerView.swift in Sources */,
 				FAE2AC6E2498E56900703ADD /* WebImageView.swift in Sources */,
 				FA126F072492275C00ED7FE6 /* ContextModel.swift in Sources */,
+				FA99F49024D824A100FBFE61 /* SheetRecomView.swift in Sources */,
 				FAEE0069249362A100B271C9 /* SheetItem.swift in Sources */,
 				FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */,
 				FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */,
+				FA5A312224D553E500CC7A91 /* RecomService.swift in Sources */,
 				FA126F09249227EC00ED7FE6 /* UserModel.swift in Sources */,
-				FA126F052492225600ED7FE6 /* DataService.swift in Sources */,
+				FA126F052492225600ED7FE6 /* ContextService.swift in Sources */,
+				FA91281424D410B8000691E7 /* SheetBigView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

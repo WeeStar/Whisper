@@ -20,48 +20,51 @@ struct MySheets: View {
     
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false){
-                VStack(alignment:.leading) {
-                    //最近播放部分
-                    VStack(alignment:.leading){
-                        //标题
-                        Text("最近播放")
-                            .foregroundColor(Color("textColorMain"))
-                            .font(.headline)
-                            .padding(.top, 5)
-                        
-                        //歌单列表
-                        ScrollView(.horizontal,showsIndicators: false) {
-                            HStack(alignment: .top, spacing: 13) {
-                                ForEach(self.mySheets, id: \.self) { sheet in
-                                    NavigationLink(destination: SheetInfoView(sheet: sheet)){
-                                        SheetBlockView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
-                                    }
-                                }
-                            }
-                        }
-                        .frame(height: 160)
-                    }
-                    .padding(.leading,15)
-                    .padding(.top,8)
-                    
-                    //我的歌单部分
-                    VStack(alignment: .leading,spacing: 12){
-                        Text("我的歌单")
-                            .foregroundColor(Color("textColorMain"))
-                            .font(.headline)
-                            .padding(.top, 5)
-                        
-                        ForEach(self.mySheets, id: \.self) { sheet in
-                            SheetBarView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
-                        }
-                    }
-                    .padding(.leading,15)
+//            VStack(alignment:.leading) {
+////                //最近播放部分
+////                VStack(alignment:.leading){
+////                    //标题
+////                    Text("最近播放")
+////                        .foregroundColor(Color("textColorMain"))
+////                        .font(.headline)
+////                        .padding(.top, 5)
+////
+////                    //歌单列表
+////                    ScrollView(.horizontal,showsIndicators: false) {
+////                        HStack(alignment: .top, spacing: 13) {
+////                            ForEach(self.mySheets, id: \.self) { sheet in
+////                                NavigationLink(destination: SheetInfoView(sheet: sheet)){
+////                                    SheetBlockView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
+////                                }
+////                            }
+////                        }
+////                    }
+////                    .frame(height: 160)
+////                }
+////                .padding(.leading,15)
+////                .padding(.top,8)
+//
+////                //我的歌单部分
+////                VStack(alignment: .leading,spacing: 12){
+////                    Text("我的歌单")
+////                        .foregroundColor(Color("textColorMain"))
+////                        .font(.headline)
+////                        .padding(.top, 5)
+////
+////                    ForEach(self.mySheets, id: \.self) { sheet in
+////                        SheetBarView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
+////                    }
+////                }
+////                .padding(.leading,15)
+//
+//            }
+            List{
+                ForEach(self.mySheets, id: \.self) { sheet in
+                    SheetBarView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
                 }
             }
             .background(Color("bgColorMain"))
-            .navigationBarTitle(Text("我的歌单").foregroundColor(Color("textColorMain"))
-                ,displayMode:.automatic)
+            .navigationBarTitle(Text("我的歌单"))
         }
     }
 }
@@ -106,6 +109,15 @@ struct MySheets_Previews: PreviewProvider {
         sheet2.tracks=[music1,music2]
         
         mySheets.append(sheet1)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
+        mySheets.append(sheet2)
         mySheets.append(sheet2)
         
         return MySheets(mySheets:mySheets)

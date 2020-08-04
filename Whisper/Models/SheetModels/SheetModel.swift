@@ -22,6 +22,10 @@ class SheetModel:HandyJSON, Identifiable
     
     var description:String!
     
+    var play:String! = "0"
+    
+    var sheet_source:String!
+    
     /// 歌单封面
     var cover_img_url:String!
     

@@ -27,7 +27,9 @@ struct WebImageView: SwiftUI.View {
         self.imgUrl=imgUrl
         self.renderingMode=renderingMode
         self.errorImgName=errorImgName
-        url=URL(string:self.imgUrl)
+        if(self.imgUrl != ""){
+            self.url = URL(string:self.imgUrl)
+        }
     }
     
     var body: some SwiftUI.View {
@@ -39,6 +41,8 @@ struct WebImageView: SwiftUI.View {
                     .cacheOriginalImage
                 ]).placeholder({
                     Image("emptyMusic")
+                        .renderingMode(renderingMode)
+                        .resizable()
                 })
                     .renderingMode(renderingMode)
                     .resizable()
