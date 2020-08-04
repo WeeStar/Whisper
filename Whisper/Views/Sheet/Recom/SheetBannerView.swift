@@ -13,11 +13,11 @@ struct SheetBannerView: View {
     let pageDatas:[SheetModel]
     let tapCallBack:((Int) -> Void)?
     
+    @State private var isDraging = false
     @State private var index:Int = 0
     @State private var offset:CGFloat = 0
     
     init(pageDatas:[SheetModel],tapCallBack:((Int) -> Void)?) {
-        print(UIScreen.main.bounds.width)
         if(pageDatas.count>0){
             self.pageDatas = pageDatas
             self.tapCallBack = tapCallBack
@@ -33,7 +33,7 @@ struct SheetBannerView: View {
         GeometryReader{ gemo in
             HStack(spacing:0){
                 ForEach(self.pageDatas){ pageData in
-                        SheetBigView(sheetTitle: pageData.title ?? "", coverImgUrl: pageData.cover_img_url ?? "")
+                    SheetBigView(sheetTitle: pageData.title ?? "",play:pageData.play, coverImgUrl: pageData.cover_img_url ?? "")
                         .padding(.leading, UIScreen.main.bounds.width*0.1)
                         .padding(.trailing, UIScreen.main.bounds.width*0.1)
                         .gesture(TapGesture().onEnded{
@@ -46,7 +46,10 @@ struct SheetBannerView: View {
             .gesture(
                 DragGesture()
                     .onChanged({value in
-                        print("in")
+                        // 拖动中停止切换
+                        self.isDraging = true
+//                        self.changeThread?.cancel()
+                        
                         withAnimation{
                             self.offset = value.translation.width - (CGFloat(self.index) * gemo.size.width)
                         }
@@ -61,8 +64,31 @@ struct SheetBannerView: View {
                         withAnimation{
                             self.offset = -(CGFloat(self.index) * gemo.size.width)
                         }
+                        
+                        //拖动完毕重启切换
+                        self.isDraging = false
+//                        self.changeThread?.start()
                     })
             )
-        }.frame(height:UIScreen.main.bounds.width*0.8)
+        }
+        .frame(height:UIScreen.main.bounds.width*0.8)
+        .onAppear(perform: {
+            Timer.scheduledTimer(withTimeInterval: 8, repeats: true){(_) in
+                if(self.isDraging)
+                {
+                    return
+                }
+                
+                if(self.index < self.pageDatas.count-1){
+                    self.index += 1
+                }
+                else{
+                    self.index = 0
+                }
+                withAnimation{
+                    self.offset = -(CGFloat(self.index) * UIScreen.main.bounds.width)
+                }
+            }
+        })
     }
 }

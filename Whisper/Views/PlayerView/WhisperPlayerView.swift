@@ -76,7 +76,6 @@ struct WhisperPlayerView: View {
                                     self.seekProgress = x/self.progressBarWidth
                                     self.seekCurTime=CMTimeMake(value: Int64(CMTimeGetSeconds(self.player.playerItem!.duration) * Double(self.seekProgress)), timescale: 1)
                                     
-                                    print("seek")
                                     print(self.seekProgress)
                                     
                                     // 拖动完毕 跳转进度

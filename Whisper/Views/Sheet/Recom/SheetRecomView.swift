@@ -28,7 +28,7 @@ struct SheetRecomView: View {
     var body: some View {
         HStack(){
             //歌单封面logo
-            WebImageView(self.coverImgUrl,renderingMode: .original)
+            WebImageView(self.coverImgUrl,renderingMode: .original,qulity:ImageQulity.Low)
                 .cornerRadius(10)
                 .frame(width:60,height: 60)
                 .overlay(
@@ -47,7 +47,7 @@ struct SheetRecomView: View {
                         .foregroundColor(Color("textColorSub"))
                         .padding(.leading,2)
                     .frame(width:14,height: 14)
-                    Text(self.play+" 次播放")
+                    Text(Utility.playNumsFormat(play: self.play) + " 次播放")
                     .foregroundColor(Color("textColorSub"))
                     .lineLimit(1)
                     .font(.subheadline)

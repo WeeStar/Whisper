@@ -96,8 +96,12 @@ struct TabBar: View {
     }
     
     var body: some View {
-        VStack{
+        VStack(spacing:0){
             Spacer()
+            Rectangle()
+                .foregroundColor(Color(.gray).opacity(0.5))
+                .frame(height:0.5)
+            
             HStack(alignment: .bottom){
                 
                 //推荐

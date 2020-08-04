@@ -16,6 +16,7 @@ struct WebImageView: SwiftUI.View {
     private var errorImgName:String?
     private var renderingMode:SwiftUI.Image.TemplateRenderingMode?
     private var url:URL?=nil
+    private var qulity:ImageQulity
     
     /// 初始化
     /// - Parameters:
@@ -23,10 +24,12 @@ struct WebImageView: SwiftUI.View {
     ///   - errorImgName: 加载错误展示图片
     init(_ imgUrl:String,
          renderingMode:SwiftUI.Image.TemplateRenderingMode? = nil,
-         errorImgName:String? = nil) {
+         errorImgName:String? = nil,
+         qulity:ImageQulity = ImageQulity.Regular) {
         self.imgUrl=imgUrl
         self.renderingMode=renderingMode
         self.errorImgName=errorImgName
+        self.qulity=qulity
         if(self.imgUrl != ""){
             self.url = URL(string:self.imgUrl)
         }
@@ -36,8 +39,8 @@ struct WebImageView: SwiftUI.View {
         Group{
             if(self.url != nil){
                 KFImage(self.url!, options:  [
-                    .processor(DownsamplingImageProcessor(size: CGSize(width: 600, height: 600))),
-                    .transition(.fade(1)),
+                    .processor(DownsamplingImageProcessor(size: CGSize(width: self.qulity.rawValue, height: self.qulity.rawValue))),
+                    .transition(.fade(0.2)),
                     .cacheOriginalImage
                 ]).placeholder({
                     Image("emptyMusic")
@@ -54,4 +57,14 @@ struct WebImageView: SwiftUI.View {
             }
         }
     }
+}
+
+/// 音乐来源枚举
+enum ImageQulity:Int
+{
+    case High=600
+    case Regular=300
+    case Mideum=200
+    case Low=100
+    case Poor=50
 }

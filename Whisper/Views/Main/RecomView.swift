@@ -10,19 +10,7 @@
 import SwiftUI
 
 struct RecomView: View {
-    var nowDate:String
-    
-    init(){
-//        let today = Date()
-//        let zone = NSTimeZone.system
-//        let interval = zone.secondsFromGMT()
-//        let now = today.addingTimeInterval(TimeInterval(interval))
-        
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "M月d日"// 自定义时间格式
-
-        self.nowDate = dateformatter.string(from: Date())
-    }
+    var nowDate:String = Utility.chineseTimeFormat(date: Date())
     
     var body: some View {
         NavigationView{
