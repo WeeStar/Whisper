@@ -18,7 +18,7 @@
 		FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */; };
 		FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD10624CECCDF00C44D5E /* HttpService.swift */; };
 		FA5A312224D553E500CC7A91 /* RecomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A312124D553E500CC7A91 /* RecomService.swift */; };
-		FA76EC1424C0249500BFE74B /* WhisperPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */; };
+		FA76EC1424C0249500BFE74B /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76EC1324C0249500BFE74B /* PlayerView.swift */; };
 		FA91281424D410B8000691E7 /* SheetBigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91281324D410B8000691E7 /* SheetBigView.swift */; };
 		FA91281624D531B1000691E7 /* SheetBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91281524D531B1000691E7 /* SheetBannerView.swift */; };
 		FA9500B924975BD30078A8CB /* MySheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9500B824975BD30078A8CB /* MySheets.swift */; };
@@ -46,6 +46,7 @@
 		FAEE0069249362A100B271C9 /* SheetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE0068249362A100B271C9 /* SheetItem.swift */; };
 		FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE006A2493745400B271C9 /* SheetCover.swift */; };
 		FAEE2CDE249879250082E1D5 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE2CDD249879250082E1D5 /* WelcomeView.swift */; };
+		FAF97A1C24DA588C0036D28B /* PlayerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF97A1B24DA588C0036D28B /* PlayerBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +80,7 @@
 		FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayer.swift; sourceTree = "<group>"; };
 		FA4DD10624CECCDF00C44D5E /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		FA5A312124D553E500CC7A91 /* RecomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomService.swift; sourceTree = "<group>"; };
-		FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayerView.swift; sourceTree = "<group>"; };
+		FA76EC1324C0249500BFE74B /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		FA91281324D410B8000691E7 /* SheetBigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBigView.swift; sourceTree = "<group>"; };
 		FA91281524D531B1000691E7 /* SheetBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBannerView.swift; sourceTree = "<group>"; };
 		FA9500B824975BD30078A8CB /* MySheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheets.swift; sourceTree = "<group>"; };
@@ -113,6 +114,7 @@
 		FAEE0068249362A100B271C9 /* SheetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetItem.swift; sourceTree = "<group>"; };
 		FAEE006A2493745400B271C9 /* SheetCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCover.swift; sourceTree = "<group>"; };
 		FAEE2CDD249879250082E1D5 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		FAF97A1B24DA588C0036D28B /* PlayerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +218,8 @@
 		FA76EC1224C0247200BFE74B /* PlayerView */ = {
 			isa = PBXGroup;
 			children = (
-				FA76EC1324C0249500BFE74B /* WhisperPlayerView.swift */,
+				FA76EC1324C0249500BFE74B /* PlayerView.swift */,
+				FAF97A1B24DA588C0036D28B /* PlayerBarView.swift */,
 			);
 			path = PlayerView;
 			sourceTree = "<group>";
@@ -552,12 +555,13 @@
 				FAA35BB4249B5C7A005C5B7E /* MainTabView.swift in Sources */,
 				FA9500BB24975F2F0078A8CB /* SheetBlockView.swift in Sources */,
 				FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */,
+				FAF97A1C24DA588C0036D28B /* PlayerBarView.swift in Sources */,
 				FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */,
 				FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */,
 				FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */,
 				FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
-				FA76EC1424C0249500BFE74B /* WhisperPlayerView.swift in Sources */,
+				FA76EC1424C0249500BFE74B /* PlayerView.swift in Sources */,
 				FA9500B924975BD30078A8CB /* MySheets.swift in Sources */,
 				FAD1D2FE249CBD59004D4C66 /* BlurView.swift in Sources */,
 				FA126F182493166100ED7FE6 /* PathService.swift in Sources */,

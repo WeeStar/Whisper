@@ -33,6 +33,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    var isForceLandscape:Bool = false
+    var isForcePortrait:Bool = false
+    var isForceAllDerictions:Bool = false //支持所有方向
+    
+    /// 设置屏幕支持的方向
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if isForceAllDerictions == true {
+            return .all
+        } else if isForceLandscape == true {
+            return .landscape
+        } else if isForcePortrait == true {
+            return .portrait
+        }
+        return .portrait
+    }
+    
     // MARK: UISceneSession Lifecycle
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

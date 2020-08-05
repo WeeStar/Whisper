@@ -9,35 +9,56 @@
 import SwiftUI
 import AVKit
 
-struct WhisperPlayerView: View {
+struct PlayerView: View {
+    //下拉相关
+    @Binding var showPlayerView:Bool
+    @State var playerOpacity:Double=0
+    @State var offset:CGFloat=0
+    
     @ObservedObject var player:WhisperPlayer
     
     // 进度相关
     var progressBarWidth=UIScreen.main.bounds.width*0.8
-    
-    
     // 拖动进度相关
     @State var isSeeking = false
     @State var seekProgress:CGFloat=0
     @State var seekCurTime=CMTimeMake(value: 0, timescale: 1)
     
-    init(){
-        self.player = WhisperPlayer.shareIns
-        self.player.reload()
-    }
     
     var body: some View {
         HStack(alignment: .center){
             Spacer()
             VStack(spacing:20){
                 
-                Spacer(minLength: 0)
-                // 封面
-                WebImageView(self.player.curMusic?.img_url ?? "")
-                    .frame(width:self.progressBarWidth,height:self.progressBarWidth)
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    .padding(.top,UIScreen.main.bounds.height*0.03)
+                Group{
+                    Spacer(minLength: 0)
+                    // 封面
+                    WebImageView(self.player.curMusic?.img_url ?? "")
+                        .frame(width:self.progressBarWidth,height:self.progressBarWidth)
+                        .cornerRadius(10)
+                        .shadow(radius: 10)
+                        .padding(.top,UIScreen.main.bounds.height*0.03)
+                }
+                .gesture(
+                    DragGesture()
+                        .onChanged({value in
+                            withAnimation{
+                                self.offset = value.translation.height
+                            }
+                        })
+                        .onEnded({value in
+                            var of:CGFloat = 0
+                            if value.predictedEndTranslation.height < UIScreen.main.bounds.height * 0.3{
+                                of=0
+                            }
+                            else{
+                                of = UIScreen.main.bounds.height
+                            }
+                            withAnimation{
+                                self.offset = of
+                            }
+                        })
+                )
                 
                 // 进度条
                 VStack{
@@ -115,10 +136,10 @@ struct WhisperPlayerView: View {
                         .foregroundColor(Color("textColorSub"))
                         .lineLimit(1)
                         .padding(.top,3)
+                    
+                    Spacer(minLength: 0)
                 }
                 .padding(.top,15)
-                
-                Spacer(minLength: 0)
                 
                 // 按钮
                 HStack(spacing:UIScreen.main.bounds.width/5-30){
@@ -177,6 +198,7 @@ struct WhisperPlayerView: View {
         }
         .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
+        .opacity(1-self.playerOpacity)
     }
     
     private func formatPlayTime(secounds:TimeInterval)->String{
@@ -186,11 +208,5 @@ struct WhisperPlayerView: View {
         let Min = Int(secounds / 60)
         let Sec = Int(Int(secounds) % 60)
         return String(format: "%d:%02d", Min, Sec)
-    }
-}
-
-struct WhisperPlayer_Previews: PreviewProvider {
-    static var previews: some View {
-        WhisperPlayerView()
     }
 }

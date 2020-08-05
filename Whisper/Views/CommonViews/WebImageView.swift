@@ -63,8 +63,7 @@ struct WebImageView: SwiftUI.View {
 enum ImageQulity:Int
 {
     case High=600
-    case Regular=300
+    case Regular=400
     case Mideum=200
     case Low=100
-    case Poor=50
 }

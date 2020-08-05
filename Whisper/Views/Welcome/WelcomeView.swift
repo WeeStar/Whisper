@@ -32,7 +32,8 @@ struct WelcomeView: View {
                 .aspectRatio(contentMode: ContentMode.fill)
                 .frame(height:UIScreen.main.bounds.height*1.1)
                 .blur(radius: focus ? 5 : 0)
-                .animation(.easeIn(duration: 1.5))
+                .animation(.easeIn(duration: 1.2))
+            
             HStack(alignment: .center){
                 Spacer()
                 VStack(alignment: .center,spacing:20){
@@ -55,7 +56,7 @@ struct WelcomeView: View {
                         .padding(.bottom,80)
                 }
                 .blur(radius: focus ? 0 : 5)
-                .animation(.easeIn(duration: 1.5))
+                .animation(.easeIn(duration: 1.2))
                 Spacer()
             }
         }.onAppear(perform: {
@@ -67,25 +68,25 @@ struct WelcomeView: View {
             //开启线程
             let thread = Thread.init {
                 //延时动画
-                Thread.sleep(forTimeInterval: 0.25)
+                Thread.sleep(forTimeInterval: 0.2)
                 self.focus.toggle()
                 
                 //延时打开主页
-                Thread.sleep(forTimeInterval: 3.0)
+                Thread.sleep(forTimeInterval: 1.7)
                 
                 //等待请求完毕
                 var times = 0
                 while !self.isReqestOver {
-                    Thread.sleep(forTimeInterval: 1.0)
+                    Thread.sleep(forTimeInterval: 0.5)
                     times += 1
-                    if(times == 3){
+                    if(times == 10){
                         print("无网络")
                         break
                     }
                 }
                 
                 //打开主页
-                if(times < 3){
+                if(times < 10){
                     DispatchQueue.main.async {
                         self.afterHandler?()
                     }

@@ -40,7 +40,7 @@ struct RecomView: View {
                         .padding(.leading,15)
                     }
                 }
-                .padding(.bottom,50)
+                .padding(.bottom,116)//让出底部tab和播放器空间
             }
             .navigationBarItems(leading: Text(self.nowDate).font(.subheadline).foregroundColor(Color("textColorSub")))
             .navigationBarTitle(Text("推荐歌单").foregroundColor(Color("textColorMain")))

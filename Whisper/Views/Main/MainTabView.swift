@@ -12,9 +12,10 @@ import UIKit
 
 struct MainTabView: View {
     @State var tabIdx=0
+    @State var showPlayerView = false
     var mySheets:[SheetModel]
     var recomView = RecomView()
-    var mySheet:MySheets
+    var mySheetView:MySheets
     var myView=MyView()
     
     init() {
@@ -59,23 +60,30 @@ struct MainTabView: View {
         mySheets.append(sheet1)
         mySheets.append(sheet1)
         
-        mySheet=MySheets(mySheets:self.mySheets)
+        self.mySheetView=MySheets(mySheets:self.mySheets)
     }
     
     var body: some View {
         ZStack{
             ZStack{
                 //推荐
-                recomView.zIndex(self.tabIdx==0 ? 10 : 0)
+                self.recomView.zIndex(self.tabIdx==0 ? 10 : 0)
                 
                 //我的
-                mySheet.zIndex(self.tabIdx==1 ? 10 : 0)
+                self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 0)
                 
                 //账号
-                myView.zIndex(self.tabIdx==2 ? 10 : 0)
+                self.myView.zIndex(self.tabIdx==2 ? 10 : 0)
             }
             //tabbar
-            TabBar(tabIdx: $tabIdx)
+            VStack(spacing:0){
+                Spacer()
+                PlayerBarView(showPlayerView: $showPlayerView, player: WhisperPlayer.shareIns)
+                TabBar(tabIdx: $tabIdx)
+            }
+            VStack(spacing:0){
+                PlayerView(showPlayerView: $showPlayerView, player: WhisperPlayer.shareIns)
+            }
         }
     }
 }
@@ -97,9 +105,8 @@ struct TabBar: View {
     
     var body: some View {
         VStack(spacing:0){
-            Spacer()
             Rectangle()
-                .foregroundColor(Color(.gray).opacity(0.5))
+                .foregroundColor(Color(.lightGray))
                 .frame(height:0.5)
             
             HStack(alignment: .bottom){
@@ -121,7 +128,10 @@ struct TabBar: View {
             }
             .frame(height:50)
             .background(BlurView(.systemMaterial))
-        }
+        }.onAppear(perform: {
+            //播放内核初始化并播放
+            WhisperPlayer.shareIns.reload()
+        })
     }
 }
 
