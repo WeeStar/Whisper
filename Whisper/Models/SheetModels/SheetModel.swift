@@ -24,10 +24,11 @@ class SheetModel:HandyJSON, Identifiable
     
     var play:String! = "0"
     
-    var sheet_source:String!
+    var sheet_source:MusicSource!
     
     /// 歌单封面
     var cover_img_url:String!
+    var ori_cover_img_url:String!
     
     /// 歌单来源url
     var source_url:String!
@@ -44,5 +45,21 @@ extension SheetModel: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(source_url)
+    }
+}
+
+
+extension RandomAccessCollection where Self.Element: Identifiable {
+    func isLastItem<Item: Identifiable>(_ item: Item) -> Bool {
+        guard !isEmpty else {
+            return false
+        }
+
+        guard let itemIndex = firstIndex(where: { $0.id.hashValue == item.id.hashValue }) else {
+            return false
+        }
+
+        let distance = self.distance(from: itemIndex, to: endIndex)
+        return distance == 1
     }
 }

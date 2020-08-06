@@ -10,10 +10,6 @@ import SwiftUI
 import AVKit
 
 struct PlayerView: View {
-    //下拉相关
-    @Binding var showPlayerView:Bool
-    @State var playerOpacity:Double=0
-    @State var offset:CGFloat=0
     
     @ObservedObject var player:WhisperPlayer
     
@@ -24,41 +20,27 @@ struct PlayerView: View {
     @State var seekProgress:CGFloat=0
     @State var seekCurTime=CMTimeMake(value: 0, timescale: 1)
     
+    init(){
+        self.player = WhisperPlayer.shareIns
+    }
     
     var body: some View {
         HStack(alignment: .center){
             Spacer()
-            VStack(spacing:20){
-                
+            VStack(spacing:0){
                 Group{
-                    Spacer(minLength: 0)
+                    
+                    Capsule()
+                        .foregroundColor(Color(.lightGray)).opacity(0.7)
+                        .frame(width: UIScreen.main.bounds.width*0.2, height: 5)
+                        .padding(.top,10)
                     // 封面
                     WebImageView(self.player.curMusic?.img_url ?? "")
                         .frame(width:self.progressBarWidth,height:self.progressBarWidth)
                         .cornerRadius(10)
-                        .shadow(radius: 10)
-                        .padding(.top,UIScreen.main.bounds.height*0.03)
+                        .shadow(radius: 5)
+                        .padding(.top,20)
                 }
-                .gesture(
-                    DragGesture()
-                        .onChanged({value in
-                            withAnimation{
-                                self.offset = value.translation.height
-                            }
-                        })
-                        .onEnded({value in
-                            var of:CGFloat = 0
-                            if value.predictedEndTranslation.height < UIScreen.main.bounds.height * 0.3{
-                                of=0
-                            }
-                            else{
-                                of = UIScreen.main.bounds.height
-                            }
-                            withAnimation{
-                                self.offset = of
-                            }
-                        })
-                )
                 
                 // 进度条
                 VStack{
@@ -109,20 +91,20 @@ struct PlayerView: View {
                     
                     // 时间文字
                     HStack{
-                        Text(self.formatPlayTime(secounds : self.isSeeking ? CMTimeGetSeconds(self.seekCurTime) : self.player.curTime))
+                        Text(Utility.playTimeFormat(secounds : self.isSeeking ? CMTimeGetSeconds(self.seekCurTime) : self.player.curTime))
                             .foregroundColor(Color("textColorSub"))
                             .font(.footnote)
                         
                         Spacer()
                         
-                        Text(self.formatPlayTime(secounds : self.player.duration))
+                        Text(Utility.playTimeFormat(secounds : self.player.duration))
                             .foregroundColor(Color("textColorSub"))
                             .font(.footnote)
                     }
                     .frame(width:UIScreen.main.bounds.width*0.8)
                     .padding(.top,1)
                 }
-                .padding(.top,3)
+                .padding(.top,15)
                 
                 VStack{
                     // 标题
@@ -139,10 +121,10 @@ struct PlayerView: View {
                     
                     Spacer(minLength: 0)
                 }
-                .padding(.top,15)
+                .padding(.top,12)
                 
                 // 按钮
-                HStack(spacing:UIScreen.main.bounds.width/5-30){
+                HStack(spacing:UIScreen.main.bounds.width/5-35){
                     // 循环方式
                     Button(action: {
                         self.player.changeRoundMode()
@@ -152,7 +134,8 @@ struct PlayerView: View {
                             "repeat" :
                             self.player.roundMode == RoundModeEnum.RandomRound ?
                                 "shuffle" : "repeat.1").imageScale(.large)
-                    }.frame(width:20)
+                        .frame(width: 25, height: 25)
+                    }
                     
                     // 上一首
                     Button(action: {
@@ -160,6 +143,7 @@ struct PlayerView: View {
                     })
                     {
                         Image(systemName: "backward.end.fill").imageScale(.large)
+                        .frame(width: 25, height: 25)
                     }
                     
                     // 播放暂停
@@ -173,7 +157,8 @@ struct PlayerView: View {
                     })
                     {
                         Image(systemName:self.player.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 40))
-                    }.frame(width:42)
+                        .frame(width: 45, height: 45)
+                    }
                     
                     // 下一首
                     Button(action: {
@@ -181,32 +166,29 @@ struct PlayerView: View {
                     })
                     {
                         Image(systemName: "forward.end.fill").imageScale(.large)
+                        .frame(width: 25, height: 25)
                     }
                     
                     // 展示播放列表
                     Button(action: {})
                     {
                         Image(systemName: "list.dash").imageScale(.large)
+                        .frame(width: 25, height: 25)
                     }
                 }
+                .padding(.top,15)
+                .padding(.bottom,35)
                 .foregroundColor(Color("textColorMain"))
-                //                .padding(.top,UIScreen.main.bounds.height*0.15)
-                
-                Spacer(minLength: 0)
             }
             Spacer()
         }
         .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
-        .opacity(1-self.playerOpacity)
     }
-    
-    private func formatPlayTime(secounds:TimeInterval)->String{
-        if secounds.isNaN{
-            return "0:00"
-        }
-        let Min = Int(secounds / 60)
-        let Sec = Int(Int(secounds) % 60)
-        return String(format: "%d:%02d", Min, Sec)
+}
+
+struct PlayerView_Previews: PreviewProvider {
+    static var previews: some View {
+       PlayerView()
     }
 }

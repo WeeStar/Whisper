@@ -11,6 +11,7 @@ import Foundation
 
 /// 推荐歌单服务
 class RecomService{
+    static let pageSize: Int = 20
     static var recomSheets=[RecomModel]()//推荐歌单集合
     static var bannerSheets=[SheetModel]()
     
@@ -67,7 +68,8 @@ class RecomService{
                                 var datas = [SheetModel]()
                                 for recom in self.recomSheets{
                                     if(recom.sheets.count > 0){
-                                        datas.append(recom.sheets.first!)
+                                        let randomIdx = arc4random() % UInt32(recom.sheets.count)
+                                        datas.append(recom.sheets[Int(randomIdx)])
                                     }
                                 }
                                 self.bannerSheets=datas

@@ -1,6 +1,6 @@
 //
-//  SheetItem.swift
-//  歌单单项
+//  MusicItem.swift
+//  歌曲单项
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/12.
@@ -10,7 +10,7 @@
 import SwiftUI
 
 /// 歌单单项
-struct SheetItem: View {
+struct MusicItem: View {
     
     /// 初始化
     /// - Parameter music: 音乐信息
@@ -68,8 +68,8 @@ struct SheetItem_Previews: PreviewProvider {
         music.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
         
         return Group {
-            SheetItem(music:music,musicIdx: 1)
-            SheetItem(music:music,musicIdx: 2033)
+            MusicItem(music:music,musicIdx: 1)
+            MusicItem(music:music,musicIdx: 2033)
         }
         .previewLayout(.fixed(width: 300, height: 70))
     }

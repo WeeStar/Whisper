@@ -10,6 +10,15 @@
 import Foundation
 
 class Utility{
+    static func playTimeFormat(secounds:TimeInterval)->String{
+        if secounds.isNaN{
+            return "0:00"
+        }
+        let Min = Int(secounds / 60)
+        let Sec = Int(Int(secounds) % 60)
+        return String(format: "%d:%02d", Min, Sec)
+    }
+    
     static func playNumsFormat(play:String) -> String{
         if let playNum = Int(play){
             if playNum/10000 > 0{
@@ -57,5 +66,24 @@ class Utility{
             break
         }
         return "\(month)月\(day)日 \(weekdayStr)"
+    }
+    
+    static func musicSourceFormat(source:MusicSource) -> String{
+        switch source{
+        case .Netease:
+            return "网易云音乐"
+        case .Tencent:
+            return "QQ音乐"
+        case .Bilibili:
+            return "Bilibili音乐"
+        case .Xiami:
+            return "虾米音乐"
+        case .Migu:
+            return "咪咕音乐"
+        case .Kugou:
+            return "酷狗音乐"
+        default:
+            return "未知"
+        }
     }
 }

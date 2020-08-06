@@ -15,12 +15,8 @@ struct PlayerBarView: View {
     
     var body: some View {
         VStack(spacing:0){
-            Rectangle()
-                .foregroundColor(Color(.lightGray))
-                .frame(height:0.5)
-            
             HStack(alignment: .center,spacing:0){
-                HStack(alignment: .center, spacing: 0)
+                HStack
                 {
                     WebImageView(self.player.curMusic?.img_url ?? "",qulity: ImageQulity.Mideum)
                         .frame(width:50,height:50)
@@ -46,8 +42,9 @@ struct PlayerBarView: View {
                     
                     Spacer()
                 }
+                .background(Color(.white).opacity(0.001))
                 .onTapGesture {
-                    
+                    self.showPlayerView=true
                 }
                 
                 // 播放暂停

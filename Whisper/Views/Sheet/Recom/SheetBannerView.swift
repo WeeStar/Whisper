@@ -16,6 +16,7 @@ struct SheetBannerView: View {
     @State private var isDraging = false
     @State private var index:Int = 0
     @State private var offset:CGFloat = 0
+    @State private var hasTimer=false
     
     init(pageDatas:[SheetModel],tapCallBack:((Int) -> Void)?) {
         if(pageDatas.count>0){
@@ -33,7 +34,7 @@ struct SheetBannerView: View {
         GeometryReader{ gemo in
             HStack(spacing:0){
                 ForEach(self.pageDatas){ pageData in
-                    SheetBigView(sheetTitle: pageData.title ?? "",play:pageData.play, coverImgUrl: pageData.cover_img_url ?? "")
+                    SheetBigView(sheet: pageData)
                         .padding(.leading, UIScreen.main.bounds.width*0.1)
                         .padding(.trailing, UIScreen.main.bounds.width*0.1)
                         .gesture(TapGesture().onEnded{
@@ -73,6 +74,12 @@ struct SheetBannerView: View {
         }
         .frame(height:UIScreen.main.bounds.width*0.8)
         .onAppear(perform: {
+            //防止重复设置定时器
+            if(self.hasTimer){
+                return
+            }
+            self.hasTimer = true
+            
             Timer.scheduledTimer(withTimeInterval: 8, repeats: true){(_) in
                 if(self.isDraging)
                 {

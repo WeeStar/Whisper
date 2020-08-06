@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.becomeFirstResponder()
         }
         
+        UINavigationBar.appearance().tintColor = UIColor(named: "ThemeColorMain")
+        
         return true
     }
     

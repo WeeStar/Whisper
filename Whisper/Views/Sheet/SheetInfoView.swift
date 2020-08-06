@@ -45,7 +45,7 @@ struct SheetInfoView: View {
                     
                     //列表信息
                     ForEach(0..<self.sheetInfo.tracks.count,id:\.self) {i in
-                        SheetItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
+                        MusicItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
                     }
                     
                     Spacer()

@@ -14,9 +14,12 @@ struct MainTabView: View {
     @State var tabIdx=0
     @State var showPlayerView = false
     var mySheets:[SheetModel]
+    
+    //页面初始化
     var recomView = RecomView()
     var mySheetView:MySheets
     var myView=MyView()
+    var playerView = PlayerView()
     
     init() {
         self.mySheets=[SheetModel]()
@@ -78,12 +81,21 @@ struct MainTabView: View {
             //tabbar
             VStack(spacing:0){
                 Spacer()
-                PlayerBarView(showPlayerView: $showPlayerView, player: WhisperPlayer.shareIns)
+                Divider()
+                    .foregroundColor(Color("textColorSub"))
+                    .background(Color("textColorSub"))
+                
+                PlayerBarView(showPlayerView: self.$showPlayerView, player: WhisperPlayer.shareIns)
+                
+                Divider()
+                    .foregroundColor(Color("textColorSub"))
+                    .background(Color("textColorSub"))
+                
                 TabBar(tabIdx: $tabIdx)
             }
-            VStack(spacing:0){
-                PlayerView(showPlayerView: $showPlayerView, player: WhisperPlayer.shareIns)
-            }
+        }
+        .sheet(isPresented: self.$showPlayerView){
+            self.playerView
         }
     }
 }
@@ -105,10 +117,6 @@ struct TabBar: View {
     
     var body: some View {
         VStack(spacing:0){
-            Rectangle()
-                .foregroundColor(Color(.lightGray))
-                .frame(height:0.5)
-            
             HStack(alignment: .bottom){
                 
                 //推荐
