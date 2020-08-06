@@ -16,32 +16,32 @@ struct SheetListView: View {
     @State private var page: Int = 2
     
     var body: some View {
-                List(items) { item in
-                    VStack {
-                        // 推荐歌单条
-                        SheetRecomView(sheet:item, widthScale: 0.95)
-        
-                        if(self.items.isLastItem(item)){
-                            Divider()
-                            if !self.hasMore{
-                                Text("/有时候有时候/我会相信一切有尽头/")
-                                    .foregroundColor(Color("textColorSub"))
-                                    .font(.footnote)
-                                    .padding(.vertical)
-                            }
-                            else if self.isLoading {
-                                Text("/我为什么/还在等待/")
-                                    .foregroundColor(Color("textColorSub"))
-                                    .font(.footnote)
-                                    .padding(.vertical)
-                            }
-                        }
-                    }.onAppear {
+        List{
+            ForEach(self.items, id: \.self) { item in
+                // 推荐歌单条
+                SheetRecomView(sheet:item, widthScale: 0.95)
+                    .onAppear {
                         self.loadMoreDatas(item)
-                    }
                 }
-                .padding(.bottom,116)//让出底部tab和播放器空间
-                .navigationBarTitle(Utility.musicSourceFormat(source: self.source))
+            }
+            VStack{
+                Divider()
+                if !self.hasMore{
+                    Text("/有时候有时候/我会相信一切有尽头/")
+                        .foregroundColor(Color("textColorSub"))
+                        .font(.footnote)
+                        .padding(.vertical)
+                }
+                else if self.isLoading {
+                    Text("/我为什么/还在等待/")
+                        .foregroundColor(Color("textColorSub"))
+                        .font(.footnote)
+                        .padding(.vertical)
+                }
+            }
+        }
+            .padding(.bottom,116)//让出底部tab和播放器空间
+            .navigationBarTitle(Utility.musicSourceFormat(source: self.source))
     }
 }
 
@@ -49,7 +49,7 @@ extension SheetListView {
     /// 向后加载数据
     private func loadMoreDatas<Item: Identifiable>(_ item: Item) {
         //无更多 或 非最后一条 跳出
-        if !self.hasMore || !items.isLastItem(item)
+        if !self.hasMore || !self.items.isThresholdItem(offset: 5, item: item)
         {
             return
         }
@@ -91,9 +91,3 @@ extension SheetListView {
         })
     }
 }
-
-//struct SheetListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SheetListView()
-//    }
-//}
