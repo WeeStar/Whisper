@@ -13,6 +13,7 @@ import UIKit
 struct MainTabView: View {
     @State var tabIdx=0
     @State var showPlayerView = false
+    @Environment(\.localStatusBarStyle) var statusBarStyle
     var mySheets:[SheetModel]
     
     //页面初始化
@@ -96,6 +97,9 @@ struct MainTabView: View {
         }
         .sheet(isPresented: self.$showPlayerView){
             self.playerView
+        }
+        .onAppear{
+            self.statusBarStyle.currentStyle = .default
         }
     }
 }
@@ -185,6 +189,53 @@ struct TabBarItem:View {
             .background(Color(.white).opacity(0.001))
         }
         .buttonStyle(PlainButtonStyle())
+    }
+}
+
+
+class LocalStatusBarStyle{
+    fileprivate var getter:() -> UIStatusBarStyle = {.default}
+    fileprivate var setter:(UIStatusBarStyle) -> Void = {_ in}
+    
+    var currentStyle:UIStatusBarStyle{
+        get{self.getter()}
+        set{self.setter(newValue)}
+    }
+}
+
+struct LocalStatusBarStyleKey: EnvironmentKey {
+    static let defaultValue:LocalStatusBarStyle = LocalStatusBarStyle()
+}
+
+extension EnvironmentValues{
+    var localStatusBarStyle:LocalStatusBarStyle{
+        get{
+            return self[LocalStatusBarStyleKey.self]
+        }
+    }
+}
+
+
+class MyHostingController <Content> : UIHostingController<Content> where Content: View {
+    private var internalStyle = UIStatusBarStyle.default
+    
+    @objc override dynamic open var preferredStatusBarStyle: UIStatusBarStyle {
+        get {
+            internalStyle
+        }
+        set {
+            internalStyle = newValue
+            self . setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    override init(rootView: Content) {
+        super.init( rootView: rootView)
+        LocalStatusBarStyleKey.defaultValue.getter = {self.preferredStatusBarStyle}
+        LocalStatusBarStyleKey.defaultValue.setter = {self.preferredStatusBarStyle = $0}
+    }
+    
+    @objc required dynamic init?( coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
 
