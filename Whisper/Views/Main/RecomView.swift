@@ -23,8 +23,7 @@ struct RecomView: View {
                     SheetBannerView(bannerDatas: RecomService.bannerSheets, tapCallBack: { index in
                         print(index)
                     })
-                        .padding(.top)
-                        .padding(.bottom)
+                        .padding(.vertical)
                         .listRowInsets(EdgeInsets())
                     
                     ForEach(RecomService.recomSheets, id: \.self) { dicItem in

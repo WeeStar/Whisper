@@ -37,23 +37,27 @@ struct WelcomeView: View {
             HStack(alignment: .center){
                 Spacer()
                 VStack(alignment: .center,spacing:20){
-                    
+                    Spacer()
+                    Spacer()
                     //logo图
                     Image("white")
                         .resizable()
                         .frame(width: 100,height: 100)
-                        .padding(.top,UIScreen.main.bounds.height*0.2)
                     
                     Text("音乐无界  万象森罗")
                         .foregroundColor(.white)
                         .font(.headline)
                     
                     Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
                     
                     Text("Developed by WeeStar")
                         .foregroundColor(.white)
                         .font(.system(size: 10))
-                        .padding(.bottom,80)
+                    
+                    Spacer()
                 }
                 .blur(radius: focus ? 0 : 5)
                 .animation(.easeIn(duration: 1.2))

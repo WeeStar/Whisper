@@ -23,7 +23,7 @@ struct SheetInfoView: View {
             VStack{
                 //封面
                 SheetCover(sheetTitle: sheetInfo.title, tracksCount: sheetInfo.tracks.count, coverImgUrl: sheetInfo.cover_img_url)
-                    .frame(height: 300)
+                    .frame(height: UIScreen.main.bounds.width)
                 
                 VStack(alignment: .leading){
                     //播放全部
@@ -50,12 +50,16 @@ struct SheetInfoView: View {
                     
                     Spacer()
                 }
-                .frame(maxWidth:.infinity, minHeight: 500, alignment: .leading)
-                .background(Color("bgColorMain"))
+                .padding(.bottom,50)
                 .cornerRadius(20)
+                .frame(maxWidth:.infinity, minHeight: 500, alignment: .leading)
                 .offset(y:-50)
+                .background(Color("bgColorMain"))
             }
         }
+        .background(Color("bgColorMain"))
+        .edgesIgnoringSafeArea(.all)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

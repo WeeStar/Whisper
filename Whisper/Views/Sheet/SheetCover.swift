@@ -26,32 +26,29 @@ struct SheetCover: View {
         self.sheetTitle = sheetTitle
         self.tracksCount = tracksCount
         self.coverImgUrl=coverImgUrl
-        coverImg=WebImageView(self.coverImgUrl,errorImgName: String(arc4random() % 20 + 1))
+        self.coverImg=WebImageView(self.coverImgUrl,errorImgName: String(arc4random() % 20 + 1))
     }
     
     var body: some View {
         ZStack(alignment:.leading){
             //背景图
-            coverImg
-                .padding(-15)
+            self.coverImg
                 .blur(radius: 15)
-                .frame(minWidth: 0,  maxWidth: .infinity)
             
             //歌单描述
             HStack{
                 //歌单封面logo
-                coverImg
+                self.coverImg
                     .cornerRadius(10)
                     .frame(width:110,height: 110).padding()
                 
                 
                 //歌单标题
                 VStack(alignment:.leading,spacing: 10){
-                    
                     //标题
                     Text(sheetTitle)
                         .foregroundColor(Color("textColorOnImg"))
-                        .font(.title)
+                        .font(.headline)
                         .lineLimit(2)
                     
                     //容量

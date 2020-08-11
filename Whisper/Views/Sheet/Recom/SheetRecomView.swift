@@ -13,43 +13,50 @@ struct SheetRecomView: View {
     var sheet:SheetModel
     var widthScale:CGFloat
     
+    @State private var isNaviLinkActive=false
+    
     var body: some View {
-        NavigationLink(destination:AnyView(SheetInfoView(sheet: self.sheet))){
-            AnyView(
-                HStack(){
-                    //歌单封面logo
-                    WebImageView(self.sheet.cover_img_url,renderingMode: .original,qulity:ImageQulity.Low)
-                        .cornerRadius(10)
-                        .frame(width:60,height: 60)
-                        .overlay(
-                            //边框
-                            RoundedRectangle(cornerRadius: 10, style: .circular)
-                                .stroke(Color("textColorSub"), lineWidth: 0.3)
+        ZStack{
+            NavigationLink(destination:SheetInfoView(sheet: self.sheet),isActive:self.$isNaviLinkActive){
+                EmptyView()
+            }
+            
+            HStack(){
+                //歌单封面logo
+                WebImageView(self.sheet.cover_img_url,renderingMode: .original,qulity:ImageQulity.Low)
+                    .cornerRadius(10)
+                    .frame(width:60,height: 60)
+                    .overlay(
+                        //边框
+                        RoundedRectangle(cornerRadius: 10, style: .circular)
+                            .stroke(Color("textColorSub"), lineWidth: 0.3)
                     )
-                    
-                    VStack(alignment: .leading, spacing: 5){
-                        //歌单标题
-                        Text(self.sheet.title)
-                            .foregroundColor(Color("textColorMain"))
+                
+                VStack(alignment: .leading, spacing: 5){
+                    //歌单标题
+                    Text(self.sheet.title)
+                        .foregroundColor(Color("textColorMain"))
+                        .lineLimit(1)
+                    HStack(spacing:5){
+                        Image(systemName:"play")
+                            .resizable()
+                            .foregroundColor(Color("textColorSub"))
+                            .padding(.leading,2)
+                            .frame(width:14,height: 14)
+                        Text(Utility.playNumsFormat(play: self.sheet.play) + " 次播放")
+                            .foregroundColor(Color("textColorSub"))
                             .lineLimit(1)
-                        HStack(spacing:5){
-                            Image(systemName:"play")
-                                .resizable()
-                                .foregroundColor(Color("textColorSub"))
-                                .padding(.leading,2)
-                                .frame(width:14,height: 14)
-                            Text(Utility.playNumsFormat(play: self.sheet.play) + " 次播放")
-                                .foregroundColor(Color("textColorSub"))
-                                .lineLimit(1)
-                                .font(.subheadline)
-                        }
-                        
+                            .font(.subheadline)
                     }
-                    Spacer()
+                    
                 }
-                .foregroundColor(Color(.white).opacity(0))
-                .frame(width:UIScreen.main.bounds.width*self.widthScale))
+                Spacer()
+            }
+            .onTapGesture{
+                self.isNaviLinkActive.toggle()
+            }
         }
+        .frame(width:UIScreen.main.bounds.width*self.widthScale)
     }
 }
 

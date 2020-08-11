@@ -14,66 +14,74 @@ struct SheetBigView: View {
     //歌单相关信息
     var sheet:SheetModel
     
+    @State private var isNaviLinkActive=false
+    
     var body: some View {
-        
-        ZStack(alignment: .top){
-            //歌单封面logo
-            WebImageView(self.sheet.ori_cover_img_url,renderingMode: .original,qulity:ImageQulity.Regular)
-                .scaledToFit()
+        ZStack{
+            NavigationLink(destination:SheetInfoView(sheet: sheet),isActive:self.$isNaviLinkActive){
+                EmptyView()
+            }
             
-            VStack(alignment: .leading, spacing: 10){
-                HStack{
-                    Spacer()
-                    Image(systemName:"play")
-                        .resizable()
-                        .foregroundColor(Color("textColorOnImg"))
-                        .padding(.leading,2)
-                        .frame(width:14,height: 14)
-                    
-                    Text(Utility.playNumsFormat(play: self.sheet.play) + " 次播放")
-                        .foregroundColor(Color("textColorOnImg"))
-                        .lineLimit(1)
-                        .font(.system(size: 14, weight:.medium))
-                }
-                .padding(.top,10)
-                .padding(.trailing,10)
+            ZStack(alignment: .top){
+                //歌单封面logo
+                WebImageView(self.sheet.ori_cover_img_url,renderingMode: .original,qulity:ImageQulity.Regular)
+                    .scaledToFit()
                 
-                Spacer()
-                HStack(){
-                    VStack(alignment: .leading,spacing: 0){
-                        HStack(spacing:3){
-                            //来源种类
-                            Image(self.sheet.sheet_source!.rawValue).renderingMode(.original)
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            
-                            Text(Utility.musicSourceFormat(source: self.sheet.sheet_source))
-                                .font(.footnote)
-                                .foregroundColor(Color("textColorOnImg"))
-                        }
-                        .padding(.leading,15)
-                        .padding(.vertical,4)
-                        
-                        //下方歌单标题
-                        Text(self.sheet.title != "" ? self.sheet.title : "暂无歌单信息")
-                            .lineLimit(2)
+                VStack(alignment: .leading, spacing: 10){
+                    HStack{
+                        Spacer()
+                        Image(systemName:"play")
+                            .resizable()
                             .foregroundColor(Color("textColorOnImg"))
-                            .font(.system(size: 16, weight: .heavy))
-                            .padding(.horizontal,15)
-                            .padding(.bottom,10)
+                            .padding(.leading,2)
+                            .frame(width:14,height: 14)
                         
+                        Text(Utility.playNumsFormat(play: self.sheet.play) + " 次播放")
+                            .foregroundColor(Color("textColorOnImg"))
+                            .lineLimit(1)
+                            .font(.system(size: 14, weight:.medium))
+                    }
+                    .padding(.top,10)
+                    .padding(.trailing,10)
+                    
+                    Spacer()
+                    HStack(){
+                        VStack(alignment: .leading,spacing: 0){
+                            HStack(spacing:3){
+                                //来源种类
+                                Image(self.sheet.sheet_source!.rawValue).renderingMode(.original)
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                
+                                Text(Utility.musicSourceFormat(source: self.sheet.sheet_source))
+                                    .font(.footnote)
+                                    .foregroundColor(Color("textColorOnImg"))
+                            }
+                            .padding(.leading,15)
+                            .padding(.vertical,4)
+                            
+                            //下方歌单标题
+                            Text(self.sheet.title != "" ? self.sheet.title : "暂无歌单信息")
+                                .lineLimit(2)
+                                .foregroundColor(Color("textColorOnImg"))
+                                .font(.system(size: 16, weight: .heavy))
+                                .padding(.horizontal,15)
+                                .padding(.bottom,10)
+                            
+                            Spacer(minLength: 0)
+                        }
                         Spacer(minLength: 0)
                     }
-                    Spacer(minLength: 0)
+                    .frame(height:75)
+                    .background(BlurView(.systemUltraThinMaterial))
                 }
-                .frame(width:UIScreen.main.bounds.width*0.8,height:75)
-                .background(BlurView(.systemUltraThinMaterial))
             }
-            .frame(width:UIScreen.main.bounds.width*0.8)
+            .onTapGesture{
+                self.isNaviLinkActive.toggle()
+            }
         }
-        .frame(width:UIScreen.main.bounds.width*0.8,
-               height: UIScreen.main.bounds.width*0.8)
-            .cornerRadius(10)
+        .frame(width:UIScreen.main.bounds.width*0.8,height: UIScreen.main.bounds.width*0.8)
+        .cornerRadius(10)
     }
 }
 

@@ -15,7 +15,6 @@ struct MyView: View {
     var body: some View {
         ZStack{
             VStack{
-
                 Spacer()
                 Rectangle().background(Color.blue).frame(height:200)
             }
