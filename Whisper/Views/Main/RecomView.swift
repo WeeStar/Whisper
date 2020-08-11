@@ -20,7 +20,7 @@ struct RecomView: View {
                         .foregroundColor(Color("textColorSub").opacity(0.5))
                         .padding(.leading,15)
                     
-                    SheetBannerView(pageDatas: RecomService.bannerSheets, tapCallBack: { index in
+                    SheetBannerView(bannerDatas: RecomService.bannerSheets, tapCallBack: { index in
                         print(index)
                     })
                         .padding(.top)
@@ -81,7 +81,8 @@ struct RecomChildView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: SheetListView(source: self.source, items: self.sheets, hasMore: self.sheets.count >= RecomService.pageSize)){
+                NavigationLink(destination: SheetListView(source: self.source, items: self.sheets, hasMore: self.sheets.count >= RecomService.pageSize))
+                {
                     Text("查看更多").font(.subheadline)
                         .foregroundColor(Color("ThemeColorMain"))
                         .padding(.trailing)

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SheetBannerView: View {
     // banner 数据
-    let pageDatas:[SheetModel]
+    let bannerDatas:[SheetModel]
     let tapCallBack:((Int) -> Void)?
     
     @State private var isDraging = false
@@ -18,14 +18,14 @@ struct SheetBannerView: View {
     @State private var offset:CGFloat = 0
     @State private var hasTimer=false
     
-    init(pageDatas:[SheetModel],tapCallBack:((Int) -> Void)?) {
-        if(pageDatas.count>0){
-            self.pageDatas = pageDatas
+    init(bannerDatas:[SheetModel],tapCallBack:((Int) -> Void)?) {
+        if(bannerDatas.count>0){
+            self.bannerDatas = bannerDatas
             self.tapCallBack = tapCallBack
         }
         else{
             let emptySheet = SheetModel()
-            self.pageDatas = [emptySheet]
+            self.bannerDatas = [emptySheet]
             self.tapCallBack = nil
         }
     }
@@ -33,7 +33,7 @@ struct SheetBannerView: View {
     var body: some View {
         GeometryReader{ gemo in
             HStack(spacing:0){
-                ForEach(self.pageDatas){ pageData in
+                ForEach(self.bannerDatas){ pageData in
                     SheetBigView(sheet: pageData)
                         .padding(.leading, UIScreen.main.bounds.width*0.1)
                         .padding(.trailing, UIScreen.main.bounds.width*0.1)
@@ -56,7 +56,7 @@ struct SheetBannerView: View {
                         }
                     })
                     .onEnded({value in
-                        if value.predictedEndTranslation.width < gemo.size.width/2 , self.index < self.pageDatas.count-1{
+                        if value.predictedEndTranslation.width < gemo.size.width/2 , self.index < self.bannerDatas.count-1{
                             self.index += 1
                         }
                         else if value.predictedEndTranslation.width > gemo.size.width/2 , self.index > 0{
@@ -86,7 +86,7 @@ struct SheetBannerView: View {
                     return
                 }
                 
-                if(self.index < self.pageDatas.count-1){
+                if(self.index < self.bannerDatas.count-1){
                     self.index += 1
                 }
                 else{

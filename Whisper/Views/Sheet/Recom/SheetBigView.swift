@@ -15,6 +15,7 @@ struct SheetBigView: View {
     var sheet:SheetModel
     
     var body: some View {
+        
         ZStack(alignment: .top){
             //歌单封面logo
             WebImageView(self.sheet.ori_cover_img_url,renderingMode: .original,qulity:ImageQulity.Regular)
@@ -42,7 +43,9 @@ struct SheetBigView: View {
                     VStack(alignment: .leading,spacing: 0){
                         HStack(spacing:3){
                             //来源种类
-                            Image(self.sheet.sheet_source!.rawValue).resizable().frame(width: 15, height: 15)
+                            Image(self.sheet.sheet_source!.rawValue).renderingMode(.original)
+                                .resizable()
+                                .frame(width: 15, height: 15)
                             
                             Text(Utility.musicSourceFormat(source: self.sheet.sheet_source))
                                 .font(.footnote)

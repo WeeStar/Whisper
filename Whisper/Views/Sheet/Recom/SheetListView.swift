@@ -25,7 +25,6 @@ struct SheetListView: View {
                 }
             }
             VStack{
-                Divider()
                 if !self.hasMore{
                     Text("/有时候有时候/我会相信一切有尽头/")
                         .foregroundColor(Color("textColorSub"))

@@ -14,38 +14,42 @@ struct SheetRecomView: View {
     var widthScale:CGFloat
     
     var body: some View {
-        HStack(){
-            //歌单封面logo
-            WebImageView(self.sheet.cover_img_url,renderingMode: .original,qulity:ImageQulity.Low)
-                .cornerRadius(10)
-                .frame(width:60,height: 60)
-                .overlay(
-                    //边框
-                    RoundedRectangle(cornerRadius: 10, style: .circular)
-                        .stroke(Color("textColorSub"), lineWidth: 0.3)
-            )
-            
-            VStack(alignment: .leading, spacing: 5){
-                //歌单标题
-                Text(self.sheet.title)
-                    .foregroundColor(Color("textColorMain"))
-                    .lineLimit(1)
-                HStack(spacing:5){
-                    Image(systemName:"play")
-                        .resizable()
-                        .foregroundColor(Color("textColorSub"))
-                        .padding(.leading,2)
-                    .frame(width:14,height: 14)
-                    Text(Utility.playNumsFormat(play: self.sheet.play) + " 次播放")
-                    .foregroundColor(Color("textColorSub"))
-                    .lineLimit(1)
-                    .font(.subheadline)
+        NavigationLink(destination:AnyView(SheetInfoView(sheet: self.sheet))){
+            AnyView(
+                HStack(){
+                    //歌单封面logo
+                    WebImageView(self.sheet.cover_img_url,renderingMode: .original,qulity:ImageQulity.Low)
+                        .cornerRadius(10)
+                        .frame(width:60,height: 60)
+                        .overlay(
+                            //边框
+                            RoundedRectangle(cornerRadius: 10, style: .circular)
+                                .stroke(Color("textColorSub"), lineWidth: 0.3)
+                    )
+                    
+                    VStack(alignment: .leading, spacing: 5){
+                        //歌单标题
+                        Text(self.sheet.title)
+                            .foregroundColor(Color("textColorMain"))
+                            .lineLimit(1)
+                        HStack(spacing:5){
+                            Image(systemName:"play")
+                                .resizable()
+                                .foregroundColor(Color("textColorSub"))
+                                .padding(.leading,2)
+                                .frame(width:14,height: 14)
+                            Text(Utility.playNumsFormat(play: self.sheet.play) + " 次播放")
+                                .foregroundColor(Color("textColorSub"))
+                                .lineLimit(1)
+                                .font(.subheadline)
+                        }
+                        
+                    }
+                    Spacer()
                 }
-                
-            }
-            Spacer()
+                .foregroundColor(Color(.white).opacity(0))
+                .frame(width:UIScreen.main.bounds.width*self.widthScale))
         }
-        .frame(width:UIScreen.main.bounds.width*self.widthScale)
     }
 }
 
