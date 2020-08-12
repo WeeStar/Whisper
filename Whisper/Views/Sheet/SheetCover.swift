@@ -13,6 +13,7 @@ import SwiftUI
 struct SheetCover: View {
     //封面相关信息
     private var sheetTitle:String
+    private var sheetDesc:String?
     private var tracksCount:Int
     private var coverImgUrl:String
     private var coverImg:WebImageView
@@ -22,8 +23,9 @@ struct SheetCover: View {
     ///   - sheetTitle: 歌单标题
     ///   - tracksCount: 歌单歌曲数量
     ///   - coverImgUrl: 歌单封面图片Url
-    init(sheetTitle:String,tracksCount:Int,coverImgUrl:String) {
+    init(sheetTitle:String,sheetDesc:String?,tracksCount:Int,coverImgUrl:String) {
         self.sheetTitle = sheetTitle
+        self.sheetDesc = sheetDesc
         self.tracksCount = tracksCount
         self.coverImgUrl=coverImgUrl
         self.coverImg=WebImageView(self.coverImgUrl,errorImgName: String(arc4random() % 20 + 1))
@@ -33,31 +35,52 @@ struct SheetCover: View {
         ZStack(alignment:.leading){
             //背景图
             self.coverImg
-                .blur(radius: 15)
+                .aspectRatio(contentMode: ContentMode.fill)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
             
             //歌单描述
-            HStack{
-                //歌单封面logo
-                self.coverImg
-                    .cornerRadius(10)
-                    .frame(width:110,height: 110).padding()
-                
-                
-                //歌单标题
-                VStack(alignment:.leading,spacing: 10){
-                    //标题
-                    Text(sheetTitle)
-                        .foregroundColor(Color("textColorOnImg"))
-                        .font(.headline)
-                        .lineLimit(2)
+            VStack(spacing:0){
+                HStack{
+                    //歌单封面logo
+                    self.coverImg
+                        .cornerRadius(10)
+                        .frame(width:110,height: 110).padding()
                     
-                    //容量
-                    Text(String(tracksCount)+"首音乐")
-                        .foregroundColor(Color("textColorOnImg"))
-                        .font(.subheadline)
-                        .lineLimit(1)
+                    
+                    //歌单标题
+                    VStack(alignment:.leading,spacing: 10){
+                        //标题
+                        Text(sheetTitle)
+                            .foregroundColor(Color("textColorOnImg"))
+                            .font(.headline)
+                            .lineLimit(2)
+                        
+                        //容量
+                        Text(String(tracksCount)+"首音乐")
+                            .foregroundColor(Color("textColorOnImg"))
+                            .font(.subheadline)
+                            .lineLimit(1)
+                    }
+                    .frame(height: 90)
+
+                    Spacer()
                 }
+                .padding(.top,UIScreen.main.bounds.width * 0.3)
+                .frame(width: UIScreen.main.bounds.width)
+                
+                HStack{
+                    Text("歌单简介：" + (self.sheetDesc ?? "暂无简介"))
+                    .lineLimit(3)
+                    .font(.footnote)
+                    .foregroundColor(Color("textColorOnImg"))
+                    .padding(.horizontal)
+                    
+                    Spacer()
+                }
+                Spacer(minLength: 0)
             }
+            .background(BlurView(.systemUltraThinMaterial))
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         }
     }
 }
@@ -91,6 +114,6 @@ struct SheetCover_Previews: PreviewProvider {
         sheet.tracks.append(music1)
         sheet.tracks.append(music2)
         
-        return  SheetCover(sheetTitle:"歌单名称歌单名称歌单名称歌单名称歌单名称歌单名称歌单名称",tracksCount:1,coverImgUrl:sheet.cover_img_url)
+        return  SheetCover(sheetTitle:"歌单单单单单单单单单单单单单单单",sheetDesc: "描述描述描述描述描述描述描述描述描述描述描述描述描述描述",tracksCount:1,coverImgUrl:sheet.cover_img_url)
     }
 }

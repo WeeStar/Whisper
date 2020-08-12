@@ -14,7 +14,7 @@ struct RecomView: View {
     
     var body: some View {
         NavigationView{
-            ScrollView(.vertical){
+            ScrollView(.vertical, showsIndicators: false){
                 VStack{
                     Divider()
                         .foregroundColor(Color("textColorSub").opacity(0.5))

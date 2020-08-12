@@ -18,7 +18,8 @@ struct SheetBigView: View {
     
     var body: some View {
         ZStack{
-            NavigationLink(destination:SheetInfoView(sheet: sheet),isActive:self.$isNaviLinkActive){
+            NavigationLink(destination:SheetInfoView(sheetId: self.sheet.id,source: self.sheet.sheet_source),
+                           isActive:self.$isNaviLinkActive){
                 EmptyView()
             }
             

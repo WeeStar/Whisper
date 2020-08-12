@@ -11,19 +11,16 @@ import SwiftUI
 
 /// 歌单详情页面
 struct SheetInfoView: View {
-    init(sheet:SheetModel) {
-        self.sheetInfo=sheet
-    }
-    
     /// 音乐信息
-    private var sheetInfo:SheetModel
+    var sheetId:String
+    var source:MusicSource
+    @State private var sheetInfo:SheetModel = SheetModel()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
-            VStack{
+            VStack(spacing:0){
                 //封面
-                SheetCover(sheetTitle: sheetInfo.title, tracksCount: sheetInfo.tracks.count, coverImgUrl: sheetInfo.cover_img_url)
-                    .frame(height: UIScreen.main.bounds.width)
+                SheetCover(sheetTitle: sheetInfo.title ?? "", sheetDesc:sheetInfo.description, tracksCount: sheetInfo.tracks.count, coverImgUrl: sheetInfo.cover_img_url ?? "")
                 
                 VStack(alignment: .leading){
                     //播放全部
@@ -38,6 +35,7 @@ struct SheetInfoView: View {
                         Text("("+String(self.sheetInfo.tracks.count)+"首音乐)")
                             .foregroundColor(Color("textColorSub"))
                             .font(.subheadline)
+                        Spacer()
                     }
                     .padding(.top,15)
                     .padding(.bottom,5)
@@ -48,18 +46,27 @@ struct SheetInfoView: View {
                         MusicItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
                     }
                     
-                    Spacer()
+                    Text("/有时候有时候/我会相信一切有尽头/")
+                    .foregroundColor(Color("textColorSub"))
+                    .font(.footnote)
+                    .padding()
+                    .padding(.bottom,116-UIScreen.main.bounds.width*0.15)
                 }
-                .padding(.bottom,50)
-                .cornerRadius(20)
-                .frame(maxWidth:.infinity, minHeight: 500, alignment: .leading)
-                .offset(y:-50)
                 .background(Color("bgColorMain"))
+                .cornerRadius(20)
+                .frame(maxWidth:.infinity, minHeight: 350, alignment: .leading)
+                .offset(y:-20)
             }
+            .offset(y: -UIScreen.main.bounds.width*0.15)
         }
         .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
-        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
+        .onAppear(perform: {
+            ApiService.GetSheetInfo(source: self.source, sheetId: self.sheetId, completeHandler: {sheet in
+                self.sheetInfo = sheet
+            })
+        })
     }
 }
 
@@ -68,45 +75,10 @@ struct SheetsView_Previews: PreviewProvider {
         
         let music1=MusicModel()
         music1.id="netrack_500427744"
-        music1.title="交易"
-        music1.artist="N7music"
-        music1.album="NiceDay7"
-        music1.source=MusicSource.Netease
-        music1.source_url="http://music.163.com/#/song?id=500427744"
-        music1.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
-        
-        let music2=MusicModel()
-        music2.id="netrack_550004429"
-        music2.title="忘却"
-        music2.artist="苏琛"
-        music2.album="忘却"
-        music2.source=MusicSource.Tencent
-        music2.source_url="http://music.163.com/#/song?id=550004429"
-        music2.img_url="http://p2.music.126.net/I6ZpoVZr6eBwDVPCXdmGgg==/109951163256340126.jpg"
-        
-        let sheet=SheetModel()
-        sheet.id="myplaylist_8036fa8e-156f-6d6a-f726-1d039621b03b"
-        sheet.title="深夜摩的"
-        sheet.source_url="http://music.163.com/#/playlist?id=911571004"
-        sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
-        sheet.tracks.append(music1)
-        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
-        //        sheet.tracks.append(music2)
         
         
-        return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
-            SheetInfoView(sheet: sheet).previewDevice(PreviewDevice(rawValue: deviceName)).previewDisplayName(deviceName)
+        return ForEach(["iPhone SE"], id: \.self) { deviceName in
+            SheetInfoView(sheetId: "netrack_500427744", source: MusicSource.Netease).previewDevice(PreviewDevice(rawValue: deviceName)).previewDisplayName(deviceName)
         }
     }
 }

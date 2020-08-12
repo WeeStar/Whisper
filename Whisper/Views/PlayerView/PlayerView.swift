@@ -53,7 +53,7 @@ struct PlayerView: View {
                         Capsule().fill(Color("prgBarForeColor")).frame(width:
                             self.progressBarWidth * (self.isSeeking ? self.seekProgress : self.player.progress),height:3)
                             // 拖动事件
-                            .gesture(DragGesture()
+                            .highPriorityGesture(DragGesture()
                                 .onChanged({(value) in
                                     if(self.player.playerItem == nil || self.player.isChangeing){
                                         return

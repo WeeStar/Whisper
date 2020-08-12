@@ -10,6 +10,8 @@
 import Foundation
 
 class Utility{
+    
+    /// 播放时间显示处理
     static func playTimeFormat(secounds:TimeInterval)->String{
         if secounds.isNaN{
             return "0:00"
@@ -19,6 +21,8 @@ class Utility{
         return String(format: "%d:%02d", Min, Sec)
     }
     
+    
+    /// 播放量显示处理
     static func playNumsFormat(play:String) -> String{
         if let playNum = Int(play){
             if playNum/10000 > 0{
@@ -33,6 +37,8 @@ class Utility{
         return play.replacingOccurrences(of: "万", with: "W")
     }
     
+    
+    /// 日期显示处理
     static func chineseTimeFormat(date:Date) -> String {
         //分解日期
         let calendarComponents = Calendar.current.dateComponents([.month,.day,.weekday], from: date)
@@ -68,6 +74,8 @@ class Utility{
         return "\(month)月\(day)日 \(weekdayStr)"
     }
     
+    
+    /// 运营商显示处理
     static func musicSourceFormat(source:MusicSource) -> String{
         switch source{
         case .Netease:
