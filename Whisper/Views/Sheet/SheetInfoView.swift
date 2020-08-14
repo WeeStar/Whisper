@@ -14,6 +14,7 @@ struct SheetInfoView: View {
     /// 音乐信息
     var sheetId:String
     var source:MusicSource
+    @State private var isLoading=true
     @State private var sheetInfo:SheetModel = SheetModel()
     
     var body: some View {
@@ -23,34 +24,46 @@ struct SheetInfoView: View {
                 SheetCover(sheetTitle: sheetInfo.title ?? "", sheetDesc:sheetInfo.description, tracksCount: sheetInfo.tracks.count, coverImgUrl: sheetInfo.cover_img_url ?? "")
                 
                 VStack(alignment: .leading){
-                    //播放全部
-                    HStack{
-                        Image(systemName: "play.circle")
-                            .foregroundColor(Color("textColorSub"))
-                            .imageScale(.medium)
-                            .frame(width: 18,height: 18)
-                        Text("播放全部")
-                            .foregroundColor(Color("textColorMain"))
-                            .fontWeight(.semibold)
-                        Text("("+String(self.sheetInfo.tracks.count)+"首音乐)")
-                            .foregroundColor(Color("textColorSub"))
-                            .font(.subheadline)
-                        Spacer()
+                    Button(action: {
+                        WhisperPlayer.shareIns.newSheet(playSheet: self.sheetInfo)
+                    })
+                    {
+                        HStack{
+                            Image(systemName: "play.circle")
+                                .foregroundColor(Color("textColorSub"))
+                                .imageScale(.medium)
+                                .frame(width: 18,height: 18)
+                                .padding(.trailing,3)
+                            Text("播放全部")
+                                .foregroundColor(Color("textColorMain"))
+                                .fontWeight(.semibold)
+                            Text("("+String(self.sheetInfo.tracks.count)+"首音乐)")
+                                .foregroundColor(Color("textColorSub"))
+                                .font(.subheadline)
+                            Spacer()
+                        }
+                        .background(Color(.white).opacity(0.001))
+                        .padding(.top,15)
+                        .padding(.bottom,5)
+                        .padding(.leading,15)
                     }
-                    .padding(.top,15)
-                    .padding(.bottom,5)
-                    .padding(.leading,15)
+                    .buttonStyle(PlainButtonStyle())
                     
                     //列表信息
                     ForEach(0..<self.sheetInfo.tracks.count,id:\.self) {i in
                         MusicItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
+                            .onTapGesture {
+                                WhisperPlayer.shareIns.newSheet(playSheet: self.sheetInfo, playMusicIndex: i)
+                        }
                     }
                     
-                    Text("/有时候有时候/我会相信一切有尽头/")
-                    .foregroundColor(Color("textColorSub"))
-                    .font(.footnote)
-                    .padding()
-                    .padding(.bottom,116-UIScreen.main.bounds.width*0.15)
+                    Text(self.isLoading ? "/等到秋叶终于金黄/等到华发悄然苍苍/" : "/有时候有时候/我会相信一切有尽头/")
+                        .foregroundColor(Color("textColorSub"))
+                        .font(.footnote)
+                        .padding()
+                        .padding(.bottom,116-UIScreen.main.bounds.width*0.15)
+                    
+                    Spacer(minLength: 0)
                 }
                 .background(Color("bgColorMain"))
                 .cornerRadius(20)
@@ -61,10 +74,10 @@ struct SheetInfoView: View {
         }
         .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
-        .navigationBarHidden(true)
         .onAppear(perform: {
             ApiService.GetSheetInfo(source: self.source, sheetId: self.sheetId, completeHandler: {sheet in
                 self.sheetInfo = sheet
+                self.isLoading=false
             })
         })
     }

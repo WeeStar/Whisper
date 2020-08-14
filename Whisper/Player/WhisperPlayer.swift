@@ -31,7 +31,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     @Published var isSeeking=false//正在切换进度
     @Published var isLoading=false//正在加载缓存
     @Published var isChangeing:Bool = false//正在切换歌曲
-    {
+        {
         //属性监听
         willSet{
             //切换歌曲时 进度置0
@@ -90,7 +90,10 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         
         // 获取封面图片
         self.image=nil //置空
-        if let url = URL(string: self.curMusic!.img_url){
+        if(self.curMusic!.img_url == nil){
+            self.image = UIImage(named: "emptyMusic")!
+        }
+        else if let url = URL(string: self.curMusic!.img_url){
             //加载图片
             KingfisherManager.shared
                 .retrieveImage(with: url,
@@ -123,6 +126,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
             
             // 播放完成通知
             NotificationCenter.default.removeObserver(self)
+            self.player?.pause()
             self.playerItem = nil // 置空 防止外部观察时间
         }
         
@@ -160,6 +164,36 @@ class WhisperPlayer: AppDelegate,ObservableObject{
                                 //创建player
                                 self.isPlaying = !isFirstComeIn // 此处播放状态置位true,方便加载完成状态播放,不通过判断ready状态播放,因后台进入会引发ready
                                 self.player = AVPlayer.init(playerItem: self.playerItem)
+                                
+                                //酷狗 列表项没有图片 详情中再次获取
+                                if self.curMusic!.img_url == nil {
+                                    self.curMusic!.img_url = resDic?.value(forKey: "img_url") as? String
+                                    
+                                    if self.curMusic!.img_url == nil {
+                                        if let url = URL(string: self.curMusic!.img_url){
+                                            //加载图片
+                                            KingfisherManager.shared
+                                                .retrieveImage(with: url,
+                                                               options:  [
+                                                                .processor(DownsamplingImageProcessor(size: CGSize(width: 600, height: 600))),
+                                                                .transition(.fade(1)),
+                                                                .cacheOriginalImage
+                                                    ],
+                                                               progressBlock: nil,
+                                                               completionHandler:{
+                                                                result in
+                                                                let image = try? result.get().image
+                                                                if let image = image {
+                                                                    self.image=image
+                                                                }
+                                                                else {
+                                                                    self.image = UIImage(named: "emptyMusic")!
+                                                                }
+                                                }
+                                            )
+                                        }
+                                    }
+                                }
                                 
                                 //切换完毕
                                 self.isChangeing=false
@@ -312,6 +346,65 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     }
     
     
+    /// 播放歌单
+    func newSheet(playSheet:SheetModel,playMusicIndex:Int = 0){
+        // 空值处理
+        if(playSheet.tracks.count==0)
+        {
+            return
+        }
+        
+        //替换当前列表
+        self.curList = playSheet.tracks
+        self.isChangeing=true
+        self.curMusic = self.curList[playMusicIndex]
+        
+        //写配置 todo：写最近播放歌单
+        ContextService.contextIns.curMusic.curList = self.curList
+        ContextService.contextIns.curMusic.curMusic=self.curMusic
+        ContextService.SaveContext()
+        
+        //执行reload刷新
+        self.reload()
+    }
+    
+    /// 播放单曲
+    func newMusic(playMusic:MusicModel){
+        // 空值处理
+        if(playMusic.id == "" || !playMusic.isPlayable())
+        {
+            return
+        }
+        
+        // 获取当前播放位置
+        let curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
+        var newIdx=self.curList.firstIndex(where: { $0.id == playMusic.id }) ?? -1
+        
+        // 新歌曲不在其中 放到当前之后
+        if(newIdx == -1){
+            newIdx = curIdx + 1
+            self.curList.insert(playMusic, at: newIdx)
+        }
+        
+        // 更改当前音乐 写config
+        if(newIdx > -1 && newIdx != curIdx || self.playerItem == nil){
+            self.isChangeing=true
+            self.curMusic = self.curList[newIdx]
+            ContextService.contextIns.curMusic.curList = self.curList
+            ContextService.contextIns.curMusic.curMusic=self.curMusic
+            ContextService.SaveContext()
+            //执行reload刷新
+            self.reload()
+        }
+        else{
+            // 当前音乐未修改 直接跳到0 重新播放
+            self.playerItem!.seek(to: .zero, completionHandler: {(_) in
+                self.play()
+            })
+        }
+    }
+    
+    
     /// 当前歌曲播放完成处理
     @objc func playFinishHandle(note: NSNotification) {
         // 播放下一首
@@ -335,7 +428,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
             print(self.playerItem!.status)
             switch self.playerItem!.status{
             case .readyToPlay:
-                                print("ready")
+                print("ready")
                 //                self.play()
                 break
             case .failed:
