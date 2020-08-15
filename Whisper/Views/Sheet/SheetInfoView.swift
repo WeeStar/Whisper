@@ -53,6 +53,10 @@ struct SheetInfoView: View {
                     ForEach(0..<self.sheetInfo.tracks.count,id:\.self) {i in
                         MusicItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
                             .onTapGesture {
+                                if(!self.sheetInfo.tracks[i].isPlayable()){
+                                    // 不可播放的点击没反应
+                                    return
+                                }
                                 WhisperPlayer.shareIns.newSheet(playSheet: self.sheetInfo, playMusicIndex: i)
                         }
                     }

@@ -89,7 +89,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         
         
         // 获取封面图片
-        self.image=nil //置空
+        self.image = nil //置空
         if(self.curMusic!.img_url == nil){
             self.image = UIImage(named: "emptyMusic")!
         }
@@ -112,7 +112,6 @@ class WhisperPlayer: AppDelegate,ObservableObject{
                                 else {
                                     self.image = UIImage(named: "emptyMusic")!
                                 }
-                                //self.setInfoCenterCredentials()
                 }
             )
         }
@@ -161,15 +160,11 @@ class WhisperPlayer: AppDelegate,ObservableObject{
                                 // 播放完成通知
                                 NotificationCenter.default.addObserver(self, selector:  #selector(self.playFinishHandle), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem!)
                                 
-                                //创建player
-                                self.isPlaying = !isFirstComeIn // 此处播放状态置位true,方便加载完成状态播放,不通过判断ready状态播放,因后台进入会引发ready
-                                self.player = AVPlayer.init(playerItem: self.playerItem)
-                                
                                 //酷狗 列表项没有图片 详情中再次获取
                                 if self.curMusic!.img_url == nil {
                                     self.curMusic!.img_url = resDic?.value(forKey: "img_url") as? String
                                     
-                                    if self.curMusic!.img_url == nil {
+                                    if self.curMusic!.img_url != nil {
                                         if let url = URL(string: self.curMusic!.img_url){
                                             //加载图片
                                             KingfisherManager.shared
@@ -194,6 +189,10 @@ class WhisperPlayer: AppDelegate,ObservableObject{
                                         }
                                     }
                                 }
+                                
+                                //创建player
+                                self.isPlaying = !isFirstComeIn // 此处播放状态置位true,方便加载完成状态播放,不通过判断ready状态播放,因后台进入会引发ready
+                                self.player = AVPlayer.init(playerItem: self.playerItem)
                                 
                                 //切换完毕
                                 self.isChangeing=false
