@@ -23,13 +23,10 @@ class CurMusicModel: HandyJSON
     
     /// 循环模式
     var roundMode=RoundModeEnum.ListRound
-    
-    /// 最近播放列表集合
-    var recentSheets=[SheetModel]()
 }
 
 
-/// 音乐来源枚举
+/// 循环类型枚举
 enum RoundModeEnum:Int, HandyJSONEnum
 {
     case ListRound=1

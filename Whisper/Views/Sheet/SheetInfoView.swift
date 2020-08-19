@@ -34,7 +34,7 @@ struct SheetInfoView: View {
                                 .imageScale(.medium)
                                 .frame(width: 18,height: 18)
                                 .padding(.trailing,3)
-                            Text("播放全部")
+                            Text("播放歌单")
                                 .foregroundColor(Color("textColorMain"))
                                 .fontWeight(.semibold)
                             Text("("+String(self.sheetInfo.tracks.count)+"首音乐)")
@@ -59,13 +59,39 @@ struct SheetInfoView: View {
                                 }
                                 WhisperPlayer.shareIns.newSheet(playSheet: self.sheetInfo, playMusicIndex: i)
                         }
+                        .contextMenu(menuItems: {
+                            Button(action: {
+                                if(!self.sheetInfo.tracks[i].isPlayable()){
+                                    // 不可播放的点击没反应
+                                    return
+                                }
+                                WhisperPlayer.shareIns.newMusic(playMusic: self.sheetInfo.tracks[i])
+                            })
+                            {
+                                Text("插入并播放")
+                                Image(systemName: "play.circle").font(.system(size: 25))
+                            }
+                            
+                            Button(action: {
+                                if(!self.sheetInfo.tracks[i].isPlayable()){
+                                    // 不可播放的点击没反应
+                                    return
+                                }
+                                WhisperPlayer.shareIns.newMusic(playMusic: self.sheetInfo.tracks[i],nextPlay: true)
+                            })
+                            {
+                                Text("下一首播放")
+                                Image(systemName: "increase.indent").font(.system(size: 25))
+                            }
+                        })
                     }
-                    
-                    Text(self.isLoading ? "/等到秋叶终于金黄/等到华发悄然苍苍/" : "/有时候有时候/我会相信一切有尽头/")
-                        .foregroundColor(Color("textColorSub"))
-                        .font(.footnote)
-                        .padding()
-                        .padding(.bottom,116-UIScreen.main.bounds.width*0.15)
+                    VStack(alignment:.center){
+                        Text(self.isLoading ? "/等到秋叶终于金黄/等到华发悄然苍苍/" : "/有时候有时候/我会相信一切有尽头/")
+                            .foregroundColor(Color("textColorSub"))
+                            .font(.footnote)
+                            .padding()
+                            .padding(.bottom,116-UIScreen.main.bounds.width*0.15)
+                    }
                     
                     Spacer(minLength: 0)
                 }

@@ -24,7 +24,18 @@ class ContextModel: HandyJSON
     /// 我的歌单
     var mySheets=[SheetModel]()
     
+    /// 最近播放列表集合
+    var recentSheets=[SheetModel]()
+    
     /// 当前歌曲信息
     var curMusic:CurMusicModel=CurMusicModel()
 }
+
+/// 搜索历史模型
+class SearchHisModel: HandyJSON
+{
+    required init() {}
     
+    /// 搜索结果歌单
+    var hisList=[String]()
+}

@@ -15,6 +15,10 @@
 		FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */; };
 		FA126F112493014A00ED7FE6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F102493014A00ED7FE6 /* Utility.swift */; };
 		FA126F182493166100ED7FE6 /* PathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA126F172493166100ED7FE6 /* PathService.swift */; };
+		FA251A6F24E7B39000832036 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA251A6E24E7B39000832036 /* SearchView.swift */; };
+		FA251A7124E7C40700832036 /* SearchResaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA251A7024E7C40700832036 /* SearchResaultView.swift */; };
+		FA251A7324E7D3D900832036 /* SearchMusicResItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA251A7224E7D3D900832036 /* SearchMusicResItem.swift */; };
+		FA251A7524EA33C800832036 /* TextFieldTyped.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA251A7424EA33C800832036 /* TextFieldTyped.swift */; };
 		FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */; };
 		FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD10624CECCDF00C44D5E /* HttpService.swift */; };
 		FA5A312224D553E500CC7A91 /* RecomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A312124D553E500CC7A91 /* RecomService.swift */; };
@@ -79,6 +83,10 @@
 		FA126F0E24922AAE00ED7FE6 /* CurMusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurMusicModel.swift; sourceTree = "<group>"; };
 		FA126F102493014A00ED7FE6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		FA126F172493166100ED7FE6 /* PathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathService.swift; sourceTree = "<group>"; };
+		FA251A6E24E7B39000832036 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		FA251A7024E7C40700832036 /* SearchResaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResaultView.swift; sourceTree = "<group>"; };
+		FA251A7224E7D3D900832036 /* SearchMusicResItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicResItem.swift; sourceTree = "<group>"; };
+		FA251A7424EA33C800832036 /* TextFieldTyped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTyped.swift; sourceTree = "<group>"; };
 		FA4DD0FF24CC097600C44D5E /* WhisperPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperPlayer.swift; sourceTree = "<group>"; };
 		FA4DD10624CECCDF00C44D5E /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		FA5A312124D553E500CC7A91 /* RecomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomService.swift; sourceTree = "<group>"; };
@@ -191,6 +199,15 @@
 			path = SheetModels;
 			sourceTree = "<group>";
 		};
+		FA251A6D24E7B37200832036 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FA251A6E24E7B39000832036 /* SearchView.swift */,
+				FA251A7024E7C40700832036 /* SearchResaultView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		FA4DD0FA24C1AD9D00C44D5E /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +289,7 @@
 				FAA028F32490C9D200C25D0F /* Info.plist */,
 				FAA35BC5249B713A005C5B7E /* Iconfont */,
 				FABAB6D32490E28B00A79CD3 /* Views */,
+				FA251A6D24E7B37200832036 /* Search */,
 				FA4DD0FA24C1AD9D00C44D5E /* Player */,
 				FA126F032492222300ED7FE6 /* Service */,
 				FABAB6D62490ECB700A79CD3 /* Models */,
@@ -344,6 +362,7 @@
 				FAE2AC6D2498E56900703ADD /* WebImageView.swift */,
 				FAA35BDA249B8765005C5B7E /* IconTextView.swift */,
 				FAD1D2FD249CBD59004D4C66 /* BlurView.swift */,
+				FA251A7424EA33C800832036 /* TextFieldTyped.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -363,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				FAEE0068249362A100B271C9 /* MusicItem.swift */,
+				FA251A7224E7D3D900832036 /* SearchMusicResItem.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -564,9 +584,11 @@
 				FA4DD10724CECCDF00C44D5E /* HttpService.swift in Sources */,
 				FAF97A1C24DA588C0036D28B /* PlayerBarView.swift in Sources */,
 				FA126F0C2492293B00ED7FE6 /* ConfigModel.swift in Sources */,
+				FA251A6F24E7B39000832036 /* SearchView.swift in Sources */,
 				FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */,
 				FA126F0F24922AAE00ED7FE6 /* CurMusicModel.swift in Sources */,
 				FAA028E62490C9D000C25D0F /* AppDelegate.swift in Sources */,
+				FA251A7524EA33C800832036 /* TextFieldTyped.swift in Sources */,
 				FAA028E82490C9D000C25D0F /* SceneDelegate.swift in Sources */,
 				FA76EC1424C0249500BFE74B /* PlayerView.swift in Sources */,
 				FA9500B924975BD30078A8CB /* MySheets.swift in Sources */,
@@ -576,11 +598,13 @@
 				FAA028EA2490C9D000C25D0F /* RecomView.swift in Sources */,
 				FA126F112493014A00ED7FE6 /* Utility.swift in Sources */,
 				FABAB6D8249103F600A79CD3 /* MusicModel.swift in Sources */,
+				FA251A7124E7C40700832036 /* SearchResaultView.swift in Sources */,
 				FA91281624D531B1000691E7 /* SheetBannerView.swift in Sources */,
 				FAE2AC6E2498E56900703ADD /* WebImageView.swift in Sources */,
 				FA126F072492275C00ED7FE6 /* ContextModel.swift in Sources */,
 				FA99F49024D824A100FBFE61 /* SheetRecomView.swift in Sources */,
 				FADBE73C24DBD36D00F0457E /* SheetListView.swift in Sources */,
+				FA251A7324E7D3D900832036 /* SearchMusicResItem.swift in Sources */,
 				FAEE0069249362A100B271C9 /* MusicItem.swift in Sources */,
 				FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */,
 				FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */,

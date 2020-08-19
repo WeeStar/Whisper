@@ -14,6 +14,9 @@ import HandyJSON
 /// 上下文服务
 class ContextService{
     
+    static var musicSourcSeq=[MusicSource.Netease,MusicSource.Tencent,MusicSource.Xiami,
+                              MusicSource.Migu,MusicSource.Kugou,MusicSource.Bilibili]
+    
     //单例上下文数据
     static var contextIns = GetContext()
     
@@ -50,5 +53,69 @@ class ContextService{
         let contextDataStr = ContextService.contextIns.toJSONString()!
         try! contextDataStr.write(to: URL(string:"file://" + PathService.userDataPath)!, atomically: false, encoding: String.Encoding.utf8)
     }
+    
+    
+    
+    private static var _searchHis:SearchHisModel?
+    static var hisIns:SearchHisModel {
+        get{
+            if(_searchHis == nil){
+                
+                _searchHis = GetHis()
+            }
+            return _searchHis!
+        }
+    }
+    
+    
+    /// 获取上下文总体数据
+    /// - Returns: 用户配置数据
+    static private func GetHis() -> SearchHisModel{
+        //获取数据字符串
+        let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.searchHisPath),
+                                  encoding: String.Encoding.utf8)
+        
+        //获取数据
+        if let his = SearchHisModel.deserialize(from: dataStr) {
+            return his
+        }
+        
+        //空数据
+        return SearchHisModel()
+    }
+    
+    
+    /// 写入搜索历史数据
+    static func AddHis(keyWords : String) -> [String]{
+        if(keyWords == ""){
+            return self.hisIns.hisList
+        }
+        
+        self._searchHis!.hisList.removeAll(where: { $0 == keyWords})
+        self._searchHis!.hisList.insert(keyWords, at: 0)
+        if(self._searchHis!.hisList.count > 20){
+            self._searchHis!.hisList = Array(self._searchHis!.hisList.prefix(upTo: 20))
+        }
+        
+        let contextDataStr = self._searchHis!.toJSONString()!
+        try! contextDataStr.write(to: URL(string:"file://" + PathService.searchHisPath)!, atomically: false, encoding: String.Encoding.utf8)
+        
+        return self.hisIns.hisList
+    }
+    
+    
+    /// 删除搜索历史数据
+    static func DelHis(keyWords : String? = nil) -> [String]{
+        if(keyWords == nil){
+            self._searchHis!.hisList = [String]()
+        }
+        else{
+            self._searchHis!.hisList.removeAll(where: { $0 == keyWords!})
+        }
+        
+        let contextDataStr = self._searchHis!.toJSONString()!
+        try! contextDataStr.write(to: URL(string:"file://" + PathService.searchHisPath)!, atomically: false, encoding: String.Encoding.utf8)
+        
+        return self.hisIns.hisList
+    }
 }
-

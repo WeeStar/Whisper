@@ -25,7 +25,32 @@ class ApiService{
                             
                             //歌单赋值
                             completeHandler?(sheetInfo!)
-                            
+        },
+                        failHandler: {errorMsg in
+                            return
+        })
+    }
+    
+    /// 获取歌单信息
+    static func SearchMusic(source:MusicSource,searchKeyWords:String,completeHandler:(([MusicModel]) -> Void)? ){
+        HttpService.Get(module: "music", methodUrl: "search", musicSource: source,params: ["key_words":searchKeyWords],
+                        successHandler: { resData in
+                            //处理返回数据
+                            var resMusics = [MusicModel]()
+                            let resArr = resData as? NSArray
+                            // 空值处理
+                            if(resArr == nil){
+                                resMusics = [MusicModel]()
+                                completeHandler?(resMusics)
+                            }
+                            let musics=[MusicModel].deserialize(from: resArr)
+                            if(musics == nil){
+                                resMusics = [MusicModel]()
+                            }
+                            else{
+                                resMusics = musics as! [MusicModel]
+                            }
+                            completeHandler?(resMusics)
         },
                         failHandler: {errorMsg in
                             return

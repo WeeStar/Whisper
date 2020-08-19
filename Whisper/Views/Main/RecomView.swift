@@ -10,6 +10,7 @@
 import SwiftUI
 
 struct RecomView: View {
+    @ObservedObject var searchConfig = SearchPanelConfig.shareIns
     var nowDate:String = Utility.chineseTimeFormat(date: Date())
     
     var body: some View {
@@ -40,10 +41,19 @@ struct RecomView: View {
                 }
                     .padding(.bottom,116)//让出底部tab和播放器空间
             }
-            .navigationBarItems(leading: Text(self.nowDate).font(.subheadline).foregroundColor(Color("textColorSub")))
+            .navigationBarItems(leading: Text(self.nowDate).font(.subheadline).foregroundColor(Color("textColorSub")),
+                                trailing: self.searchButton)
             .navigationBarTitle(Text("推荐歌单").foregroundColor(Color("textColorMain")))
         }
         .background(Color("bgColorMain"))
+    }
+    
+    var searchButton: some View {
+        Button(action: { self.searchConfig.isShowSearchPanel = true }) {
+            Image(systemName: "magnifyingglass")
+                .imageScale(.large)
+                .padding()
+        }
     }
 }
 
@@ -77,6 +87,7 @@ struct RecomChildView: View {
                 Text(Utility.musicSourceFormat(source: self.source))
                     .font(.system(size: 20, weight:Font.Weight.bold, design: .default))
                     .foregroundColor(Color("textColorMain"))
+                    .padding(.leading,2)
                 
                 Spacer()
                 
@@ -89,11 +100,11 @@ struct RecomChildView: View {
             }
             
             ScrollView(.horizontal,showsIndicators: false) {
-                HStack{
+                HStack(spacing:3){
                     ForEach(self.sheetsByThree, id: \.self) { sheetsGroup in
-                        VStack{
+                        VStack(spacing:0){
                             ForEach(sheetsGroup, id: \.self) { sheet in
-                                SheetRecomView(sheet: sheet,widthScale: 0.9)
+                                SheetRecomView(sheet: sheet,widthScale: 0.9,isInList: false)
                             }
                             Spacer()
                         }
@@ -101,12 +112,6 @@ struct RecomChildView: View {
                 }
             }
         }
-    }
-}
-
-struct RecomView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecomView()
     }
 }
 

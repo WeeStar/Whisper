@@ -19,12 +19,12 @@ struct SheetListView: View {
         List{
             ForEach(self.items, id: \.self) { item in
                 // 推荐歌单条
-                SheetRecomView(sheet:item, widthScale: 0.95)
+                SheetRecomView(sheet:item, widthScale: 0.95,isInList: true)
                     .onAppear {
                         self.loadMoreDatas(item)
                 }
             }
-            VStack{
+            VStack(alignment:.center){
                 if !self.hasMore{
                     Text("/有时候有时候/我会相信一切有尽头/")
                         .foregroundColor(Color("textColorSub"))

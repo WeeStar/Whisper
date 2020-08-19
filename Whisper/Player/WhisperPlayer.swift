@@ -145,7 +145,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
                             
                             DispatchQueue.main.async {
                                 // 初始化在线音乐数据
-                                self.playerItem = AVPlayerItem(url:URL(string: url!)!)
+                                self.playerItem = AVPlayerItem(url:URL(string: url!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
                                 
                                 // 添加监视
                                 // 需要监听的字段和状态
@@ -368,7 +368,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     }
     
     /// 播放单曲
-    func newMusic(playMusic:MusicModel){
+    func newMusic(playMusic:MusicModel,nextPlay:Bool = false){
         // 空值处理
         if(playMusic.id == "" || !playMusic.isPlayable())
         {
@@ -376,24 +376,37 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         }
         
         // 获取当前播放位置
-        let curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
+        var curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
         var newIdx=self.curList.firstIndex(where: { $0.id == playMusic.id }) ?? -1
         
-        // 新歌曲不在其中 放到当前之后
         if(newIdx == -1){
+            // 新歌曲不在其中 放到当前之后
+            newIdx = curIdx + 1
+            self.curList.insert(playMusic, at: newIdx)
+        }
+        else if(nextPlay){
+            // 新歌曲在其中但是下首播放，移动到下首
+            self.curList.remove(at: newIdx)
+            curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
             newIdx = curIdx + 1
             self.curList.insert(playMusic, at: newIdx)
         }
         
         // 更改当前音乐 写config
-        if(newIdx > -1 && newIdx != curIdx || self.playerItem == nil){
-            self.isChangeing=true
-            self.curMusic = self.curList[newIdx]
-            ContextService.contextIns.curMusic.curList = self.curList
-            ContextService.contextIns.curMusic.curMusic=self.curMusic
-            ContextService.SaveContext()
-            //执行reload刷新
-            self.reload()
+        if(playMusic.id != self.curMusic?.id || self.playerItem == nil){
+            if(!nextPlay){
+                self.isChangeing = true
+                self.curMusic = playMusic
+                ContextService.contextIns.curMusic.curList = self.curList
+                ContextService.contextIns.curMusic.curMusic = self.curMusic
+                ContextService.SaveContext()
+                //执行reload刷新
+                self.reload()
+            }
+            else{
+                ContextService.contextIns.curMusic.curList = self.curList
+                ContextService.SaveContext()
+            }
         }
         else{
             // 当前音乐未修改 直接跳到0 重新播放

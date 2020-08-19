@@ -56,4 +56,25 @@ class PathService{
            return _userDataPath!
         }
     }
+    
+    private static var _searchHisPath:String?
+    
+    /// 搜索历史文件路径
+    static var searchHisPath:String{
+        get{
+           if(_searchHisPath == nil){
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let userDataPath = dir.appendingPathComponent("SearchHis.json").path
+                
+                // 文件夹不存在则创建
+                let fileManager = FileManager.default
+                if(!fileManager.fileExists(atPath: userDataPath)){
+                    fileManager.createFile(atPath: userDataPath,contents: nil)
+                }
+                _searchHisPath = userDataPath
+            }
+           }
+           return _searchHisPath!
+        }
+    }
 }

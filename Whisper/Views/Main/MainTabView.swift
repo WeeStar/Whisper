@@ -11,73 +11,36 @@ import SwiftUI
 import UIKit
 
 struct MainTabView: View {
-    @State var tabIdx=0
-    @State var showPlayerView = false
+    @ObservedObject var searchConfig = SearchPanelConfig.shareIns
+    @State private var tabIdx=0
+    @State private var showPlayerView = false
     @Environment(\.localStatusBarStyle) var statusBarStyle
     var mySheets:[SheetModel]
     
     //页面初始化
-    var recomView = RecomView()
+    var recomView:RecomView
     var mySheetView:MySheets
     var myView=MyView()
     var playerView = PlayerView()
     
     init() {
         self.mySheets=[SheetModel]()
-        
-        let sheet1=SheetModel()
-        sheet1.id="myplaylist_8036fa8e-156f-6d6a-f726-1d039621b03b"
-        sheet1.title="深夜摩的"
-        sheet1.source_url="http://music.163.com/#/playlist?id=911571004"
-        sheet1.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
-        
-        let sheet2=SheetModel()
-        sheet2.id="myplaylist_23da2a04-caf6-daaa-79e9-0a9f801b70d7"
-        sheet2.title="春日限定｜香草味恋爱气泡水ฅ"
-        sheet2.source_url="http://music.163.com/#/playlist?id=740915547"
-        sheet2.cover_img_url="http://p2.music.126.net/O5Vw9yfWGc1EnkENhym3qg==/109951164843664893.jpg"
-        
-        
-        let music1=MusicModel()
-        music1.id="netrack_500427744"
-        music1.title="交易"
-        music1.artist="N7music"
-        music1.album="NiceDay7"
-        music1.source=MusicSource.Netease
-        music1.source_url="http://music.163.com/#/song?id=500427744"
-        music1.img_url="http://p2.music.126.net/RNiakf1vkBuwjC2SR2Mkkw==/109951163007592905.jpg"
-        
-        let music2=MusicModel()
-        music2.id="netrack_550004429"
-        music2.title="忘却"
-        music2.artist="苏琛"
-        music2.album="忘却"
-        music2.source=MusicSource.Tencent
-        music2.source_url="http://music.163.com/#/song?id=550004429"
-        music2.img_url="http://p2.music.126.net/I6ZpoVZr6eBwDVPCXdmGgg==/109951163256340126.jpg"
-        
-        sheet1.tracks=[music1,music2]
-        sheet2.tracks=[music1,music2]
-        
-        mySheets.append(sheet1)
-        mySheets.append(sheet2)
-        mySheets.append(sheet1)
-        mySheets.append(sheet1)
-        
         self.mySheetView=MySheets(mySheets:self.mySheets)
+        self.recomView = RecomView()
     }
     
     var body: some View {
         ZStack{
+            //显示页面
             ZStack{
                 //推荐
-                self.recomView.zIndex(self.tabIdx==0 ? 10 : 0)
+                self.recomView.zIndex(self.tabIdx==0 ? 10 : 1)
                 
                 //我的
-                self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 0)
+                self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
                 
                 //账号
-                self.myView.zIndex(self.tabIdx==2 ? 10 : 0)
+                self.myView.zIndex(self.tabIdx==2 ? 10 : 1)
             }
             //tabbar
             VStack(spacing:0){
@@ -94,6 +57,10 @@ struct MainTabView: View {
                 
                 TabBar(tabIdx: $tabIdx)
             }
+            //搜索页面
+            SearchView()
+                .offset(y: self.searchConfig.isShowSearchPanel ? 0 : UIScreen.main.bounds.height)
+                .animation(.easeIn)
         }
         .sheet(isPresented: self.$showPlayerView){
             self.playerView

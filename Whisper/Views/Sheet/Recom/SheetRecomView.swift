@@ -12,8 +12,9 @@ struct SheetRecomView: View {
     //歌单相关信息
     var sheet:SheetModel
     var widthScale:CGFloat
+    var isInList:Bool
     
-    @State private var isNaviLinkActive=false
+    @State private var isNaviLinkActive = false
     
     var body: some View {
         ZStack{
@@ -49,15 +50,34 @@ struct SheetRecomView: View {
                             .lineLimit(1)
                             .font(.subheadline)
                     }
-                    
                 }
                 Spacer()
             }
+            .padding(.leading,self.isInList ? 0 : 2)
+            .padding(.vertical,self.isInList ? 0 : 5)
             .onTapGesture{
                 self.isNaviLinkActive.toggle()
             }
         }
         .frame(width:UIScreen.main.bounds.width*self.widthScale)
+        .contextMenu(menuItems: {
+            Button(action: {
+                ApiService.GetSheetInfo(source: self.sheet.sheet_source, sheetId: self.sheet.id, completeHandler: {sheetData in
+                    WhisperPlayer.shareIns.newSheet(playSheet: sheetData)
+                })
+            })
+            {
+                Text("播放歌单")
+                Image(systemName: "play.circle").font(.system(size: 25))
+            }
+            Button(action: {
+                
+            })
+            {
+                Text("收藏歌单")
+                Image(systemName: "star").font(.system(size: 25))
+            }
+        })
     }
 }
 
@@ -69,6 +89,6 @@ struct SheetRecomView_Previews: PreviewProvider {
         sheet.source_url="http://music.163.com/#/playlist?id=911571004"
         sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
         
-        return SheetRecomView(sheet: sheet,widthScale:0.9)
+        return SheetRecomView(sheet: sheet,widthScale:0.9,isInList: true)
     }
 }

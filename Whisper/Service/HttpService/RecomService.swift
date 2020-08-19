@@ -64,15 +64,25 @@ class RecomService{
                             
                             //全部请求完毕 执行后续操作
                             if(self.recomSheets.count == 6){
-                                //将各家推荐第一张歌单放到banner
-                                var datas = [SheetModel]()
+                                //按照优先级排序
+                                let seq = ContextService.musicSourcSeq
+                                var recomSheetsAftSeq = [RecomModel]()
+                                for s in seq{
+                                    let sigR = self.recomSheets.first(where: {r in r.source == s})
+                                    if sigR == nil || sigR?.sheets.count == 0{
+                                        continue
+                                    }
+                                    recomSheetsAftSeq.append(sigR!)
+                                }
+                                self.recomSheets = recomSheetsAftSeq
+                                
+                                //将各家推荐随机一张歌单放到banner
                                 for recom in self.recomSheets{
                                     if(recom.sheets.count > 0){
                                         let randomIdx = arc4random() % UInt32(recom.sheets.count)
-                                        datas.append(recom.sheets[Int(randomIdx)])
+                                        self.bannerSheets.append(recom.sheets[Int(randomIdx)])
                                     }
                                 }
-                                self.bannerSheets=datas
                                 
                                 //执行全部完成通知
                                 allCompleteHandler?()

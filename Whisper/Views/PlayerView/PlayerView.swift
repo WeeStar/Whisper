@@ -16,9 +16,9 @@ struct PlayerView: View {
     // 进度相关
     var progressBarWidth=UIScreen.main.bounds.width*0.8
     // 拖动进度相关
-    @State var isSeeking = false
-    @State var seekProgress:CGFloat=0
-    @State var seekCurTime=CMTimeMake(value: 0, timescale: 1)
+    @State private var isSeeking = false
+    @State private var seekProgress:CGFloat=0
+    @State private var seekCurTime=CMTimeMake(value: 0, timescale: 1)
     
     init(){
         self.player = WhisperPlayer.shareIns
