@@ -30,7 +30,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.becomeFirstResponder()
         }
         
+        //设置Navigationbar按钮颜色
         UINavigationBar.appearance().tintColor = UIColor(named: "ThemeColorMain")
+        
+        //设置NavigationTitle颜色
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "textColorMain")!]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "textColorMain")!]
+        
+        //设置List 背景色
+        UITableView.appearance().backgroundColor = UIColor(named: "bgColorMain")
+        UITableViewCell.appearance().backgroundColor = UIColor(named: "bgColorMain")
+        UITableView.appearance().tableFooterView = UIView()
+        
+        //设置ScrollView 背景色
+        UIScrollView.appearance().backgroundColor = UIColor(named: "bgColorMain")
         
         return true
     }

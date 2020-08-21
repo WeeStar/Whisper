@@ -24,7 +24,8 @@ struct SheetListView: View {
                         self.loadMoreDatas(item)
                 }
             }
-            VStack(alignment:.center){
+            HStack{
+                Spacer()
                 if !self.hasMore{
                     Text("/有时候有时候/我会相信一切有尽头/")
                         .foregroundColor(Color("textColorSub"))
@@ -37,10 +38,11 @@ struct SheetListView: View {
                         .font(.footnote)
                         .padding(.vertical)
                 }
+                Spacer()
             }
-        }
             .padding(.bottom,116)//让出底部tab和播放器空间
-            .navigationBarTitle(Utility.musicSourceFormat(source: self.source))
+        }
+        .navigationBarTitle(Utility.musicSourceFormat(source: self.source))
     }
 }
 

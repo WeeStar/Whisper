@@ -85,12 +85,15 @@ struct SheetInfoView: View {
                             }
                         })
                     }
-                    VStack(alignment:.center){
+                    HStack{
+                        Spacer()
                         Text(self.isLoading ? "/等到秋叶终于金黄/等到华发悄然苍苍/" : "/有时候有时候/我会相信一切有尽头/")
                             .foregroundColor(Color("textColorSub"))
                             .font(.footnote)
-                            .padding()
+                            .padding(.top)
+                            .padding(.bottom,10)
                             .padding(.bottom,116-UIScreen.main.bounds.width*0.15)
+                        Spacer()
                     }
                     
                     Spacer(minLength: 0)
@@ -102,8 +105,9 @@ struct SheetInfoView: View {
             }
             .offset(y: -UIScreen.main.bounds.width*0.15)
         }
-        .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
+//        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+//        .navigationBarTitle(Text(self.sheetInfo.title ?? ""))
         .onAppear(perform: {
             ApiService.GetSheetInfo(source: self.source, sheetId: self.sheetId, completeHandler: {sheet in
                 self.sheetInfo = sheet

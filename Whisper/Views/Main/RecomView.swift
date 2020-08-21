@@ -43,9 +43,8 @@ struct RecomView: View {
             }
             .navigationBarItems(leading: Text(self.nowDate).font(.subheadline).foregroundColor(Color("textColorSub")),
                                 trailing: self.searchButton)
-            .navigationBarTitle(Text("推荐歌单").foregroundColor(Color("textColorMain")))
+                .navigationBarTitle(Text("推荐歌单"))
         }
-        .background(Color("bgColorMain"))
     }
     
     var searchButton: some View {

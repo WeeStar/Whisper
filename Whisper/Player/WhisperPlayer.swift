@@ -129,6 +129,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
             self.playerItem = nil // 置空 防止外部观察时间
         }
         
+        //先行设置外部展示
+        self.setInfoCenterCredentials()
+        
         // 获取播放url
         HttpService.Post(module: "music", methodUrl: "music_info", musicSource: self.curMusic!.source,
                          params: ["ids":[self.curMusic!.id]],
@@ -315,6 +318,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         else{
             // 当前音乐未修改 直接跳到0 重新播放
             self.playerItem!.seek(to: .zero, completionHandler: {(_) in
+                self.setInfoCenterCredentials()
                 self.play()
             })
         }
@@ -338,6 +342,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         self.progress = self.duration == 0 ? 0 : CGFloat(self.curTime/self.duration)
         
         self.playerItem!.seek(to: seekTime, completionHandler: {(state) in
+            self.setInfoCenterCredentials()
             self.play()
             completionHandler?(state)//执行回调
             self.isSeeking=false
@@ -411,6 +416,7 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         else{
             // 当前音乐未修改 直接跳到0 重新播放
             self.playerItem!.seek(to: .zero, completionHandler: {(_) in
+                self.setInfoCenterCredentials()
                 self.play()
             })
         }
