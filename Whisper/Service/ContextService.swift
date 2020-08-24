@@ -60,7 +60,6 @@ class ContextService{
     static var hisIns:SearchHisModel {
         get{
             if(_searchHis == nil){
-                
                 _searchHis = GetHis()
             }
             return _searchHis!
@@ -106,6 +105,9 @@ class ContextService{
     
     /// 删除搜索历史数据
     static func DelHis(keyWords : String? = nil) -> [String]{
+        if(self._searchHis == nil){
+            return [String]()
+        }
         if(keyWords == nil){
             self._searchHis!.hisList = [String]()
         }

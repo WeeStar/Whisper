@@ -1,5 +1,6 @@
 //
 //  SearchResaultView.swift
+//  搜索结果
 //  Whisper
 //
 //  Created by WeeStar on 2020/8/15.

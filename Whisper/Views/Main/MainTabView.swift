@@ -20,13 +20,13 @@ struct MainTabView: View {
     //页面初始化
     var recomView:RecomView
     var mySheetView:MySheets
-    var myView=MyView()
+    var searchView=SearchView()
     var playerView = PlayerView()
     
     init() {
+        self.recomView = RecomView()
         self.mySheets=[SheetModel]()
         self.mySheetView=MySheets(mySheets:self.mySheets)
-        self.recomView = RecomView()
     }
     
     var body: some View {
@@ -40,7 +40,7 @@ struct MainTabView: View {
                 self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
                 
                 //账号
-                self.myView.zIndex(self.tabIdx==2 ? 10 : 1)
+                self.searchView.zIndex(self.tabIdx==2 ? 10 : 1)
             }
             //tabbar
             VStack(spacing:0){
@@ -57,10 +57,6 @@ struct MainTabView: View {
                 
                 TabBar(tabIdx: $tabIdx)
             }
-            //搜索页面
-            SearchView()
-                .offset(y: self.searchConfig.isShowSearchPanel ? 0 : UIScreen.main.bounds.height)
-                .animation(.easeIn)
         }
         .sheet(isPresented: self.$showPlayerView){
             self.playerView
@@ -102,7 +98,7 @@ struct TabBar: View {
                 Spacer()
                 
                 //账号
-                TabBarItem(tabIdx: 2, systemName: "person.fill", title: "账号", selState: self.$tabIdx)
+                TabBarItem(tabIdx: 2, systemName: "magnifyingglass", title: "搜索", selState: self.$tabIdx)
                     .padding(.trailing,10)
             }
             .frame(height:50)
