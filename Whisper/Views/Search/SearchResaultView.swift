@@ -10,27 +10,27 @@
 import SwiftUI
 
 struct SearchResaultView: View {
+    @Binding var isSearching:Bool
+    @Binding var searchKeyWords:String
+    
     var musicSourcSeq:[MusicSource] = ContextService.musicSourcSeq.filter({(m) -> Bool in return m != MusicSource.Bilibili
         && m != MusicSource.Xiami })
     
-    @Binding var searchKeyWords:String
-    @Binding var commitSearch:Bool
-    
     @State private var selSourceIdx = 0
     @State private var searchingSourceIdx = -1
-    
-    @ObservedObject var searchConfig = SearchPanelConfig.shareIns
-    
     @State private var searchRes = [0:[MusicModel](),1:[MusicModel](),2:[MusicModel](),
                                     3:[MusicModel](),4:[MusicModel]()]
     
     var body: some View {
         VStack{
+            //类型选择
             ScrollView(.horizontal,showsIndicators: false){
                 HStack(alignment: .bottom, spacing: 8){
                     ForEach(0..<self.musicSourcSeq.count,id:\.self) {i in
                         Text(Utility.musicSourceFormat(source: self.musicSourcSeq[i]))
+                            .frame(minWidth:CGFloat(Utility.musicSourceFormat(source: self.musicSourcSeq[i]).count) * 20)
                             .foregroundColor(self.selSourceIdx == i ? Color("textColorMain") : Color("textColorSub"))
+                            .font(.system(size:18, weight: self.selSourceIdx == i ? Font.Weight.bold : Font.Weight.regular))
                             .background(Color(.white).opacity(0.001))
                             .buttonStyle(PlainButtonStyle())
                             .onTapGesture {
@@ -52,10 +52,13 @@ struct SearchResaultView: View {
                     }
                 }
                 .frame(height:27)
+                .padding(.horizontal, 15)
+                .padding(.top, 10)
             }
             
+            // 搜索结果
             ScrollView(.vertical,showsIndicators: false){
-                VStack{
+                VStack(alignment: .leading){
                     ForEach(self.searchRes[self.selSourceIdx]!, id: \.self) { resItem in
                         SearchMusicResItem(music: resItem)
                             .onTapGesture {
@@ -63,10 +66,8 @@ struct SearchResaultView: View {
                                     // 不可播放的点击没反应
                                     return
                                 }
-                                self.searchConfig.isShowSearchPanel = false
-                                self.clearSearchRes()
-                                self.commitSearch = false
                                 self.searchKeyWords = ""
+                                self.isSearching = false
                                 WhisperPlayer.shareIns.newMusic(playMusic: resItem)
                         }
                         .contextMenu(menuItems: {
@@ -75,9 +76,6 @@ struct SearchResaultView: View {
                                     // 不可播放的点击没反应
                                     return
                                 }
-                                self.searchConfig.isShowSearchPanel = false
-                                self.clearSearchRes()
-                                self.commitSearch = false
                                 WhisperPlayer.shareIns.newMusic(playMusic: resItem)
                             })
                             {
@@ -90,9 +88,6 @@ struct SearchResaultView: View {
                                     // 不可播放的点击没反应
                                     return
                                 }
-                                self.searchConfig.isShowSearchPanel = false
-                                self.clearSearchRes()
-                                self.commitSearch = false
                                 WhisperPlayer.shareIns.newMusic(playMusic: resItem,nextPlay: true)
                             })
                             {
@@ -103,18 +98,21 @@ struct SearchResaultView: View {
                     }
                     
                     if(self.searchingSourceIdx == self.selSourceIdx){
-                        VStack(alignment:.center){
-                            Text("/等到秋叶终于金黄/等到华发悄然苍苍/")
+                        HStack(alignment:.center){
+                            Spacer()
+                            Text("正在加载...")
                                 .foregroundColor(Color("textColorSub"))
                                 .font(.footnote)
-                                .padding(.vertical)
+                            Spacer()
                         }
+                        .padding(.vertical)
                     }
                     
                     Spacer(minLength: 0)
                 }
-                .frame(width:UIScreen.main.bounds.width-30)
+                .frame(width:UIScreen.main.bounds.width)
             }
+            .padding(.leading,15)
         }
         .onAppear(perform: {
             self.search()
@@ -142,6 +140,6 @@ struct SearchResaultView: View {
     
     private func clearSearchRes(){
         self.searchRes = [0:[MusicModel](),1:[MusicModel](),2:[MusicModel](),
-        3:[MusicModel](),4:[MusicModel]()]
+                          3:[MusicModel](),4:[MusicModel]()]
     }
 }

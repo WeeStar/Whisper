@@ -33,7 +33,7 @@ struct SheetListView: View {
                         .padding(.vertical)
                 }
                 else if self.isLoading {
-                    Text("/等到秋叶终于金黄/等到华发悄然苍苍/")
+                    Text("正在加载...")
                         .foregroundColor(Color("textColorSub"))
                         .font(.footnote)
                         .padding(.vertical)

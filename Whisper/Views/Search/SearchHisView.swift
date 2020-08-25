@@ -1,6 +1,6 @@
 //
-//  SearchPanelView.swift
-//  搜索面板
+//  SearchHisView.swift
+//  搜索历史
 //  Whisper
 //
 //  Created by WeeStar on 2020/8/15.
@@ -9,13 +9,10 @@
 
 import SwiftUI
 
-struct SearchPanelView: View {
+struct SearchHisView: View {
+    @Binding var isSearching:Bool
     @Binding var searchKeyWords:String
-    @ObservedObject var searchConfig = SearchPanelConfig.shareIns
-    @State private var commitSearch:Bool = false
     @State private var searchHis:[String]=ContextService.hisIns.hisList
-    
-
     
     var body: some View {
         ScrollView(.vertical,showsIndicators: false){
@@ -30,7 +27,7 @@ struct SearchPanelView: View {
                             .foregroundColor(Color("textColorSub"))
                         Spacer()
                     }
-                    .frame(width:70,height: 20)
+                    .frame(width:55,height: 20)
                     .background(Color(.white).opacity(0.001))
                     .buttonStyle(PlainButtonStyle())
                     .onTapGesture {
@@ -38,7 +35,7 @@ struct SearchPanelView: View {
                         self.searchHis = ContextService.DelHis()
                     }
                 }
-                .padding(.top,30)
+                .padding(.top,10)
                 .padding(.bottom,6)
                 
                 ForEach(self.searchHis, id: \.self) { sherchHisItem in
@@ -60,25 +57,24 @@ struct SearchPanelView: View {
                         .onTapGesture {
                             // 使用历史
                             self.searchKeyWords = sherchHisItem
-                            self.searchHis = ContextService.AddHis(keyWords: self.searchKeyWords)
-                            self.commitSearch = true
+                            ContextService.AddHis(keyWords: self.searchKeyWords)
+                            
+                            //延时设置搜索 因搜索框聚焦需要时间
+                            let thread = Thread.init {
+                                Thread.sleep(forTimeInterval: 0.5)
+                                DispatchQueue.main.async {
+                                    self.isSearching = true
+                                }
+                            }
+                            thread.start()
                         }
                     }
                 }
             }
-            .padding()
-            .padding(.bottom,116)//让出底部tab和播放器空间
+            .padding(.horizontal,15)
+                .padding(.bottom,116)//让出底部tab和播放器空间
         }
+        .navigationBarTitle("搜索歌曲")
     }
 }
 
-
-@objcMembers
-class SearchPanelConfig:ObservableObject{
-    
-    //单例
-    static var shareIns = SearchPanelConfig()
-    
-    //是否展示搜索面板
-    @Published var isShowSearchPanel:Bool=false
-}

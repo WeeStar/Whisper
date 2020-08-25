@@ -87,7 +87,7 @@ struct SheetInfoView: View {
                     }
                     HStack{
                         Spacer()
-                        Text(self.isLoading ? "/等到秋叶终于金黄/等到华发悄然苍苍/" : "/有时候有时候/我会相信一切有尽头/")
+                        Text(self.isLoading ? "正在加载..." : "/有时候有时候/我会相信一切有尽头/")
                             .foregroundColor(Color("textColorSub"))
                             .font(.footnote)
                             .padding(.top)

@@ -11,7 +11,6 @@ import SwiftUI
 import UIKit
 
 struct MainTabView: View {
-    @ObservedObject var searchConfig = SearchPanelConfig.shareIns
     @State private var tabIdx=0
     @State private var showPlayerView = false
     @Environment(\.localStatusBarStyle) var statusBarStyle

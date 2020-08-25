@@ -78,7 +78,9 @@ struct WelcomeView: View {
             //延时动画
             let thread = Thread.init {
                 Thread.sleep(forTimeInterval: 0.2)
-                self.focus.toggle()
+                DispatchQueue.main.async {
+                    self.focus.toggle()
+                }
             }
             thread.start()
         })

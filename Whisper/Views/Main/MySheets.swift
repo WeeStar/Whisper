@@ -11,6 +11,7 @@ import SwiftUI
 
 /// 我的歌单
 struct MySheets: View {
+    @State private  var searchKeyWords = ""
     init(mySheets:[SheetModel]) {
         self.mySheets=mySheets
     }
@@ -59,15 +60,19 @@ struct MySheets: View {
 //
 //            }
             List{
+                TextField("abc", text: self.$searchKeyWords)
+                   .frame(height:30)
                 ForEach(self.mySheets, id: \.self) { sheet in
                     SheetBarView(sheetTitle: sheet.title, tracksCount: sheet.tracks.count, coverImgUrl: sheet.cover_img_url)
                 }
             }
-            .background(Color("bgColorMain"))
+            .background(Color(.gray))
             .navigationBarTitle(Text("我的歌单"))
+            Spacer()
         }
     }
 }
+
 
 struct MySheets_Previews: PreviewProvider {
     static var previews: some View {

@@ -10,7 +10,6 @@
 import SwiftUI
 
 struct RecomView: View {
-    @ObservedObject var searchConfig = SearchPanelConfig.shareIns
     var nowDate:String = Utility.chineseTimeFormat(date: Date())
     
     var body: some View {
@@ -42,7 +41,7 @@ struct RecomView: View {
                     .padding(.bottom,116)//让出底部tab和播放器空间
             }
             .navigationBarItems(leading: Text(self.nowDate).font(.subheadline).foregroundColor(Color("textColorSub")))
-                .navigationBarTitle(Text("推荐歌单"))
+            .navigationBarTitle(Text("推荐歌单"))
         }
     }
 }

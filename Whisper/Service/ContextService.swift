@@ -85,21 +85,22 @@ class ContextService{
     
     
     /// 写入搜索历史数据
-    static func AddHis(keyWords : String) -> [String]{
+    static func AddHis(keyWords : String){
         if(keyWords == ""){
-            return self.hisIns.hisList
+            return
         }
         
+        //去重添加
         self._searchHis!.hisList.removeAll(where: { $0 == keyWords})
         self._searchHis!.hisList.insert(keyWords, at: 0)
+        
+        //保留20个
         if(self._searchHis!.hisList.count > 20){
             self._searchHis!.hisList = Array(self._searchHis!.hisList.prefix(upTo: 20))
         }
         
         let contextDataStr = self._searchHis!.toJSONString()!
         try! contextDataStr.write(to: URL(string:"file://" + PathService.searchHisPath)!, atomically: false, encoding: String.Encoding.utf8)
-        
-        return self.hisIns.hisList
     }
     
     

@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //设置Navigationbar按钮颜色
         UINavigationBar.appearance().tintColor = UIColor(named: "ThemeColorMain")
-        
+       
         //设置NavigationTitle颜色
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "textColorMain")!]
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "textColorMain")!]
@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //设置ScrollView 背景色
         UIScrollView.appearance().backgroundColor = UIColor(named: "bgColorMain")
+        //searchbar中时，无背景色
+        UIScrollView.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.clear
         
         return true
     }
@@ -145,4 +147,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+
 
