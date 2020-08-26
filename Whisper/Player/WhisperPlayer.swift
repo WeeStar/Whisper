@@ -36,9 +36,11 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         willSet{
             //切换歌曲时 进度置0
             if(newValue){
-                self.progress=0
-                self.curTime=0
-                self.duration=0
+                DispatchQueue.main.async {
+                    self.progress=0
+                    self.curTime=0
+                    self.duration=0
+                }
             }
         }
     }
@@ -85,8 +87,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         }
         
         //正在切换
+        DispatchQueue.main.async {
         self.isChangeing=true
-        
+        }
         
         // 获取封面图片
         self.image = nil //置空
@@ -126,7 +129,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
             // 播放完成通知
             NotificationCenter.default.removeObserver(self)
             self.player?.pause()
+            DispatchQueue.main.async {
             self.playerItem = nil // 置空 防止外部观察时间
+            }
         }
         
         //先行设置外部展示
@@ -359,14 +364,18 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         }
         
         //替换当前列表
-        self.curList = playSheet.tracks
-        self.isChangeing=true
-        self.curMusic = self.curList[playMusicIndex]
+        DispatchQueue.main.async {
+            self.curList = playSheet.tracks
+            self.isChangeing=true
+            self.curMusic = self.curList[playMusicIndex]
+        }
         
-        //写配置 todo：写最近播放歌单
+        //写配置
         CurPlayDataService.curPlayIns.curList = self.curList
-        CurPlayDataService.curPlayIns.curMusic=self.curMusic
+        CurPlayDataService.curPlayIns.curMusic = self.curMusic
         CurPlayDataService.SaveCurPlay()
+        //写最近播放歌单
+        HisDataService.shareIns.AddSheetHis(sheet: playSheet)
         
         //执行reload刷新
         self.reload()

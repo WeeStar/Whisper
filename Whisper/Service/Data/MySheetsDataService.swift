@@ -9,50 +9,58 @@
 
 import Foundation
 
-class MySheetsDataService{
-    //单例
-    private static var _mySheetsIns:MySheetsModel?
+
+class MySheetsDataService: ObservableObject{
+    var mySheetsData:MySheetsModel
+    @Published var mySheets:[SheetModel]
+    @Published var favSheets:[SheetModel]
     
-    static var mySheetsIns:MySheetsModel{
-        get{
-            if(_mySheetsIns == nil){
-               //获取数据字符串
-                let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.searchHisPath),
-                                          encoding: String.Encoding.utf8)
-                
-                //获取数据
-                if let ins = MySheetsModel.deserialize(from: dataStr) {
-                    _mySheetsIns = ins
-                }
-                else{
-                    _mySheetsIns = MySheetsModel()
-                }
-            }
-            return _mySheetsIns!
+    //单例
+    static var shareIns = MySheetsDataService()
+    
+    /// 初始化
+    private init(){
+        //获取数据字符串
+        let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.mySheetsPath),
+                                  encoding: String.Encoding.utf8)
+        
+        //获取数据
+        if let ins = MySheetsModel.deserialize(from: dataStr) {
+            self.mySheetsData = ins
+            self.mySheets = ins.mySheets
+            self.favSheets = ins.favSheets
+        }
+        else{
+            self.mySheetsData = MySheetsModel()
+            self.mySheets = [SheetModel]()
+            self.favSheets = [SheetModel]()
         }
     }
     
     
+    
+    
     /// 新增我的歌单
-    static func AddMySheets(sheet : SheetModel){
+    func AddMySheets(sheet : SheetModel){
         if(sheet == SheetModel()){
             return
         }
         
         //新增歌单
-        self._mySheetsIns?.mySheets.removeAll(where: { $0.id == sheet.id})
-        self._mySheetsIns?.mySheets.insert(sheet, at: 0)
+        self.mySheetsData.mySheets.removeAll(where: { $0.id == sheet.id})
+        self.mySheetsData.mySheets.insert(sheet, at: 0)
+        self.mySheets = self.mySheetsData.mySheets
         self.SaveMySheets()
     }
     
     /// 更新我的歌单信息
-    static func UpdateMySheets(sheet : SheetModel) -> Bool{
+    func UpdateMySheets(sheet : SheetModel) -> Bool{
         if(sheet == SheetModel()){
             return false
         }
         
         //校验
-        let mySheet = self._mySheetsIns?.mySheets.first(where: { $0.id == sheet.id})
+        let mySheet = self.mySheetsData.mySheets.first(where: { $0.id == sheet.id})
         if(mySheet == nil){
             return false
         }
@@ -63,18 +71,19 @@ class MySheetsDataService{
         mySheet!.cover_img_url = sheet.cover_img_url
         mySheet!.ori_cover_img_url = sheet.ori_cover_img_url
         
+        self.mySheets = self.mySheetsData.mySheets
         self.SaveMySheets()
         return true
     }
     
     /// 更新我的歌单信息
-    static func InsertMusicMySheets(sheetId : String ,music:MusicModel) -> Bool{
+    func InsertMusicMySheets(sheetId : String ,music:MusicModel) -> Bool{
         if(music == MusicModel()){
             return false
         }
         
         //校验
-        let mySheet = self._mySheetsIns?.mySheets.first(where: { $0.id == sheetId})
+        let mySheet = self.mySheetsData.mySheets.first(where: { $0.id == sheetId})
         if(mySheet == nil){
             return false
         }
@@ -84,38 +93,42 @@ class MySheetsDataService{
         
         //插入歌曲
         mySheet!.tracks.insert(music, at: 0)
+        self.mySheets = self.mySheetsData.mySheets
         self.SaveMySheets()
         return true
     }
     
     /// 删除我的歌单
-    static func DelMySheets(id : String){
-        self._mySheetsIns?.mySheets.removeAll(where: { $0.id == id})
+    func DelMySheets(id : String){
+        self.mySheetsData.mySheets.removeAll(where: { $0.id == id})
+        self.mySheets = self.mySheetsData.mySheets
         self.SaveMySheets()
     }
     
     
     /// 新增收藏歌单
-    static func AddFavSheets(sheet : SheetModel){
+    func AddFavSheets(sheet : SheetModel){
         if(sheet == SheetModel()){
             return
         }
         
         //新增歌单
         sheet.tracks = [MusicModel]()//置空歌曲内容
-        self._mySheetsIns?.favSheets.removeAll(where: { $0.id == sheet.id})
-        self._mySheetsIns?.favSheets.insert(sheet, at: 0)
+        self.mySheetsData.favSheets.removeAll(where: { $0.id == sheet.id})
+        self.mySheetsData.favSheets.insert(sheet, at: 0)
+        self.favSheets = self.mySheetsData.favSheets
         self.SaveMySheets()
     }
     
     /// 删除收藏歌单
-    static func DelFavSheets(id : String){
-        self._mySheetsIns?.favSheets.removeAll(where: { $0.id == id})
+    func DelFavSheets(id : String){
+        self.mySheetsData.favSheets.removeAll(where: { $0.id == id})
+        self.favSheets = self.mySheetsData.favSheets
         self.SaveMySheets()
     }
     
-    private static func SaveMySheets(){
-        let contextDataStr = self.mySheetsIns.toJSONString()!
+    private func SaveMySheets(){
+        let contextDataStr = self.mySheetsData.toJSONString()!
         try! contextDataStr.write(to: URL(string:"file://" + PathService.mySheetsPath)!, atomically: false, encoding: String.Encoding.utf8)
     }
 }

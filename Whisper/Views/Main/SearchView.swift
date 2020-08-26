@@ -36,7 +36,7 @@ struct SearchView: View {
         if(self.searchKeyWords == ""){
             return
         }
-        let _ = HisDataService.AddHis(keyWords: self.searchKeyWords)
+        HisDataService.shareIns.AddHis(keyWords: self.searchKeyWords)
         self.isSearching = true
     }
     

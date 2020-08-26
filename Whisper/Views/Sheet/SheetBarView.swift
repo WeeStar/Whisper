@@ -11,41 +11,68 @@ import SwiftUI
 
 /// 条状歌单
 struct SheetBarView: View {
-    //封面相关信息
-    private var sheetTitle:String
-    private var tracksCount:Int
-    private var coverImgUrl:String
-    
-    /// 条状歌单
-    /// - Parameters:
-    ///   - sheetTitle: 歌单标题
-    ///   - tracksCount: 歌曲数量
-    ///   - coverImgUrl: 封面图片Url
-    init(sheetTitle:String,tracksCount:Int,coverImgUrl:String) {
-        self.sheetTitle = sheetTitle
-        self.tracksCount = tracksCount
-        self.coverImgUrl=coverImgUrl
-    }
+    var sheet:SheetModel
+    @State private var isNaviLinkActive = false
     
     var body: some View {
-        HStack(){
-            //歌单封面logo
-            WebImageView(self.coverImgUrl,renderingMode: .original)
-                .cornerRadius(10)
-                .frame(width:90,height: 90)
-            
-            VStack(alignment: .leading, spacing: 5){
-                //歌单标题
-                Text(sheetTitle)
-                    .foregroundColor(Color("textColorMain"))
-                    .lineLimit(2)
-                Text(String(tracksCount)+" 首")
-                    .foregroundColor(Color("textColorSub"))
-                    .lineLimit(1)
-                    .font(.subheadline)
+        ZStack{
+            NavigationLink(destination: SheetInfoView(sheetId: self.sheet.id,source: self.sheet.sheet_source),
+                           isActive:self.$isNaviLinkActive){
+                            EmptyView()
             }
             
+            HStack(){
+                //歌单封面logo
+                WebImageView(self.sheet.cover_img_url, renderingMode: .original,qulity: .Low)
+                    .cornerRadius(10)
+                    .frame(width:60,height: 60)
+                
+                VStack(alignment: .leading, spacing: 5){
+                    //歌单标题
+                    Text(self.sheet.title)
+                        .foregroundColor(Color("textColorMain"))
+                        .lineLimit(2)
+                    if(self.sheet.tracks.count > 0){
+                        Text(String(self.sheet.tracks.count)+" 首")
+                            .foregroundColor(Color("textColorSub"))
+                            .lineLimit(1)
+                            .font(.subheadline)
+                    }
+                    else{
+                        HStack(spacing:3){
+                            //来源种类
+                            Image(self.sheet.sheet_source.rawValue).renderingMode(.original)
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                            
+                            Text(Utility.musicSourceFormat(source: self.sheet.sheet_source))
+                                .font(.subheadline)
+                                .foregroundColor(Color("textColorSub"))
+                        }
+                    }
+                }
+                Spacer()
+            }
+            .background(Color(.white).opacity(0.001))
+            .onTapGesture{
+                self.isNaviLinkActive.toggle()
+            }
         }
+        .contextMenu(menuItems: {
+            Button(action: {
+                if(self.sheet.tracks.count>0){
+                    WhisperPlayer.shareIns.newSheet(playSheet: self.sheet)
+                    return
+                }
+                ApiService.GetSheetInfo(source: self.sheet.sheet_source, sheetId: self.sheet.id, completeHandler: {sheetData in
+                    WhisperPlayer.shareIns.newSheet(playSheet: sheetData)
+                })
+            })
+            {
+                Text("播放歌单")
+                Image(systemName: "play.circle").font(.system(size: 25))
+            }
+        })
     }
 }
 
@@ -56,7 +83,8 @@ struct SheetBarView_Previews: PreviewProvider {
         sheet.title="深夜摩的"
         sheet.source_url="http://music.163.com/#/playlist?id=911571004"
         sheet.cover_img_url="http://p2.music.126.net/LltYYgLmmn-8SBlALea1bg==/18972073137599852.jpg"
+        sheet.sheet_source = MusicSource.Netease
         
-        return SheetBarView(sheetTitle:"歌单名称歌名称",tracksCount:1,coverImgUrl:sheet.cover_img_url)
+        return SheetBarView(sheet:sheet )
     }
 }

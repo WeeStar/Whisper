@@ -12,7 +12,7 @@ import SwiftUI
 struct SearchHisView: View {
     @Binding var isSearching:Bool
     @Binding var searchKeyWords:String
-    @State private var searchHis:[String]=HisDataService.hisIns.searchHis
+    @ObservedObject var hisObj:HisDataService = HisDataService.shareIns
     @State private var isDelHis = false
     
     var body: some View {
@@ -32,7 +32,7 @@ struct SearchHisView: View {
                     .background(Color(.white).opacity(0.001))
                     .buttonStyle(PlainButtonStyle())
                     .onTapGesture {
-                        if(self.searchHis.count == 0){
+                        if(self.hisObj.hisData.searchHis.count == 0){
                             return
                         }
                         self.isDelHis = true
@@ -42,7 +42,7 @@ struct SearchHisView: View {
                               message: Text("是否清空搜索记录？"),
                               primaryButton: .default(Text("确定")){
                                 // 清空历史
-                                self.searchHis = HisDataService.DelHis().searchHis
+                                HisDataService.shareIns.DelHis()
                             },
                               secondaryButton: .default(Text("取消")){
                             })
@@ -51,7 +51,7 @@ struct SearchHisView: View {
                 .padding(.top,10)
                 .padding(.bottom,6)
                 
-                ForEach(self.searchHis, id: \.self) { sherchHisItem in
+                ForEach(self.hisObj.hisData.searchHis, id: \.self) { sherchHisItem in
                     VStack(alignment:.leading,spacing: 0){
                         Divider()
                             .foregroundColor(Color("textColorSub").opacity(0.5))
@@ -70,7 +70,7 @@ struct SearchHisView: View {
                         .onTapGesture {
                             // 使用历史
                             self.searchKeyWords = sherchHisItem
-                            self.searchHis = HisDataService.AddHis(keyWords: self.searchKeyWords).searchHis
+                            HisDataService.shareIns.AddHis(keyWords: self.searchKeyWords)
                             
                             //延时设置搜索 因搜索框聚焦需要时间
                             let thread = Thread.init {

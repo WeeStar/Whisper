@@ -25,7 +25,7 @@ struct MainTabView: View {
     init() {
         self.recomView = RecomView()
         self.mySheets=[SheetModel]()
-        self.mySheetView=MySheetsView(mySheets:self.mySheets)
+        self.mySheetView=MySheetsView()
     }
     
     var body: some View {

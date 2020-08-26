@@ -71,7 +71,8 @@ struct SheetRecomView: View {
                 Image(systemName: "play.circle").font(.system(size: 25))
             }
             Button(action: {
-                
+                MySheetsDataService.shareIns.AddFavSheets(sheet: self.sheet)
+                //todo ： 弹提示
             })
             {
                 Text("收藏歌单")

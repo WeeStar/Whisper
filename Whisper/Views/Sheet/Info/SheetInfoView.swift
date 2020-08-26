@@ -109,6 +109,14 @@ struct SheetInfoView: View {
 //        .navigationViewStyle(DoubleColumnNavigationViewStyle())
 //        .navigationBarTitle(Text(self.sheetInfo.title ?? ""))
         .onAppear(perform: {
+            //加载本地
+            let mySheets = MySheetsDataService.shareIns.mySheetsData.mySheets.first(where: { $0.id == self.sheetId})
+            if(mySheets != nil){
+                self.sheetInfo = mySheets!
+                self.isLoading=false
+                return
+            }
+            //加载网络
             ApiService.GetSheetInfo(source: self.source, sheetId: self.sheetId, completeHandler: {sheet in
                 self.sheetInfo = sheet
                 self.isLoading=false

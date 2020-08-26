@@ -10,66 +10,94 @@
 
 import Foundation
 
-class HisDataService{
-    //单例
-    private static var _hisIns:HisModel?
+
+class HisDataService: ObservableObject{
+    var hisData:HisModel
+    @Published var searchHis:[String]
+    @Published var hisSheets:[SheetModel]
     
-    static var hisIns:HisModel{
-        get{
-            if(_hisIns == nil){
-               //获取数据字符串
-                let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.searchHisPath),
-                                          encoding: String.Encoding.utf8)
-                
-                //获取数据
-                if let his = HisModel.deserialize(from: dataStr) {
-                    _hisIns = his
-                }
-                else{
-                    _hisIns = HisModel()
-                }
-            }
-            return _hisIns!
+    
+    //单例
+    static var shareIns = HisDataService()
+    
+    /// 初始化
+    private init(){
+        let dataStr = try? String(contentsOf: URL.init(fileURLWithPath: PathService.searchHisPath),
+                                  encoding: String.Encoding.utf8)
+        
+        //获取数据
+        if let his = HisModel.deserialize(from: dataStr) {
+            self.hisData = his
+            self.searchHis = his.searchHis
+            self.hisSheets = his.playSheetHis
+        }
+        else{
+            self.hisData = HisModel()
+            self.searchHis = [String]()
+            self.hisSheets = [SheetModel]()
         }
     }
     
     /// 写入搜索历史数据
-    static func AddHis(keyWords : String) -> HisModel{
+    func AddHis(keyWords : String){
         if(keyWords == ""){
-            return self.hisIns
+            return
         }
         
         //去重添加
-        self._hisIns?.searchHis.removeAll(where: { $0 == keyWords})
-        self._hisIns?.searchHis.insert(keyWords, at: 0)
+        self.hisData.searchHis.removeAll(where: { $0 == keyWords})
+        self.hisData.searchHis.insert(keyWords, at: 0)
         
         //保留20个
-        if(self._hisIns?.searchHis.count ?? 0 > 20){
-            self._hisIns?.searchHis = Array(self._hisIns?.searchHis.prefix(upTo: 20) ?? [])
+        if(self.hisData.searchHis.count > 20){
+            self.hisData.searchHis = Array(self.hisData.searchHis.prefix(upTo: 20))
         }
+        self.searchHis = self.hisData.searchHis
         
         self.SaveHis()
-        return self.hisIns
     }
     
     /// 删除搜索历史数据
-    static func DelHis(keyWords : String? = nil) -> HisModel{
-        if(self._hisIns?.searchHis.count == 0){
-            return self.hisIns
+    func DelHis(keyWords : String? = nil){
+        if(self.hisData.searchHis.count == 0){
+            return
         }
         if(keyWords == nil){
-            self._hisIns?.searchHis.removeAll()
+            self.hisData.searchHis.removeAll()
         }
         else{
-            self._hisIns?.searchHis.removeAll(where: { $0 == keyWords!})
+            self.hisData.searchHis.removeAll(where: { $0 == keyWords!})
+        }
+        self.searchHis = self.hisData.searchHis
+        
+        self.SaveHis()
+    }
+    
+    private func SaveHis(){
+        let contextDataStr = self.hisData.toJSONString()!
+        try! contextDataStr.write(to: URL(string:"file://" + PathService.searchHisPath)!, atomically: false, encoding: String.Encoding.utf8)
+    }
+    
+    /// 写入歌单播放历史数据
+    func AddSheetHis(sheet : SheetModel){
+        if(sheet == SheetModel()){
+            return
+        }
+        
+        //去重添加
+        sheet.tracks = [MusicModel]()//置空歌曲内容
+        self.hisData.playSheetHis.removeAll(where: { $0.id == sheet.id})
+        self.hisData.playSheetHis.insert(sheet, at: 0)
+        
+        //保留8个
+        if(self.hisData.searchHis.count > 8){
+            self.hisData.searchHis = Array(self.hisData.searchHis.prefix(upTo: 8))
+        }
+        
+        DispatchQueue.main.async {
+            self.hisSheets = self.hisData.playSheetHis
         }
         
         self.SaveHis()
-        return self.hisIns
-    }
-    
-    private static func SaveHis(){
-        let contextDataStr = self.hisIns.toJSONString()!
-        try! contextDataStr.write(to: URL(string:"file://" + PathService.searchHisPath)!, atomically: false, encoding: String.Encoding.utf8)
     }
 }
