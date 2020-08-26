@@ -18,14 +18,14 @@ struct MainTabView: View {
     
     //页面初始化
     var recomView:RecomView
-    var mySheetView:MySheets
+    var mySheetView:MySheetsView
     var searchView=SearchView()
     var playerView = PlayerView()
     
     init() {
         self.recomView = RecomView()
         self.mySheets=[SheetModel]()
-        self.mySheetView=MySheets(mySheets:self.mySheets)
+        self.mySheetView=MySheetsView(mySheets:self.mySheets)
     }
     
     var body: some View {

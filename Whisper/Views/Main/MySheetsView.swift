@@ -10,7 +10,7 @@
 import SwiftUI
 
 /// 我的歌单
-struct MySheets: View {
+struct MySheetsView: View {
     @State private  var searchKeyWords = ""
     init(mySheets:[SheetModel]) {
         self.mySheets=mySheets
@@ -125,6 +125,6 @@ struct MySheets_Previews: PreviewProvider {
         mySheets.append(sheet2)
         mySheets.append(sheet2)
         
-        return MySheets(mySheets:mySheets)
+        return MySheetsView(mySheets:mySheets)
     }
 }

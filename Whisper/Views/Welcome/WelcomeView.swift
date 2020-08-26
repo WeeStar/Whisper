@@ -70,7 +70,6 @@ struct WelcomeView: View {
                   dismissButton: .default(Text("重试")){
                     self.getRecom()
                 })
-            
         }
         .onAppear(perform: {
             self.getRecom()

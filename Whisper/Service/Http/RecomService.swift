@@ -65,7 +65,7 @@ class RecomService{
                             //全部请求完毕 执行后续操作
                             if(self.recomSheets.count == 6){
                                 //按照优先级排序
-                                let seq = ContextService.musicSourcSeq
+                                let seq = ConfigDataService.configIns.musicSourcSeq
                                 var recomSheetsAftSeq = [RecomModel]()
                                 for s in seq{
                                     let sigR = self.recomSheets.first(where: {r in r.source == s})

@@ -12,7 +12,8 @@ import SwiftUI
 struct SearchHisView: View {
     @Binding var isSearching:Bool
     @Binding var searchKeyWords:String
-    @State private var searchHis:[String]=ContextService.hisIns.hisList
+    @State private var searchHis:[String]=HisDataService.hisIns.searchHis
+    @State private var isDelHis = false
     
     var body: some View {
         ScrollView(.vertical,showsIndicators: false){
@@ -31,8 +32,20 @@ struct SearchHisView: View {
                     .background(Color(.white).opacity(0.001))
                     .buttonStyle(PlainButtonStyle())
                     .onTapGesture {
-                        // 清空历史
-                        self.searchHis = ContextService.DelHis()
+                        if(self.searchHis.count == 0){
+                            return
+                        }
+                        self.isDelHis = true
+                    }
+                    .alert(isPresented: self.$isDelHis) {
+                        Alert(title: Text("清空"),
+                              message: Text("是否清空搜索记录？"),
+                              primaryButton: .default(Text("确定")){
+                                // 清空历史
+                                self.searchHis = HisDataService.DelHis().searchHis
+                            },
+                              secondaryButton: .default(Text("取消")){
+                            })
                     }
                 }
                 .padding(.top,10)
@@ -57,7 +70,7 @@ struct SearchHisView: View {
                         .onTapGesture {
                             // 使用历史
                             self.searchKeyWords = sherchHisItem
-                            ContextService.AddHis(keyWords: self.searchKeyWords)
+                            self.searchHis = HisDataService.AddHis(keyWords: self.searchKeyWords).searchHis
                             
                             //延时设置搜索 因搜索框聚焦需要时间
                             let thread = Thread.init {

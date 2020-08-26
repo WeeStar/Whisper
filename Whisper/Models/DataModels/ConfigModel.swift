@@ -20,4 +20,8 @@ class ConfigModel: HandyJSON
     
     /// 是否替换当前列表
     var isReplaceCurList:Bool=true
+    
+    /// 优先级
+    var musicSourcSeq=[MusicSource.Netease,MusicSource.Tencent,MusicSource.Xiami,
+                              MusicSource.Migu,MusicSource.Kugou,MusicSource.Bilibili]
 }

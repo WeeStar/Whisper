@@ -59,9 +59,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
     private override init(){
         
         // 变量赋值
-        self.curList=ContextService.contextIns.curMusic.curList
-        self.curMusic=ContextService.contextIns.curMusic.curMusic
-        self.roundMode=ContextService.contextIns.curMusic.roundMode
+        self.curList=CurPlayDataService.curPlayIns.curList
+        self.curMusic=CurPlayDataService.curPlayIns.curMusic
+        self.roundMode=CurPlayDataService.curPlayIns.roundMode
         
         super.init()
         
@@ -215,8 +215,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         self.roundMode=RoundModeEnum.init(rawValue: roundModeValue)!
         
         // 保存配置
-        ContextService.contextIns.curMusic.roundMode=self.roundMode
-        ContextService.SaveContext()
+        CurPlayDataService.curPlayIns.roundMode=self.roundMode
+        CurPlayDataService.SaveCurPlay()
     }
     
     
@@ -272,8 +272,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         if(nextIdx > -1 && nextIdx != curIdx){
             self.isChangeing=true
             self.curMusic = self.curList[nextIdx]
-            ContextService.contextIns.curMusic.curMusic=self.curMusic
-            ContextService.SaveContext()
+            CurPlayDataService.curPlayIns.curMusic=self.curMusic
+            CurPlayDataService.SaveCurPlay()
         }
         
         //执行reload刷新
@@ -310,8 +310,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         if(nextIdx > -1 && nextIdx != curIdx || self.playerItem == nil){
             self.isChangeing=true
             self.curMusic = self.curList[nextIdx]
-            ContextService.contextIns.curMusic.curMusic=self.curMusic
-            ContextService.SaveContext()
+            CurPlayDataService.curPlayIns.curMusic=self.curMusic
+            CurPlayDataService.SaveCurPlay()
             //执行reload刷新
             self.reload()
         }
@@ -364,9 +364,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         self.curMusic = self.curList[playMusicIndex]
         
         //写配置 todo：写最近播放歌单
-        ContextService.contextIns.curMusic.curList = self.curList
-        ContextService.contextIns.curMusic.curMusic=self.curMusic
-        ContextService.SaveContext()
+        CurPlayDataService.curPlayIns.curList = self.curList
+        CurPlayDataService.curPlayIns.curMusic=self.curMusic
+        CurPlayDataService.SaveCurPlay()
         
         //执行reload刷新
         self.reload()
@@ -402,15 +402,15 @@ class WhisperPlayer: AppDelegate,ObservableObject{
             if(!nextPlay){
                 self.isChangeing = true
                 self.curMusic = playMusic
-                ContextService.contextIns.curMusic.curList = self.curList
-                ContextService.contextIns.curMusic.curMusic = self.curMusic
-                ContextService.SaveContext()
+                CurPlayDataService.curPlayIns.curList = self.curList
+                CurPlayDataService.curPlayIns.curMusic = self.curMusic
+                CurPlayDataService.SaveCurPlay()
                 //执行reload刷新
                 self.reload()
             }
             else{
-                ContextService.contextIns.curMusic.curList = self.curList
-                ContextService.SaveContext()
+                CurPlayDataService.curPlayIns.curList = self.curList
+                CurPlayDataService.SaveCurPlay()
             }
         }
         else{

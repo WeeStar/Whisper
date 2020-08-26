@@ -13,7 +13,8 @@ struct SearchResaultView: View {
     @Binding var isSearching:Bool
     @Binding var searchKeyWords:String
     
-    var musicSourcSeq:[MusicSource] = ContextService.musicSourcSeq.filter({(m) -> Bool in return m != MusicSource.Bilibili
+    var musicSourcSeq:[MusicSource] = ConfigDataService.configIns.musicSourcSeq
+        .filter({(m) -> Bool in return m != MusicSource.Bilibili
         && m != MusicSource.Xiami })
     
     @State private var selSourceIdx = 0
@@ -114,6 +115,7 @@ struct SearchResaultView: View {
             }
             .padding(.leading,15)
         }
+        .background(Color("bgColorMain"))
         .onAppear(perform: {
             self.search()
         })

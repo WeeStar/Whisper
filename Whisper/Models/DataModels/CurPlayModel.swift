@@ -1,6 +1,6 @@
 //
-//  CurMusicModel.swift
-//  当前音乐信息
+//  CurPlayModel.swift
+//  当前播放信息
 //  Whisper
 //
 //  Created by WeeStar on 2020/6/11.
@@ -10,8 +10,8 @@
 import Foundation
 import HandyJSON
 
-/// 当前音乐信息模型
-class CurMusicModel: HandyJSON
+/// 当前播放信息模型
+class CurPlayModel: HandyJSON
 {
     required init() {}
     
