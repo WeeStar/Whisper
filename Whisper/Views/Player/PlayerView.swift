@@ -10,11 +10,6 @@ import SwiftUI
 import AVKit
 
 struct PlayerView: View {
-    //播放器显示相关
-    @Binding var showPlayerView:Bool
-    @Binding var offset:CGFloat
-    @Binding var blurSize:CGFloat
-    
     @ObservedObject var player:WhisperPlayer = WhisperPlayer.shareIns
     
     // 进度相关
@@ -40,23 +35,6 @@ struct PlayerView: View {
                         .shadow(radius: 5)
                         .padding(.top,20)
                 }
-                .gesture(
-                    DragGesture()
-//                        .onChanged({value in
-//                            self.offset = value.translation.height
-//                            print(value.translation.height)
-//                            self.blurSize = (UIScreen.main.bounds.height * 1.1 - self.offset)/(UIScreen.main.bounds.height * 1.1/5)
-//                        })
-                        .onEnded({value in
-                            if value.predictedEndTranslation.height > UIScreen.main.bounds.height * 0.4{
-                                withAnimation(.linear(duration: 0.5)){
-                                    self.offset = UIScreen.main.bounds.height * 1.1
-                                    self.blurSize = 0
-                                    self.showPlayerView = false
-                                }
-                            }
-                        })
-                )
                 
                 // 进度条
                 VStack{

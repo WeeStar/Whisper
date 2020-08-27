@@ -11,58 +11,46 @@ import SwiftUI
 import UIKit
 
 struct MainTabView: View {
-    @Environment(\.localStatusBarStyle) var statusBarStyle
     @State private var tabIdx=0
-    
-    //播放器展示相关
     @State private var showPlayerView = false
-    @State private var offset:CGFloat = UIScreen.main.bounds.height * 1.1
-    @State private var blurSize:CGFloat = 0
+    @Environment(\.localStatusBarStyle) var statusBarStyle
     
     //页面初始化
-    var recomView = RecomView()
-    var mySheetView = MySheetsView()
-    var searchView = SearchView()
+    var recomView=RecomView()
+    var mySheetView=MySheetsView()
+    var searchView=SearchView()
+    
     
     var body: some View {
         ZStack{
-            Group{
-                //显示页面
-                ZStack{
-                    //推荐
-                    self.recomView.zIndex(self.tabIdx==0 ? 10 : 1)
-                    
-                    //我的
-                    self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
-                    
-                    //账号
-                    self.searchView.zIndex(self.tabIdx==2 ? 10 : 1)
-                }
-                
-                //tabbar
-                VStack(spacing:0){
-                    Spacer()
-                    Divider()
-                        .foregroundColor(Color("textColorSub"))
-                        .background(Color("textColorSub"))
-                    
-                    PlayerBarView(showPlayerView: self.$showPlayerView, offset:self.$offset, blurSize:self.$blurSize)
-                    
-                    Divider()
-                        .foregroundColor(Color("textColorSub"))
-                        .background(Color("textColorSub"))
-                    
-                    TabBar(tabIdx: $tabIdx)
-                }
-            }
-            .blur(radius: self.blurSize)
             
-            PlayerView(showPlayerView: self.$showPlayerView, offset: self.$offset, blurSize: self.$blurSize)
-                .frame(height:UIScreen.main.bounds.height * 0.95)
-                .cornerRadius(20)
-                .shadow(radius: 20)
-                .offset(y:self.offset)
-                .zIndex(self.showPlayerView ? 99 : 0)
+            //显示页面
+            ZStack{
+                //推荐
+                self.recomView.zIndex(self.tabIdx==0 ? 10 : 1)
+                
+                //我的
+                self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
+                
+                //账号
+                self.searchView.zIndex(self.tabIdx==2 ? 10 : 1)
+            }
+            
+            //tabbar
+            VStack(spacing:0){
+                Spacer()
+                Divider()
+                    .foregroundColor(Color("textColorSub"))
+                    .background(Color("textColorSub"))
+                
+                PlayerBarView(showPlayerView: self.$showPlayerView, player: WhisperPlayer.shareIns)
+                
+                Divider()
+                    .foregroundColor(Color("textColorSub"))
+                    .background(Color("textColorSub"))
+                
+                TabBar(tabIdx: $tabIdx)
+            }
         }
         .onAppear{
             self.statusBarStyle.currentStyle = .default
@@ -70,12 +58,6 @@ struct MainTabView: View {
     }
 }
 
-
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-    }
-}
 
 /// tabbar底部条
 struct TabBar: View {

@@ -51,6 +51,7 @@
 		FAE7F59724F5FEE6007022A2 /* HisModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7F59624F5FEE6007022A2 /* HisModel.swift */; };
 		FAE7F59924F60AC5007022A2 /* MySheetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7F59824F60AC5007022A2 /* MySheetsModel.swift */; };
 		FAE7F59B24F60B12007022A2 /* MySheetsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7F59A24F60B12007022A2 /* MySheetsDataService.swift */; };
+		FAE7F5A024F782AB007022A2 /* CurMusicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7F59F24F782AB007022A2 /* CurMusicListView.swift */; };
 		FAEC37FF2493571900F88DB4 /* public.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEC37FE2493571900F88DB4 /* public.xcassets */; };
 		FAEE0069249362A100B271C9 /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE0068249362A100B271C9 /* MusicItem.swift */; };
 		FAEE006B2493745400B271C9 /* SheetCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE006A2493745400B271C9 /* SheetCover.swift */; };
@@ -128,6 +129,7 @@
 		FAE7F59624F5FEE6007022A2 /* HisModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HisModel.swift; sourceTree = "<group>"; };
 		FAE7F59824F60AC5007022A2 /* MySheetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheetsModel.swift; sourceTree = "<group>"; };
 		FAE7F59A24F60B12007022A2 /* MySheetsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheetsDataService.swift; sourceTree = "<group>"; };
+		FAE7F59F24F782AB007022A2 /* CurMusicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurMusicListView.swift; sourceTree = "<group>"; };
 		FAEC37FE2493571900F88DB4 /* public.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = public.xcassets; sourceTree = "<group>"; };
 		FAEE0068249362A100B271C9 /* MusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 		FAEE006A2493745400B271C9 /* SheetCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCover.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 			children = (
 				FAEE0068249362A100B271C9 /* MusicItem.swift */,
 				FA251A7224E7D3D900832036 /* SearchMusicResItem.swift */,
+				FAE7F59F24F782AB007022A2 /* CurMusicListView.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				FA251A7324E7D3D900832036 /* SearchMusicResItem.swift in Sources */,
 				FAEE0069249362A100B271C9 /* MusicItem.swift in Sources */,
 				FABAB6DA24910AC200A79CD3 /* SheetModel.swift in Sources */,
+				FAE7F5A024F782AB007022A2 /* CurMusicListView.swift in Sources */,
 				FA4DD10024CC097600C44D5E /* WhisperPlayer.swift in Sources */,
 				FA5A312224D553E500CC7A91 /* RecomService.swift in Sources */,
 				FAE7F59B24F60B12007022A2 /* MySheetsDataService.swift in Sources */,
