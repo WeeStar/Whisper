@@ -112,6 +112,7 @@ struct SearchResaultView: View {
                     Spacer(minLength: 0)
                 }
                 .frame(width:UIScreen.main.bounds.width)
+                .padding(.bottom,116)//让出底部tab和播放器空间
             }
             .padding(.leading,15)
         }

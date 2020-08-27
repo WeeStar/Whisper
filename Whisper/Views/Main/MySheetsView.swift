@@ -104,6 +104,7 @@ struct MySheetsView: View {
                 .padding(.bottom,116)//让出底部tab和播放器空间
             }
             .navigationBarTitle(Text("我的歌单"))
+            .navigationBarItems(trailing: Text("添加歌单").font(.subheadline).foregroundColor(Color("ThemeColorMain")))
         }
     }
 }

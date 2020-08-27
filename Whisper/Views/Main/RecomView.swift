@@ -80,7 +80,7 @@ struct RecomChildView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: SheetListView(source: self.source, items: self.sheets, hasMore: self.sheets.count >= RecomService.pageSize))
+                NavigationLink(destination: SheetListView(source: self.source, items: self.sheets, hasMore: self.sheets.count >= RecomService.pageSize,needLoadId:self.sheets[self.sheets.count-6].id))
                 {
                     Text("查看更多").font(.subheadline)
                         .foregroundColor(Color("ThemeColorMain"))

@@ -35,6 +35,8 @@ class SheetModel:HandyJSON, Identifiable
     
     /// 歌曲列表
     var tracks=[MusicModel]()
+    
+    var is_my = false
 }
 
 

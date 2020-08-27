@@ -13,6 +13,7 @@ import SwiftUI
 struct SheetBarView: View {
     var sheet:SheetModel
     @State private var isNaviLinkActive = false
+    @State private var showAlert = false
     
     var body: some View {
         ZStack{
@@ -60,6 +61,9 @@ struct SheetBarView: View {
         }
         .contextMenu(menuItems: {
             Button(action: {
+                if(self.sheet.is_my && self.sheet.tracks.count == 0){
+                    return
+                }
                 if(self.sheet.tracks.count>0){
                     WhisperPlayer.shareIns.newSheet(playSheet: self.sheet)
                     return
@@ -72,7 +76,58 @@ struct SheetBarView: View {
                 Text("播放歌单")
                 Image(systemName: "play.circle").font(.system(size: 25))
             }
+            if(self.sheet.is_my){
+                Button(action: {
+                    Thread.init{
+                        Thread.sleep(forTimeInterval: 0.2)
+                        DispatchQueue.main.async {
+                            self.showAlert = true
+                        }
+                    }.start()
+                })
+                {
+                    Text("删除歌单")
+                    Image(systemName: "trash").font(.system(size: 25))
+                }
+            }
+            else{
+                Button(action: {
+                    Thread.init{
+                        Thread.sleep(forTimeInterval: 0.2)
+                        DispatchQueue.main.async {
+                            self.showAlert = true
+                        }
+                    }.start()
+                })
+                {
+                    Text("取消收藏")
+                    Image(systemName: "star.slash").font(.system(size: 25))
+                }
+            }
         })
+            
+            .alert(isPresented: self.$showAlert) {
+                if(self.sheet.is_my){
+                    return Alert(title: Text("删除歌单"),
+                                 message: Text("删除操作不可恢复，是否删除歌单？"),
+                                 primaryButton: .default(Text("确定")){
+                                    // 清空历史
+                                    MySheetsDataService.shareIns.DelMySheet(sheetId: self.sheet.id)
+                        },
+                                 secondaryButton: .default(Text("取消")){
+                        })
+                }
+                else{
+                    return Alert(title: Text("取消收藏"),
+                                 message: Text("是否取消收藏歌单？"),
+                                 primaryButton: .default(Text("确定")){
+                                    // 清空历史
+                                    MySheetsDataService.shareIns.DelFavSheet(sheetId: self.sheet.id)
+                        },
+                                 secondaryButton: .default(Text("取消")){
+                        })
+                }
+        }
     }
 }
 

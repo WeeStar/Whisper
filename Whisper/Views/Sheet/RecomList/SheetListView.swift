@@ -12,6 +12,7 @@ struct SheetListView: View {
     public var source:MusicSource
     @State public var items: [SheetModel]
     @State public var hasMore:Bool
+    @State public var needLoadId: String
     @State private var isLoading: Bool = false
     @State private var page: Int = 2
     
@@ -21,7 +22,9 @@ struct SheetListView: View {
                 // 推荐歌单条
                 SheetRecomView(sheet:item, widthScale: 0.95,isInList: true)
                     .onAppear {
-                        self.loadMoreDatas(item)
+                        Thread.init{
+                            self.loadMoreDatas(item)
+                        }.start()
                 }
             }
             HStack{
@@ -40,7 +43,7 @@ struct SheetListView: View {
                 }
                 Spacer()
             }
-            .padding(.bottom,116)//让出底部tab和播放器空间
+                .padding(.bottom,116)//让出底部tab和播放器空间
         }
         .navigationBarTitle(Utility.musicSourceFormat(source: self.source))
     }
@@ -48,10 +51,9 @@ struct SheetListView: View {
 
 extension SheetListView {
     /// 向后加载数据
-    private func loadMoreDatas<Item: Identifiable>(_ item: Item) {
+    private func loadMoreDatas(_ item: SheetModel) {
         //无更多 或 非最后一条 跳出
-        if !self.hasMore || !self.items.isThresholdItem(offset: 5, item: item)
-        {
+        if(!self.hasMore || item.id != self.needLoadId){
             return
         }
         
@@ -77,8 +79,10 @@ extension SheetListView {
                                 self.hasMore=false//无更多
                                 return
                             }
-                            self.items.append(contentsOf: (sheets as! [SheetModel]))
-                            
+                            DispatchQueue.main.async {
+                                self.items.append(contentsOf: (sheets as! [SheetModel]))
+                                self.needLoadId = self.items[self.items.count-6].id
+                            }
                             //数量不够 也无更多
                             if(sheets!.count < RecomService.pageSize){
                                 self.hasMore=false//无更多

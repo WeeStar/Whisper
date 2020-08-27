@@ -36,8 +36,8 @@ struct SearchView: View {
         if(self.searchKeyWords == ""){
             return
         }
-        HisDataService.shareIns.AddHis(keyWords: self.searchKeyWords)
         self.isSearching = true
+        HisDataService.shareIns.AddHis(keyWords: self.searchKeyWords)
     }
     
     // Cancel action. Called when cancel button of search bar pressed

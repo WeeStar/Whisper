@@ -70,13 +70,13 @@ struct SearchHisView: View {
                         .onTapGesture {
                             // 使用历史
                             self.searchKeyWords = sherchHisItem
-                            HisDataService.shareIns.AddHis(keyWords: self.searchKeyWords)
                             
                             //延时设置搜索 因搜索框聚焦需要时间
                             let thread = Thread.init {
                                 Thread.sleep(forTimeInterval: 0.5)
                                 DispatchQueue.main.async {
                                     self.isSearching = true
+                                    HisDataService.shareIns.AddHis(keyWords: self.searchKeyWords)
                                 }
                             }
                             thread.start()

@@ -52,7 +52,9 @@ class HisDataService: ObservableObject{
         if(self.hisData.searchHis.count > 20){
             self.hisData.searchHis = Array(self.hisData.searchHis.prefix(upTo: 20))
         }
-        self.searchHis = self.hisData.searchHis
+        DispatchQueue.main.async {
+            self.searchHis = self.hisData.searchHis
+        }
         
         self.SaveHis()
     }
@@ -68,7 +70,9 @@ class HisDataService: ObservableObject{
         else{
             self.hisData.searchHis.removeAll(where: { $0 == keyWords!})
         }
-        self.searchHis = self.hisData.searchHis
+        DispatchQueue.main.async {
+            self.searchHis = self.hisData.searchHis
+        }
         
         self.SaveHis()
     }
@@ -94,6 +98,17 @@ class HisDataService: ObservableObject{
             self.hisData.searchHis = Array(self.hisData.searchHis.prefix(upTo: 8))
         }
         
+        DispatchQueue.main.async {
+            self.hisSheets = self.hisData.playSheetHis
+        }
+        
+        self.SaveHis()
+    }
+    
+    /// 删除歌单播放历史数据
+    func DelSheetHis(sheetId : String){
+        
+        self.hisData.playSheetHis.removeAll(where: { $0.id == sheetId})
         DispatchQueue.main.async {
             self.hisSheets = self.hisData.playSheetHis
         }
