@@ -11,54 +11,58 @@ import SwiftUI
 import UIKit
 
 struct MainTabView: View {
-    @State private var tabIdx=0
-    @State private var showPlayerView = false
     @Environment(\.localStatusBarStyle) var statusBarStyle
-    var mySheets:[SheetModel]
+    @State private var tabIdx=0
+    
+    //播放器展示相关
+    @State private var showPlayerView = false
+    @State private var offset:CGFloat = UIScreen.main.bounds.height * 1.1
+    @State private var blurSize:CGFloat = 0
     
     //页面初始化
-    var recomView:RecomView
-    var mySheetView:MySheetsView
-    var searchView=SearchView()
-    var playerView = PlayerView()
-    
-    init() {
-        self.recomView = RecomView()
-        self.mySheets=[SheetModel]()
-        self.mySheetView=MySheetsView()
-    }
+    var recomView = RecomView()
+    var mySheetView = MySheetsView()
+    var searchView = SearchView()
     
     var body: some View {
         ZStack{
-            //显示页面
-            ZStack{
-                //推荐
-                self.recomView.zIndex(self.tabIdx==0 ? 10 : 1)
+            Group{
+                //显示页面
+                ZStack{
+                    //推荐
+                    self.recomView.zIndex(self.tabIdx==0 ? 10 : 1)
+                    
+                    //我的
+                    self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
+                    
+                    //账号
+                    self.searchView.zIndex(self.tabIdx==2 ? 10 : 1)
+                }
                 
-                //我的
-                self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
-                
-                //账号
-                self.searchView.zIndex(self.tabIdx==2 ? 10 : 1)
+                //tabbar
+                VStack(spacing:0){
+                    Spacer()
+                    Divider()
+                        .foregroundColor(Color("textColorSub"))
+                        .background(Color("textColorSub"))
+                    
+                    PlayerBarView(showPlayerView: self.$showPlayerView, offset:self.$offset, blurSize:self.$blurSize)
+                    
+                    Divider()
+                        .foregroundColor(Color("textColorSub"))
+                        .background(Color("textColorSub"))
+                    
+                    TabBar(tabIdx: $tabIdx)
+                }
             }
-            //tabbar
-            VStack(spacing:0){
-                Spacer()
-                Divider()
-                    .foregroundColor(Color("textColorSub"))
-                    .background(Color("textColorSub"))
-                
-                PlayerBarView(showPlayerView: self.$showPlayerView, player: WhisperPlayer.shareIns)
-                
-                Divider()
-                    .foregroundColor(Color("textColorSub"))
-                    .background(Color("textColorSub"))
-                
-                TabBar(tabIdx: $tabIdx)
-            }
-        }
-        .sheet(isPresented: self.$showPlayerView){
-            self.playerView
+            .blur(radius: self.blurSize)
+            
+            PlayerView(showPlayerView: self.$showPlayerView, offset: self.$offset, blurSize: self.$blurSize)
+                .frame(height:UIScreen.main.bounds.height * 0.95)
+                .cornerRadius(20)
+                .shadow(radius: 20)
+                .offset(y:self.offset)
+                .zIndex(self.showPlayerView ? 99 : 0)
         }
         .onAppear{
             self.statusBarStyle.currentStyle = .default
@@ -176,28 +180,3 @@ extension EnvironmentValues{
         }
     }
 }
-
-
-//class MyHostingController <Content> : UIHostingController<Content> where Content: View {
-//    private var internalStyle = UIStatusBarStyle.default
-//    
-//    @objc override dynamic open var preferredStatusBarStyle: UIStatusBarStyle {
-//        get {
-//            internalStyle
-//        }
-//        set {
-//            internalStyle = newValue
-//            self . setNeedsStatusBarAppearanceUpdate()
-//        }
-//    }
-//    override init(rootView: Content) {
-//        super.init( rootView: rootView)
-//        LocalStatusBarStyleKey.defaultValue.getter = {self.preferredStatusBarStyle}
-//        LocalStatusBarStyleKey.defaultValue.setter = {self.preferredStatusBarStyle = $0}
-//    }
-//    
-//    @objc required dynamic init?( coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
-//}
-

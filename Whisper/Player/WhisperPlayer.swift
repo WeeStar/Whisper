@@ -364,11 +364,10 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         }
         
         //替换当前列表
-        DispatchQueue.main.async {
-            self.curList = playSheet.tracks
-            self.isChangeing=true
-            self.curMusic = self.curList[playMusicIndex]
-        }
+        self.curList = playSheet.tracks
+        self.isChangeing=true
+        self.curMusic = self.curList[playMusicIndex]
+        
         
         //写配置
         CurPlayDataService.curPlayIns.curList = self.curList

@@ -11,7 +11,9 @@ import AVKit
 
 struct PlayerBarView: View {
     @Binding var showPlayerView:Bool
-    @ObservedObject var player:WhisperPlayer
+    @Binding var offset:CGFloat
+    @Binding var blurSize:CGFloat
+    @ObservedObject var player:WhisperPlayer = WhisperPlayer.shareIns
     
     var body: some View {
         VStack(spacing:0){
@@ -44,7 +46,11 @@ struct PlayerBarView: View {
                 }
                 .background(Color(.white).opacity(0.001))
                 .onTapGesture {
-                    self.showPlayerView=true
+                    withAnimation(.linear(duration: 0.5)){
+                        self.offset = UIScreen.main.bounds.height * 0.05
+                        self.blurSize = 5
+                        self.showPlayerView=true
+                    }
                 }
                 
                 // 播放暂停

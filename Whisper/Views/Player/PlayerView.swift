@@ -10,8 +10,12 @@ import SwiftUI
 import AVKit
 
 struct PlayerView: View {
+    //播放器显示相关
+    @Binding var showPlayerView:Bool
+    @Binding var offset:CGFloat
+    @Binding var blurSize:CGFloat
     
-    @ObservedObject var player:WhisperPlayer
+    @ObservedObject var player:WhisperPlayer = WhisperPlayer.shareIns
     
     // 进度相关
     var progressBarWidth=UIScreen.main.bounds.width*0.8
@@ -20,16 +24,11 @@ struct PlayerView: View {
     @State private var seekProgress:CGFloat=0
     @State private var seekCurTime=CMTimeMake(value: 0, timescale: 1)
     
-    init(){
-        self.player = WhisperPlayer.shareIns
-    }
-    
     var body: some View {
         HStack(alignment: .center){
             Spacer()
             VStack(spacing:0){
                 Group{
-                    
                     Capsule()
                         .foregroundColor(Color(.lightGray)).opacity(0.7)
                         .frame(width: UIScreen.main.bounds.width*0.2, height: 5)
@@ -41,6 +40,23 @@ struct PlayerView: View {
                         .shadow(radius: 5)
                         .padding(.top,20)
                 }
+                .gesture(
+                    DragGesture()
+//                        .onChanged({value in
+//                            self.offset = value.translation.height
+//                            print(value.translation.height)
+//                            self.blurSize = (UIScreen.main.bounds.height * 1.1 - self.offset)/(UIScreen.main.bounds.height * 1.1/5)
+//                        })
+                        .onEnded({value in
+                            if value.predictedEndTranslation.height > UIScreen.main.bounds.height * 0.4{
+                                withAnimation(.linear(duration: 0.5)){
+                                    self.offset = UIScreen.main.bounds.height * 1.1
+                                    self.blurSize = 0
+                                    self.showPlayerView = false
+                                }
+                            }
+                        })
+                )
                 
                 // 进度条
                 VStack{
@@ -94,6 +110,7 @@ struct PlayerView: View {
                         Text(Utility.playTimeFormat(secounds : self.isSeeking ? CMTimeGetSeconds(self.seekCurTime) : self.player.curTime))
                             .foregroundColor(Color("textColorSub"))
                             .font(.footnote)
+                            .frame(width:30).background(Color("bgColorMain"))
                         
                         Spacer()
                         
@@ -106,6 +123,7 @@ struct PlayerView: View {
                 }
                 .padding(.top,15)
                 
+                //主副标题
                 VStack{
                     // 标题
                     Text((self.player.curMusic?.title ?? "暂无歌曲"))
@@ -118,10 +136,10 @@ struct PlayerView: View {
                         .foregroundColor(Color("textColorSub"))
                         .lineLimit(1)
                         .padding(.top,3)
-                    
-                    Spacer(minLength: 0)
                 }
                 .padding(.top,12)
+                
+                Spacer(minLength: 0)
                 
                 // 按钮
                 HStack(spacing:UIScreen.main.bounds.width/5-35){
@@ -134,7 +152,7 @@ struct PlayerView: View {
                             "repeat" :
                             self.player.roundMode == RoundModeEnum.RandomRound ?
                                 "shuffle" : "repeat.1").imageScale(.large)
-                        .frame(width: 25, height: 25)
+                            .frame(width: 25, height: 25)
                     }
                     
                     // 上一首
@@ -143,7 +161,7 @@ struct PlayerView: View {
                     })
                     {
                         Image(systemName: "backward.end.fill").imageScale(.large)
-                        .frame(width: 25, height: 25)
+                            .frame(width: 25, height: 25)
                     }
                     
                     // 播放暂停
@@ -157,7 +175,7 @@ struct PlayerView: View {
                     })
                     {
                         Image(systemName:self.player.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 40))
-                        .frame(width: 45, height: 45)
+                            .frame(width: 45, height: 45)
                     }
                     
                     // 下一首
@@ -166,29 +184,23 @@ struct PlayerView: View {
                     })
                     {
                         Image(systemName: "forward.end.fill").imageScale(.large)
-                        .frame(width: 25, height: 25)
+                            .frame(width: 25, height: 25)
                     }
                     
                     // 展示播放列表
                     Button(action: {})
                     {
                         Image(systemName: "list.dash").imageScale(.large)
-                        .frame(width: 25, height: 25)
+                            .frame(width: 25, height: 25)
                     }
                 }
                 .padding(.top,15)
-                .padding(.bottom,35)
+                .padding(.bottom,65)
                 .foregroundColor(Color("textColorMain"))
             }
             Spacer()
         }
         .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
-    }
-}
-
-struct PlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-       PlayerView()
     }
 }
