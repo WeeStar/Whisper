@@ -15,6 +15,8 @@ struct MySheetsView: View {
     @ObservedObject var hisObj:HisDataService
     @ObservedObject var mySheetsObj:MySheetsDataService
     @State private var tabSelIdx = 0
+    @State private var showActionSheet = false
+    @State private var showTextAlert = false
     
     init(){
         self.hisObj = HisDataService.shareIns
@@ -101,10 +103,34 @@ struct MySheetsView: View {
                     .padding(.leading,15)
                     .padding(.top,5)
                 }
-                .padding(.bottom,116)//让出底部tab和播放器空间
+                    .padding(.bottom,116)//让出底部tab和播放器空间
             }
             .navigationBarTitle(Text("我的歌单"))
-            .navigationBarItems(trailing: Text("添加歌单").font(.subheadline).foregroundColor(Color("ThemeColorMain")))
+            .navigationBarItems(trailing:
+                Button(action:{
+                    self.showTextAlert = true
+                }){
+                    Text("添加歌单").font(.subheadline).foregroundColor(Color("ThemeColorMain"))
+                }
+            )
         }
+            .actionSheet(isPresented: self.$showActionSheet, content: { //此处为ActionSheet的文本与事件
+                ActionSheet(title:Text("添加歌单").font(.headline),
+                            buttons: [
+                                .default(Text("从外部导入"), action: {
+                                    self.showTextAlert = true
+                                }),
+                                .default(Text("新建歌单"), action: {
+                                    
+                                }),
+                                .destructive(Text("Cancel"), action: {
+                                    self.showActionSheet = false
+                                })
+                ])
+            })
+            .showTextAlert(title: "导入歌单歌单", desc: "在浏览器中复制歌单链接，并在此输入",palaceHolder: "请输入外部歌单链接",isPresented: self.$showTextAlert,
+                           successHandler: { inputText in
+                            print(inputText)
+            })
     }
 }

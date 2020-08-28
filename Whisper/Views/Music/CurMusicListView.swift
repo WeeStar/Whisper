@@ -11,14 +11,18 @@ import SwiftUI
 struct CurMusicListView: View {
     @State private var show:Bool = false
     var body: some View {
-        Button(action: {
-            self.show = true
-        })
-        {
-            Text("click")
-        }
-        .sheet(isPresented: self.$show){
-            Text("sheet")
+        VStack{
+            Text("abc")
+            
+            HStack{
+                Button("确定"){
+                }
+                
+                Divider()
+                
+                Button("取消"){
+                }
+            }
         }
     }
 }

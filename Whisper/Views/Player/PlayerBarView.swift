@@ -12,7 +12,6 @@ import AVKit
 struct PlayerBarView: View {
     @Binding var showPlayerView:Bool
     @ObservedObject var player:WhisperPlayer = WhisperPlayer.shareIns
-    var playerView = PlayerView()
     
     var body: some View {
         VStack(spacing:0){
@@ -77,8 +76,5 @@ struct PlayerBarView: View {
             }
         }
         .background(BlurView(.systemThinMaterial))
-        .sheet(isPresented: self.$showPlayerView){
-            self.playerView
-        }
     }
 }

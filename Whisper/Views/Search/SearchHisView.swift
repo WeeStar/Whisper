@@ -13,7 +13,7 @@ struct SearchHisView: View {
     @Binding var isSearching:Bool
     @Binding var searchKeyWords:String
     @ObservedObject var hisObj:HisDataService = HisDataService.shareIns
-    @State private var isDelHis = false
+    @Binding var isDelHis:Bool
     
     var body: some View {
         ScrollView(.vertical,showsIndicators: false){
@@ -37,16 +37,7 @@ struct SearchHisView: View {
                         }
                         self.isDelHis = true
                     }
-                    .alert(isPresented: self.$isDelHis) {
-                        Alert(title: Text("清空"),
-                              message: Text("是否清空搜索记录？"),
-                              primaryButton: .default(Text("确定")){
-                                // 清空历史
-                                HisDataService.shareIns.DelHis()
-                            },
-                              secondaryButton: .default(Text("取消")){
-                            })
-                    }
+                    
                 }
                 .padding(.top,10)
                 .padding(.bottom,6)

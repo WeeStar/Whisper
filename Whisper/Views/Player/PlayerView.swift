@@ -12,12 +12,19 @@ import AVKit
 struct PlayerView: View {
     @ObservedObject var player:WhisperPlayer = WhisperPlayer.shareIns
     
+    //弹播放器相关
+    @Binding var isShowPlayer:Bool
+    @State private var offset:CGFloat? = nil
+    private let showOffset = UIScreen.main.bounds.height * 0.05
+    private let hideOffset = UIScreen.main.bounds.height * 1.1
+    
     // 进度相关
     var progressBarWidth=UIScreen.main.bounds.width*0.8
     // 拖动进度相关
     @State private var isSeeking = false
     @State private var seekProgress:CGFloat=0
     @State private var seekCurTime=CMTimeMake(value: 0, timescale: 1)
+    
     
     var body: some View {
         HStack(alignment: .center){
@@ -101,84 +108,119 @@ struct PlayerView: View {
                 }
                 .padding(.top,15)
                 
-                //主副标题
-                VStack{
-                    // 标题
-                    Text((self.player.curMusic?.title ?? "暂无歌曲"))
-                        .foregroundColor(Color("textColorMain"))
-                        .lineLimit(1)
-                        .font(.title)
-                    
-                    // 负标题
-                    Text(self.player.curMusic?.getDesc() ?? "未知" )
-                        .foregroundColor(Color("textColorSub"))
-                        .lineLimit(1)
-                        .padding(.top,3)
-                }
-                .padding(.top,12)
-                
-                Spacer(minLength: 0)
-                
-                // 按钮
-                HStack(spacing:UIScreen.main.bounds.width/5-35){
-                    // 循环方式
-                    Button(action: {
-                        self.player.changeRoundMode()
-                    })
-                    {
-                        Image(systemName: self.player.roundMode == RoundModeEnum.ListRound ?
-                            "repeat" :
-                            self.player.roundMode == RoundModeEnum.RandomRound ?
-                                "shuffle" : "repeat.1").imageScale(.large)
-                            .frame(width: 25, height: 25)
+                Group{
+                    //主副标题
+                    VStack{
+                        // 标题
+                        Text((self.player.curMusic?.title ?? "暂无歌曲"))
+                            .foregroundColor(Color("textColorMain"))
+                            .lineLimit(1)
+                            .font(.title)
+                        
+                        // 负标题
+                        Text(self.player.curMusic?.getDesc() ?? "未知" )
+                            .foregroundColor(Color("textColorSub"))
+                            .lineLimit(1)
+                            .padding(.top,3)
                     }
+                    .padding(.top,12)
                     
-                    // 上一首
-                    Button(action: {
-                        self.player.pre()
-                    })
-                    {
-                        Image(systemName: "backward.end.fill").imageScale(.large)
-                            .frame(width: 25, height: 25)
-                    }
+                    Spacer(minLength: 0)
                     
-                    // 播放暂停
-                    Button(action: {
-                        if self.player.isPlaying{
-                            self.player.pause()
+                    // 按钮
+                    HStack(spacing:UIScreen.main.bounds.width/5-35){
+                        // 循环方式
+                        Button(action: {
+                            self.player.changeRoundMode()
+                        })
+                        {
+                            Image(systemName: self.player.roundMode == RoundModeEnum.ListRound ?
+                                "repeat" :
+                                self.player.roundMode == RoundModeEnum.RandomRound ?
+                                    "shuffle" : "repeat.1").imageScale(.large)
+                                .frame(width: 25, height: 25)
                         }
-                        else{
-                            self.player.play()
+                        
+                        // 上一首
+                        Button(action: {
+                            self.player.pre()
+                        })
+                        {
+                            Image(systemName: "backward.end.fill").imageScale(.large)
+                                .frame(width: 25, height: 25)
                         }
-                    })
-                    {
-                        Image(systemName:self.player.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 40))
-                            .frame(width: 45, height: 45)
+                        
+                        // 播放暂停
+                        Button(action: {
+                            if self.player.isPlaying{
+                                self.player.pause()
+                            }
+                            else{
+                                self.player.play()
+                            }
+                        })
+                        {
+                            Image(systemName:self.player.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 40))
+                                .frame(width: 45, height: 45)
+                        }
+                        
+                        // 下一首
+                        Button(action: {
+                            self.player.next()
+                        })
+                        {
+                            Image(systemName: "forward.end.fill").imageScale(.large)
+                                .frame(width: 25, height: 25)
+                        }
+                        
+                        // 展示播放列表
+                        Button(action: {})
+                        {
+                            Image(systemName: "list.dash").imageScale(.large)
+                                .frame(width: 25, height: 25)
+                        }
                     }
-                    
-                    // 下一首
-                    Button(action: {
-                        self.player.next()
-                    })
-                    {
-                        Image(systemName: "forward.end.fill").imageScale(.large)
-                            .frame(width: 25, height: 25)
-                    }
-                    
-                    // 展示播放列表
-                    Button(action: {})
-                    {
-                        Image(systemName: "list.dash").imageScale(.large)
-                            .frame(width: 25, height: 25)
-                    }
+                    .padding(.top,15)
+                    .padding(.bottom,65)
+                    .foregroundColor(Color("textColorMain"))
                 }
-                .padding(.top,15)
-                .padding(.bottom,65)
-                .foregroundColor(Color("textColorMain"))
+                .highPriorityGesture(DragGesture()
+                .onChanged({(value) in
+                    
+                })
+                    .onEnded({(value) in
+                        
+                    }))
             }
+            .animation(nil)
             Spacer()
         }
         .background(Color("bgColorMain"))
         .edgesIgnoringSafeArea(.all)
+        .frame(height:UIScreen.main.bounds.height * 0.95)
+        .cornerRadius(20)
+        .shadow(radius: 5)
+        .offset(y:self.offset == nil ? (self.isShowPlayer ? self.showOffset : self.hideOffset) : self.offset!)
+        .animation(.linear(duration: 0.2))
+        .gesture(
+            DragGesture()
+                .onChanged({value in
+                    if(value.translation.height < 0){
+                        return
+                    }
+                    self.offset = value.translation.height + self.showOffset
+                })
+                .onEnded({value in
+                    if value.predictedEndTranslation.height < UIScreen.main.bounds.height * 0.4{
+                        self.isShowPlayer = true
+                        self.offset = nil
+                    }
+                    else {
+                        self.isShowPlayer = false
+                        self.offset = nil
+                    }
+                    }
+            )
+        )
     }
 }

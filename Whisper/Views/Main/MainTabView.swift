@@ -12,8 +12,12 @@ import UIKit
 
 struct MainTabView: View {
     @State private var tabIdx=0
-    @State private var showPlayerView = false
     @Environment(\.localStatusBarStyle) var statusBarStyle
+    
+    //弹播放器相关
+    @State private var showPlayerView = false
+    private let showOffset = UIScreen.main.bounds.height * 0.05
+    private let hideOffset = UIScreen.main.bounds.height * 1.1
     
     //页面初始化
     var recomView=RecomView()
@@ -23,7 +27,6 @@ struct MainTabView: View {
     
     var body: some View {
         ZStack{
-            
             //显示页面
             ZStack{
                 //推荐
@@ -51,10 +54,13 @@ struct MainTabView: View {
                 
                 TabBar(tabIdx: $tabIdx)
             }
+            
+            PlayerView(isShowPlayer: self.$showPlayerView)
         }
         .onAppear{
             self.statusBarStyle.currentStyle = .default
         }
+//        .sheet(isPresented: self.$showPlayerView, content: {self.playerView})
     }
 }
 

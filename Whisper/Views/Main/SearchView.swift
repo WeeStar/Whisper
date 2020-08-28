@@ -15,12 +15,13 @@ import Combine
 struct SearchView: View {
     @State private var isSearching:Bool = false
     @State private var searchKeyWords:String=""
+    @State private var isShowDelAlert = false
     
     var body: some View {
         SearchNavigation(searchText:self.$searchKeyWords,isEditing: self.$isSearching, search: search, cancel: cancel){
             Group{
                 if(!self.isSearching){
-                    SearchHisView(isSearching: self.$isSearching, searchKeyWords: self.$searchKeyWords)
+                    SearchHisView(isSearching: self.$isSearching, searchKeyWords: self.$searchKeyWords,isDelHis: self.$isShowDelAlert)
                 }
                 else{
                     SearchResaultView(isSearching: self.$isSearching, searchKeyWords: self.$searchKeyWords)
@@ -28,6 +29,10 @@ struct SearchView: View {
             }
         }
         .edgesIgnoringSafeArea(.top)
+        .showQusAlert(title: "清空", desc: "是否清空搜索记录？", isPresented: self.$isShowDelAlert, successHandler: {
+            // 清空历史
+            HisDataService.shareIns.DelHis()
+        })
     }
     
     
