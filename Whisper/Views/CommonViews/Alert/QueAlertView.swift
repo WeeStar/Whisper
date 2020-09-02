@@ -88,20 +88,26 @@ struct QusAlertVM:ViewModifier {
         
         return ZStack{
             content
-            .blur(radius: self.isPresented ? 3 : 0)
-            .animation(.easeIn(duration: 0.1))
             
             if isPresented{
-                VStack{
-                    Spacer().onTapGesture {}
+                VStack(spacing: 0){
+                    Spacer()
                     
-                    QusAlertView(title: self.title, desc: self.desc, isPresented: self.$isPresented, successHandler: self.successHandler)
-                        .zIndex(1)
-                    Group{
+                    HStack(spacing: 0){
                         Spacer()
+
+                        QusAlertView(title: self.title, desc: self.desc, isPresented: self.$isPresented, successHandler: self.successHandler)
+                        
                         Spacer()
-                    }.onTapGesture {}
+                    }
+                    
+                    Spacer()
+                    Spacer()
                 }
+                .background(Color(.gray).opacity(0.5))
+                .buttonStyle(PlainButtonStyle())
+                .onTapGesture { }
+                .edgesIgnoringSafeArea(.top)
             }
         }
     }

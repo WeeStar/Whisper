@@ -98,21 +98,25 @@ struct TextAlertVM:ViewModifier {
     func body(content: Content) -> some View {
         ZStack{
             content
-                .blur(radius: self.isPresented ? 3 : 0)
-                .animation(.easeIn(duration: 0.1))
             
             if isPresented{
                 VStack{
-                    Spacer().onTapGesture {}
-                    
-                    TextAlertView(title: self.title, desc: self.desc, palaceHolder:self.palaceHolder,
-                                  isPresented: self.$isPresented, successHandler: self.successHandler)
-                        .zIndex(1)
-                    Group{
+                    Spacer()
+                    HStack(spacing: 0){
                         Spacer()
+
+                        TextAlertView(title: self.title, desc: self.desc, palaceHolder:self.palaceHolder,
+                        isPresented: self.$isPresented, successHandler: self.successHandler)
+                        
                         Spacer()
-                    }.onTapGesture {}
+                    }
+                    Spacer()
+                    Spacer()
                 }
+                .background(Color(.gray).opacity(0.5))
+                .buttonStyle(PlainButtonStyle())
+                .onTapGesture {}
+                .edgesIgnoringSafeArea(.top)
             }
         }
     }

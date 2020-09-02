@@ -364,7 +364,8 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         }
         
         //替换当前列表
-        self.curList = playSheet.tracks
+        let handleSheet = SheetModel.deserialize(from: playSheet.toJSONString())
+        self.curList = handleSheet!.tracks
         self.isChangeing=true
         self.curMusic = self.curList[playMusicIndex]
         
@@ -427,6 +428,60 @@ class WhisperPlayer: AppDelegate,ObservableObject{
                 self.setInfoCenterCredentials()
                 self.play()
             })
+        }
+    }
+    
+    
+    /// 跳转播放当前列表中歌曲
+    /// - Parameter jumpIdx: 跳转索引
+    func jumpMusic(jumpIdx:Int) {
+        if(jumpIdx >= self.curList.count)
+        {
+            return
+        }
+        
+        // 当前音乐未修改 直接跳到0 重新播放
+        let curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
+        if(jumpIdx == curIdx){
+            self.playerItem!.seek(to: .zero, completionHandler: {(_) in
+                self.setInfoCenterCredentials()
+                self.play()
+            })
+            return
+        }
+        
+        self.curMusic = self.curList[jumpIdx]
+        CurPlayDataService.curPlayIns.curMusic = self.curMusic
+        CurPlayDataService.SaveCurPlay()
+        //执行reload刷新
+        self.reload()
+    }
+    
+    
+    /// 删除当前列表中歌曲
+    /// - Parameter delIdx: 删除歌曲索引
+    func delMusic(delIdx:Int){
+        // 空值处理
+        if(delIdx >= self.curList.count)
+        {
+            return
+        }
+        
+        //移除歌曲
+        let curIdx=self.curList.firstIndex(where: { $0.id == self.curMusic!.id }) ?? -1
+        self.curList.remove(at: delIdx)
+        CurPlayDataService.curPlayIns.curList = self.curList
+        CurPlayDataService.SaveCurPlay()
+        
+        //移除的是当前歌曲 切换下一首
+        if(curIdx == delIdx){
+            if(self.curList.count == 0){
+                self.pause()
+                self.curMusic = nil
+            }
+            else{
+                self.next()
+            }
         }
     }
     

@@ -88,10 +88,13 @@ class HisDataService: ObservableObject{
             return
         }
         
+        //拷贝对象 避免置空歌曲影响
+        let handleSheet = SheetModel.deserialize(from: sheet.toJSONString())
+        
         //去重添加
-        sheet.tracks = [MusicModel]()//置空歌曲内容
-        self.hisData.playSheetHis.removeAll(where: { $0.id == sheet.id})
-        self.hisData.playSheetHis.insert(sheet, at: 0)
+        handleSheet!.tracks = [MusicModel]()//置空歌曲内容
+        self.hisData.playSheetHis.removeAll(where: { $0.id == handleSheet!.id})
+        self.hisData.playSheetHis.insert(handleSheet!, at: 0)
         
         //保留8个
         if(self.hisData.searchHis.count > 8){

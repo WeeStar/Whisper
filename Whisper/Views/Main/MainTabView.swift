@@ -16,6 +16,7 @@ struct MainTabView: View {
     
     //弹播放器相关
     @State private var showPlayerView = false
+    @State private var showListView = false
     private let showOffset = UIScreen.main.bounds.height * 0.05
     private let hideOffset = UIScreen.main.bounds.height * 1.1
     
@@ -55,7 +56,9 @@ struct MainTabView: View {
                 TabBar(tabIdx: $tabIdx)
             }
             
-            PlayerView(isShowPlayer: self.$showPlayerView)
+            PlayerView(isShowPlayer: self.$showPlayerView,isShowList:self.$showListView)
+            
+            CurMusicListView(isShowList: self.$showListView)
         }
         .onAppear{
             self.statusBarStyle.currentStyle = .default

@@ -51,7 +51,16 @@ struct SheetInfoView: View {
                     
                     //列表信息
                     ForEach(0..<self.sheetInfo.tracks.count,id:\.self) {i in
-                        MusicItem(music: self.sheetInfo.tracks[i],musicIdx: i+1)
+                        MusicItem(music: self.sheetInfo.tracks[i],musicIdx: i+1,delHandler:
+                            !self.sheetInfo.is_my ? nil :
+                                { _ in
+                                    if(!self.sheetInfo.is_my||self.isLoading){
+                                        return
+                                    }
+                                    self.isLoading = true
+                                    MySheetsDataService.shareIns.DelMusicMySheet(sheetId: self.sheetInfo.id, music: self.sheetInfo.tracks[i])
+                                    self.isLoading = false
+                            })
                             .onTapGesture {
                                 if(!self.sheetInfo.tracks[i].isPlayable()){
                                     // 不可播放的点击没反应
@@ -106,14 +115,16 @@ struct SheetInfoView: View {
             .offset(y: -UIScreen.main.bounds.width*0.15)
         }
         .edgesIgnoringSafeArea(.all)
-//        .navigationViewStyle(DoubleColumnNavigationViewStyle())
-//        .navigationBarTitle(Text(self.sheetInfo.title ?? ""))
         .onAppear(perform: {
             //加载本地
             let mySheets = MySheetsDataService.shareIns.mySheetsData.mySheets.first(where: { $0.id == self.sheetId})
             if(mySheets != nil){
-                self.sheetInfo = mySheets!
-                self.isLoading=false
+                Thread.init {
+                    DispatchQueue.main.async {
+                        self.sheetInfo = mySheets!
+                        self.isLoading = false
+                    }
+                }.start()
                 return
             }
             //加载网络
@@ -122,6 +133,29 @@ struct SheetInfoView: View {
                 self.isLoading=false
             })
         })
+            .navigationBarItems(trailing:
+                Button(action:{
+                    if(!self.sheetInfo.is_my||self.isLoading){
+                        return
+                    }
+                    self.isLoading = true
+                    //同步歌单信息
+                    ApiService.GetSheetInfo(source: self.sheetInfo.sheet_source, sheetId: self.sheetInfo.id, completeHandler: {
+                        sheet in
+                        DispatchQueue.main.async {
+                            MySheetsDataService.shareIns.AddMySheet(sheet: sheet)
+                            self.isLoading = false
+                        }
+                    })
+                }){
+                    if(self.sheetInfo.is_my){
+                        Text("同步歌单").font(.subheadline).foregroundColor(Color("ThemeColorMain"))
+                    }
+                    else{
+                        EmptyView()
+                    }
+                }
+        )
     }
 }
 

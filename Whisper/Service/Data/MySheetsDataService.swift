@@ -48,8 +48,26 @@ class MySheetsDataService: ObservableObject{
         
         //新增歌单
         sheet.is_my = true
-        self.mySheetsData.mySheets.removeAll(where: { $0.id == sheet.id})
-        self.mySheetsData.mySheets.insert(sheet, at: 0)
+        
+        let mySheet = self.mySheetsData.mySheets.first(where: { $0.id == sheet.id})
+        if(mySheet == nil){
+            //不存在相同歌单 直接新增
+            self.mySheetsData.mySheets.insert(sheet, at: 0)
+        }
+        else{
+            //存在相同歌单 歌曲merge
+            for music in sheet.tracks.reversed(){
+                let myMusic = mySheet!.tracks.first(where: { $0.id == music.id})
+                if (myMusic == nil){
+                    mySheet?.tracks.insert(music, at: 0)
+                }
+            }
+            
+            //放置第一位
+            self.mySheetsData.mySheets.removeAll(where: { $0.id == sheet.id})
+            self.mySheetsData.mySheets.insert(mySheet!, at: 0)
+        }
+        
         self.mySheets = self.mySheetsData.mySheets
         self.SaveMySheets()
     }
@@ -77,7 +95,7 @@ class MySheetsDataService: ObservableObject{
         return true
     }
     
-    /// 更新我的歌单信息
+    /// 我的歌单插入歌曲
     func InsertMusicMySheet(sheetId : String ,music:MusicModel) -> Bool{
         if(music == MusicModel()){
             return false
@@ -97,6 +115,29 @@ class MySheetsDataService: ObservableObject{
         self.mySheets = self.mySheetsData.mySheets
         self.SaveMySheets()
         return true
+    }
+    
+    
+    
+    /// 更新我的歌单信息
+    func DelMusicMySheet(sheetId : String,music:MusicModel){
+        if(music == MusicModel()){
+            return
+        }
+        
+        //校验
+        let mySheet = self.mySheetsData.mySheets.first(where: { $0.id == sheetId})
+        if(mySheet == nil){
+            return
+        }
+        if(mySheet!.tracks.firstIndex(where: { $0.id == music.id }) == nil){
+            return
+        }
+        
+        //删除歌曲
+        mySheet!.tracks.removeAll(where: {$0.id == music.id })
+        self.mySheets = self.mySheetsData.mySheets
+        self.SaveMySheets()
     }
     
     /// 删除我的歌单

@@ -14,6 +14,7 @@ struct PlayerView: View {
     
     //弹播放器相关
     @Binding var isShowPlayer:Bool
+    @Binding var isShowList:Bool
     @State private var offset:CGFloat? = nil
     private let showOffset = UIScreen.main.bounds.height * 0.05
     private let hideOffset = UIScreen.main.bounds.height * 1.1
@@ -174,7 +175,15 @@ struct PlayerView: View {
                         }
                         
                         // 展示播放列表
-                        Button(action: {})
+                        Button(action: {
+                            self.isShowPlayer = false
+                            Thread.init {
+                                Thread.sleep(forTimeInterval: 0.4)
+                                DispatchQueue.main.async {
+                                    self.isShowList = true
+                                }
+                            }.start()
+                        })
                         {
                             Image(systemName: "list.dash").imageScale(.large)
                                 .frame(width: 25, height: 25)
