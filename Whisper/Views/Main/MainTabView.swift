@@ -57,18 +57,18 @@ struct MainTabView: View {
                 TabBar(tabIdx: $tabIdx)
             }
             
-//            PlayerView(isShowPlayer: self.$showPlayerView,isShowList:self.$showListView)
+            PlayerView(isShowPlayer: self.$showPlayerView,isShowList:self.$showListView)
             
 //            CurMusicListView(isShowList: self.$showListView)
         }
         .onAppear{
             self.statusBarStyle.currentStyle = .default
         }
-        .bottomSheet(isPresented: self.$showPlayerView, height :UIScreen.main.bounds.height * 0.88,
-                     contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
-        {
-            PlayerView( isShowList:self.$showListView,isShowPlayer:self.$showPlayerView)
-        }
+//        .bottomSheet(isPresented: self.$showPlayerView, height :UIScreen.main.bounds.height * 0.88,
+//                     contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
+//        {
+//            PlayerView( isShowPlayer:self.$showPlayerView,isShowList:self.$showListView)
+//        }
         .bottomSheet(isPresented: self.$showListView, height :UIScreen.main.bounds.height * 0.88,
                      contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
         {
