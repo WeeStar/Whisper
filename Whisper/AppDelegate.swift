@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.becomeFirstResponder()
         }
         
+        //监控耳机摘下
+        NotificationCenter.default.addObserver(self, selector: #selector(audioRouteChangeListenerCallback(notification:)), name: AVAudioSession.routeChangeNotification, object: AVAudioSession.sharedInstance())
+        
         //设置Navigationbar按钮颜色
         UINavigationBar.appearance().tintColor = UIColor(named: "ThemeColorMain")
        
@@ -111,7 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     WhisperPlayer.shareIns.play()
                 }
                 break
-                
             case .remoteControlNextTrack:
                 //下一首
                 WhisperPlayer.shareIns.next()
@@ -145,6 +147,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //是否能成为第一响应对象
     override var canBecomeFirstResponder: Bool {
         return true
+    }
+    
+    @objc func audioRouteChangeListenerCallback(notification:NSNotification) {
+        guard let userInfo = notification.userInfo,
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {
+                return
+        }
+        switch reason {
+        case .oldDeviceUnavailable:
+            //拔出耳机时，暂停
+            if(WhisperPlayer.shareIns.isPlaying){
+                WhisperPlayer.shareIns.pause()
+            }
+        default: ()
+        }
     }
 }
 

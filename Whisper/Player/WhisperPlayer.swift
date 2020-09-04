@@ -241,7 +241,9 @@ class WhisperPlayer: AppDelegate,ObservableObject{
         if(self.playerItem == nil){
             return
         }
-        self.isPlaying=false
+        DispatchQueue.main.async {
+            self.isPlaying=false
+        }
         self.player!.pause()
         self.setInfoCenterCredentials()
     }
