@@ -45,16 +45,22 @@ struct SheetBannerView: View {
                 DragGesture()
                     .onChanged({value in
                         // 拖动中停止切换
-                        self.isDraging = true
                         withAnimation{
                             self.offset = value.translation.width - (CGFloat(self.index) * gemo.size.width * 0.84)
                         }
+                        self.isDraging = true
                     })
                     .onEnded({value in
-                        if value.predictedEndTranslation.width < gemo.size.width/2 , self.index < self.bannerDatas.count-1{
+                        if value.predictedEndTranslation.width < 0
+                            && value.predictedEndTranslation.width < -gemo.size.width/2
+                            && self.index < self.bannerDatas.count-1
+                        {
                             self.index += 1
                         }
-                        else if value.predictedEndTranslation.width > gemo.size.width/2 , self.index > 0{
+                        else if value.predictedEndTranslation.width > 0
+                            && value.predictedEndTranslation.width > gemo.size.width/2
+                            && self.index > 0
+                        {
                             self.index -= 1
                         }
                         withAnimation{
