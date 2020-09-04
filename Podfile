@@ -8,4 +8,5 @@ pod 'HandyJSON', '~> 5.0.1'
 pod 'Kingfisher/SwiftUI'
 pod 'Alamofire', '~> 5.2'
 pod 'SwiftHTTP'
+pod 'BottomSheet', :git => 'https://github.com/weitieda/bottom-sheet.git'
 end

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.2.1)
+  - BottomSheet (1.0.5)
   - HandyJSON (5.0.2)
   - Kingfisher/Core (5.14.0)
   - Kingfisher/SwiftUI (5.14.0):
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - BottomSheet (from `https://github.com/weitieda/bottom-sheet.git`)
   - HandyJSON (~> 5.0.1)
   - Kingfisher/SwiftUI
   - SwiftHTTP
@@ -19,12 +21,22 @@ SPEC REPOS:
     - Kingfisher
     - SwiftHTTP
 
+EXTERNAL SOURCES:
+  BottomSheet:
+    :git: https://github.com/weitieda/bottom-sheet.git
+
+CHECKOUT OPTIONS:
+  BottomSheet:
+    :commit: 973a83982c64dfa5f787b0855d09f7727dd94c23
+    :git: https://github.com/weitieda/bottom-sheet.git
+
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  BottomSheet: ef1e03a999a7ab82b0bc82c0fd2a6a1f43ebc90b
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Kingfisher: 7b64389a43139c903ec434788344c288217c792d
   SwiftHTTP: e94f1aa8cde58637dcc0100f6349de31a3337fde
 
-PODFILE CHECKSUM: 42096928566e29fe4fef8b1946540cba2bdf0040
+PODFILE CHECKSUM: 8c4fb74a933450599789fda622443008c99294f8
 
 COCOAPODS: 1.9.3

@@ -9,6 +9,7 @@
 
 import SwiftUI
 import UIKit
+import BottomSheet
 
 struct MainTabView: View {
     @State private var tabIdx=0
@@ -56,14 +57,23 @@ struct MainTabView: View {
                 TabBar(tabIdx: $tabIdx)
             }
             
-            PlayerView(isShowPlayer: self.$showPlayerView,isShowList:self.$showListView)
+//            PlayerView(isShowPlayer: self.$showPlayerView,isShowList:self.$showListView)
             
-            CurMusicListView(isShowList: self.$showListView)
+//            CurMusicListView(isShowList: self.$showListView)
         }
         .onAppear{
             self.statusBarStyle.currentStyle = .default
         }
-//        .sheet(isPresented: self.$showPlayerView, content: {self.playerView})
+        .bottomSheet(isPresented: self.$showPlayerView, height :UIScreen.main.bounds.height * 0.88,
+                     contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
+        {
+            PlayerView( isShowList:self.$showListView,isShowPlayer:self.$showPlayerView)
+        }
+        .bottomSheet(isPresented: self.$showListView, height :UIScreen.main.bounds.height * 0.88,
+                     contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
+        {
+            CurMusicListView(isShowList:self.$showListView)
+        }
     }
 }
 
@@ -103,7 +113,6 @@ struct TabBar: View {
         })
     }
 }
-
 
 /// Tab底部条按钮单项
 struct TabBarItem:View {
@@ -150,6 +159,7 @@ struct TabBarItem:View {
 }
 
 
+/// 状态栏颜色控制
 class LocalStatusBarStyle{
     fileprivate var getter:() -> UIStatusBarStyle = {.default}
     fileprivate var setter:(UIStatusBarStyle) -> Void = {_ in}
