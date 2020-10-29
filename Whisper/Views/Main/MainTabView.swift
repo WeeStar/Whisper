@@ -32,13 +32,13 @@ struct MainTabView: View {
             //显示页面
             ZStack{
                 //推荐
-                self.recomView.zIndex(self.tabIdx==0 ? 10 : 1)
+                self.recomView.disabled(self.tabIdx != 0).zIndex(self.tabIdx == 0 ? 10 : 1)
                 
                 //我的
-                self.mySheetView.zIndex(self.tabIdx==1 ? 10 : 1)
+                self.mySheetView.disabled(self.tabIdx != 0).zIndex(self.tabIdx==1 ? 10 : 1)
                 
                 //账号
-                self.searchView.zIndex(self.tabIdx==2 ? 10 : 1)
+                self.searchView.disabled(self.tabIdx != 0).zIndex(self.tabIdx==2 ? 10 : 1)
             }
             
             //tabbar
@@ -64,11 +64,6 @@ struct MainTabView: View {
         .onAppear{
             self.statusBarStyle.currentStyle = .default
         }
-//        .bottomSheet(isPresented: self.$showPlayerView, height :UIScreen.main.bounds.height * 0.88,
-//                     contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
-//        {
-//            PlayerView( isShowPlayer:self.$showPlayerView,isShowList:self.$showListView)
-//        }
         .bottomSheet(isPresented: self.$showListView, height :UIScreen.main.bounds.height * 0.88,
                      contentBackgroundColor: Color("bgColorMain"),topBarBackgroundColor: Color("bgColorMain"))
         {
